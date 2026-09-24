@@ -13,7 +13,7 @@
 
 ### Durable definitions and governance
 
-Curriculum, competency, canonical knowledge, published package/item versions, provenance, policies, and ADR-linked versions remain durable while referenced. Draft/unpublished generated variants may be pruned after review windows.
+Curriculum, competency, canonical knowledge, immutable published `learning_package_versions` and assessment-item versions, provenance, policies, and ADR-linked versions remain durable while referenced. Stable content identities remain separate from versions. Draft/unpublished generated variants may be pruned after review windows.
 
 ### Learner facts
 

@@ -8,7 +8,7 @@ Browser access is untrusted. Next.js renders/presents; NestJS authenticates and 
 
 ## Identity
 
-`auth.users` is the authentication identity. `profiles.id` references it. Do not duplicate email, password, or provider credentials into learning tables. Authorization roles/entitlements are server-controlled and must not rely on user-editable metadata.
+Clerk is the external authentication identity. `identity_accounts(provider, provider_user_id)` maps Clerk JWT `sub` to `learners.id`, the Lingora-owned UUID used by goals, attempts, evidence, state, and plans. `profiles.learner_id` references that UUID. Do not duplicate passwords or broad provider metadata into learning tables. Authorization capabilities are server-controlled and do not rely on user-editable metadata.
 
 ## Access matrix
 
@@ -26,7 +26,8 @@ Browser access is untrusted. Next.js renders/presents; NestJS authenticates and 
 ## RLS direction
 
 - Enable RLS on every exposed table.
-- Ownership checks use `auth.uid()` against learner identity for learner-owned reads.
+- Core flows use NestJS authorization with `RequestContext.learnerId`; no client-provided learner ID is trusted.
+- For an explicitly approved direct Supabase path, ownership checks map `auth.jwt()->>'sub'` through `identity_accounts` to the Lingora learner UUID. Provider subjects are never compared directly to learner foreign keys.
 - Derived intelligence is learner-readable through safe views/queries but server-writable only.
 - Definition reads expose only published fields; answer keys, evaluator configuration, and benchmark internals are excluded.
 - Storage policies restrict learner artifacts by authenticated ownership/path metadata; paths alone are not authorization.
@@ -34,15 +35,20 @@ Browser access is untrusted. Next.js renders/presents; NestJS authenticates and 
 
 ## Credential rules
 
-- Supabase publishable configuration may be used in the browser only for explicitly allowed operations.
+- Clerk publishable configuration and Supabase publishable configuration may be used in the browser only for explicitly allowed operations.
+- Clerk secret keys, webhook secrets, and Supabase secret/service-role credentials stay server-side.
 - Secret/service-role credentials stay in NestJS/server infrastructure and can bypass RLS; use them narrowly.
 - Prefer authenticated user context when it can satisfy the operation.
 - Google Drive and AI-provider credentials are server-only and accessed by adapters.
 - Logs and error payloads must not expose secrets, signed URLs, assessment answers, or learner content unnecessarily.
 
+Authentication/session failure, webhook failure, and identity-provider outage are technical conditions. They do not fail an attempt, create an Observation/Evidence record, or lower CompetencyState.
+
 ## Command security
 
 All authoritative mutation endpoints enforce authentication, learner/resource ownership, domain authorization, input limits, idempotency, and rate/abuse controls. Client-provided learner IDs, scores, evidence, evaluator results, or state are never trusted.
+
+Publishing additionally enforces authoring capability, readiness/QA, optimistic concurrency, and benchmark isolation. Ordinary learner DTOs and direct definition reads exclude answer keys, rubrics, calibration, evidence mappings, and benchmark banks.
 
 ## Privacy
 

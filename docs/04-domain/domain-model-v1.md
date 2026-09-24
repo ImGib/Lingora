@@ -15,6 +15,10 @@ Governance: provenance, policies, QA, versions, domain events
 
 ## Bounded responsibilities
 
+### Identity
+
+`Learner` owns the stable Lingora UUID. `IdentityAccount` maps an external provider subject such as Clerk to that learner; `Profile` owns learner-facing preferences. Provider identity never becomes Domain identity or a learning-history foreign key.
+
 ### Goal
 
 `LearnerGoal` owns the active target profile and lifecycle. Goal history is retained; at most one primary goal is active initially. Goal changes invalidate forecasts and require replanning but do not mutate evidence.
@@ -29,7 +33,7 @@ Governance: provenance, policies, QA, versions, domain events
 
 ### Content
 
-`CanonicalKnowledge`, `ContentObject`, `LearningPackage`/version, `ActivityDefinition`, `AssessmentItem`, `ItemFamily`, `Asset`, and transcript/audio metadata own teachable and assessable material. A lesson references canonical truth; it does not duplicate it.
+`CanonicalKnowledge`, `ContentObject`, `LearningPackage`/`LearningPackageVersion`, `ActivityDefinition`, `AssessmentItem`/`AssessmentItemVersion`, `ItemFamily`, `Asset`, and transcript/audio metadata own teachable and assessable material. Stable identities are distinct from immutable published versions. A lesson references canonical truth; it does not duplicate it.
 
 ### Learner Experience
 
@@ -53,8 +57,9 @@ Governance: provenance, policies, QA, versions, domain events
 Program 1--N Stage; Program 1--N Track; Stage N--N Track
 StageTrack 1--N Module 1--N Unit 1--N Lesson
 Lesson N--N Competency; Outcome N--N Competency
-Lesson 1--N LearningPackageVersion; PackageVersion 1--N Activity
-AssessmentItem N--N Competency
+Lesson 1--N LearningPackage; LearningPackage 1--N LearningPackageVersion
+PackageVersion 1--N Activity; Activity N--N AssessmentItemVersion
+AssessmentItem 1--N AssessmentItemVersion; AssessmentItem N--N Competency
 Activity/Item 1--N Attempt 1--N Response / 0--N Artifact
 Attempt 1--N EvaluationRun 1--N Observation
 Evidence N--N Observation; Evidence N--1 Competency
@@ -66,6 +71,8 @@ DailyPlan 1--N PlanBlock 1--N Attempt
 
 - Definitions, learner facts, and derived intelligence never share ownership.
 - Attempts reference exact definition/package/item versions.
+- Published package and item versions are immutable and remain resolvable while referenced.
+- External provider subjects map to, but never replace, Lingora LearnerId.
 - Observation != Evidence; Evidence != State; State != Decision.
 - AI contributions never masquerade as learner-authored production.
 - Domain objects have no infrastructure SDK dependencies.

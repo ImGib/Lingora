@@ -11,8 +11,11 @@ Product intent
   -> Curriculum (what can be learned)
   -> Domain (meaning, ownership, transitions)
   -> Data (durable facts and projections)
-  -> Application API (commands and queries — next)
-  -> UI (learner experience — pending)
+  -> Application / Identity / Async boundaries
+  -> API DTO contracts
+  -> Content authoring and publishing
+  -> UI and Design System
+  -> Implementation Readiness slices
   -> ADRs (why the technical choices were made)
 ```
 
@@ -29,8 +32,12 @@ Product intent
 | Domain language and ownership | `04-domain/domain-model-v1.md` | FROZEN |
 | State transitions and decisions | `04-domain/state-machines.md`, `decision-rules.md` | FROZEN |
 | Logical/physical persistence direction | `05-data/database-design-v1.md` | PHASE A COMPLETE; PHASE B VALIDATED |
-| API | `06-application/api-contract-v1.md` | DRAFT / NEXT |
-| UI | `07-ui/ui-architecture.md` | PENDING |
+| Application, identity, and async execution | `06-application/application-architecture-v1.md` | FROZEN |
+| API DTO Contract v1 | `06-application/api-contract-v1.md` | VALIDATED |
+| Content authoring and publishing | `03-curriculum/content-authoring-publishing-v1.md` | FROZEN |
+| UI and Information Architecture | `07-ui/ui-architecture.md` | VALIDATED |
+| Design System and components | `07-ui/design-system-v1.md` | VALIDATED |
+| Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | DEFINED |
 | Technical decisions | `08-decisions/` | ACCEPTED |
 
 ## Source-of-truth rule
@@ -43,3 +50,7 @@ Product intent
 - Decisions select actions from state, goal, context, constraints, and curriculum.
 
 Do not collapse these layers into one table, score, endpoint, or UI percentage.
+
+## Current implementation gate
+
+No coding has started. The next authorized build scope is only Slice 01: Clerk login and learner provisioning through goal, dashboard, Present Simple third-person singular lesson, deterministic evaluation, evidence/state update, and a refreshed next action. Later slices remain planned, not implemented.

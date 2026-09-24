@@ -16,6 +16,7 @@
 ## Hard constraints and vetoes
 
 - Unready/quarantined content is ineligible.
+- Content trust tier constrains whether an opportunity may contribute ordinary, strong, or benchmark evidence.
 - Compromised benchmark/item exposure blocks strong assessment claims.
 - Technical unavailability selects recovery/alternative; it never penalizes state.
 - Sustainability and privacy may veto a high-scoring action.

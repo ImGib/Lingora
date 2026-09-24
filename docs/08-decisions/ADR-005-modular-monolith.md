@@ -8,7 +8,7 @@ Lingora has rich domain boundaries but an early-stage workload and a single prod
 
 ## Decision
 
-Build the NestJS backend as a modular monolith. Keep explicit modules, ports, aggregate boundaries, and asynchronous process boundaries inside one deployable application and one primary PostgreSQL database.
+Build the NestJS backend as a modular monolith. Keep explicit modules, ports, aggregate boundaries, and asynchronous process boundaries inside one codebase and one primary PostgreSQL database. HTTP and worker entry points may run as separate processes without becoming separate services.
 
 Representative modules: Identity/Profile, Goal, Curriculum, Competency, Content, Learning Experience, Evaluation, Learner Intelligence, Review/Recovery, Planning, Storage, and Governance.
 
@@ -24,5 +24,6 @@ Representative modules: Identity/Profile, Goal, Curriculum, Competency, Content,
 - Modules communicate through application interfaces/events, not cross-module repository access.
 - Domain authority and ownership are documented.
 - Domain events are distinct from analytics events; full event sourcing is not required.
+- Initial asynchronous execution uses an application-owned queue port with a PostgreSQL adapter; retries are idempotent and cannot duplicate learning evidence.
 - External providers are adapters.
 - Extract a service only with measured scaling, isolation, security, or organizational need and a migration plan.

@@ -76,9 +76,9 @@ Changing goal, deadline, meaningful state, availability, or curriculum version m
 ## Content
 
 ```text
-DRAFT -> IN_REVIEW -> VALIDATED -> PUBLISHED -> ARCHIVED
+DRAFT -> IN_REVIEW -> VALIDATED -> READY -> PUBLISHED -> ARCHIVED
                    `-> REJECTED
 PUBLISHED -> QUARANTINED -> PUBLISHED | ARCHIVED
 ```
 
-Generated content cannot self-promote to published status.
+Generated content cannot self-promote to ready or published status. Published versions are immutable; revision creates a new draft version.

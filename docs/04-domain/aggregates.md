@@ -18,6 +18,10 @@ Owns target profile, status, activation/supersession, and goal version rules. Co
 
 Owns package versions and exactly one current published version when active. Publication requires readiness/QA; historical versions remain resolvable.
 
+### AssessmentItem
+
+Owns stable item identity and immutable published item versions. An attempt references the exact delivered version; answer/rubric changes require a new draft version.
+
 ### LearningAttempt
 
 Owns attempt lifecycle, idempotency key, source definition references, performance conditions, responses, and support records. Artifacts may be separate aggregates referenced by attempt because writing/speaking versions have their own lifecycle.
@@ -46,7 +50,7 @@ Roadmap versions provide longer orientation; DailyPlan owns a dated set of order
 
 ### Submit attempt
 
-Atomically finalize attempt input, responses/support metadata, and artifact reference under an idempotency key. Emit `AttemptSubmitted`; evaluation may be asynchronous.
+Atomically finalize attempt input, responses/support metadata, exact package/item version references, and artifact reference under an idempotency key. Emit `AttemptSubmitted`; evaluation may be synchronous for deterministic grammar or asynchronous for later skills.
 
 ### Evaluate attempt
 

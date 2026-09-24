@@ -26,6 +26,12 @@ Prerequisites include subject recognition, singular/plural distinction, Present 
 11. Transfer uses a different person/topic and later spontaneous speaking.
 12. Delayed mixed retrieval verifies retention without labeling the target.
 
+## Slice 01 implementation subset
+
+The first implementation proves the kernel with familiar regular verbs only. It includes instruction, recognition, controlled text production, an independent check, and summary/reflection for `GRAM.PRESENT_SIMPLE.THIRD_PERSON`. Later package versions add `-es`, consonant-`y`, `have -> has`, mixed contexts, speaking transfer, and delayed retrieval; omitting them from Slice 01 does not remove them from this validated full curriculum slice.
+
+The seed package is published and learner-ready, pins exact package/item versions, records support use, and supplies multiple evidence opportunities. One lesson can move an unknown learner toward emerging/developing evidence, but cannot establish mastery, retention, transfer, or automaticity.
+
 ## Interpretation
 
 `3/5 = 60%` is rejected. Evidence distinguishes basic marking, irregular/spelling behavior, independence, consistency, modality, and support. Correct after a strong hint is positive but low-independence evidence. Immediate end-of-lesson success may reach familiarity, not mastery.
