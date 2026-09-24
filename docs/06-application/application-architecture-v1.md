@@ -55,6 +55,8 @@ type RequestContext = {
 };
 ```
 
+Locale concepts are independent: UI rendering locale, instruction language, native language, target language, and content locale. `timezone` is IANA-based and used only for learner-day semantics; event instants remain UTC and application clocks are injectable.
+
 Application commands never accept `learnerId` from a request body. First-login provisioning is idempotent and transactional. Details and invariants are in ADR-006.
 
 ## Core use-case flow
@@ -65,6 +67,8 @@ ResolveLearner -> CreateGoal -> GenerateDailyPlan -> GetDashboard
 -> SubmitAttempt -> Evaluate -> CreateObservations -> DeriveEvidence
 -> RecomputeCompetencyState -> CompletePlanBlock -> DecideNextAction
 ```
+
+The flow preserves `State <- Evidence <- Observation <- Evaluation <- Performance <- Content`. It records the versions required to reproduce consequential state/plan decisions. Reprojection under a new policy creates a new result; it never mutates the historical DecisionTrace.
 
 Save and submit are separate operations. Submit uses an `Idempotency-Key`; a replay returns the same logical result and cannot duplicate evaluation, observations, evidence, or state updates.
 
@@ -92,6 +96,13 @@ Retries operate on the same logical `EvaluationRun`. A worker crash after writin
 - Retryability is explicit. Invalid definitions, unsupported media, or permanently missing artifacts fail final; timeouts, rate limits, and transient provider/storage errors may retry.
 - Async submission returns `202 Accepted` plus `evaluation.status`; the learner also receives a valid `NextActionDto` and does not wait on a blocking spinner.
 - User override, skip, pause, and replan do not falsify completion or competency state.
+- Skip, defer, replace, and explore are distinct commands. DailyPlan remains sequence authority; returned NextAction is the preferred executable projection after any override.
+
+## Provider cost and degraded modes
+
+AI, ASR, and TTS are application-owned ports selected by capability, quality, privacy, latency, and budget policy. Calls record bounded operational cost/quality metadata separately from learner evidence. Budget or provider failure invokes a declared degraded mode: deterministic/local evaluation where valid, text instead of TTS, recording without immediate ASR, queued evaluation, alternate activity/modality, or safe stop. Degradation is visible, never fabricated as a learner result.
+
+Feature release readiness is separate from content readiness. A release gate covers learning semantics, contract/migration compatibility, privacy/security, cost limits, accessibility, observability, rollback/reprojection impact, and real-learner validation appropriate to risk. Feature flags cannot change evidence semantics without a versioned policy.
 
 ## Application invariants
 
@@ -109,3 +120,6 @@ Retries operate on the same logical `EvaluationRun`. A worker crash after writin
 - `APP-12` Domain code depends on neither HTTP nor providers.
 - `APP-13` API changes cannot silently redefine learning semantics.
 - `APP-14` Job retry cannot duplicate learning evidence.
+- `APP-15` DailyPlan owns planned sequencing; NextAction is its executable projection.
+- `APP-16` Consequential decisions retain a reproducible versioned trace and standardized reason codes.
+- `APP-17` Provider degradation cannot become learner failure or fabricated evidence.

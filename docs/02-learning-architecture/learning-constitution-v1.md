@@ -6,11 +6,11 @@ These articles constrain every implementation and policy.
 
 ## Article 1 — Preserve semantic layers
 
-Observation != Evidence != Learner State != Decision. Assessment produces observations; it does not own mastery or the next action.
+Content -> Performance -> Evaluation -> Observation -> Evidence -> Learner State -> Decision is traceable lineage, not one score. LearningClaim != Competency; exposure != practice opportunity != evidence opportunity. Assessment produces observations; it does not own mastery or the next action.
 
 ## Article 2 — Respect uncertainty
 
-Unknown is not weak. Conflicting, insufficient, stale, low-trust, or contaminated evidence must remain identifiable. Do not manufacture certainty with a single percentage.
+Unknown is not weak. Evidence existence is not sufficiency; historical evidence is not current confidence. Conflicting, insufficient, stale, low-trust, or contaminated evidence must remain identifiable. Do not manufacture certainty with a single percentage.
 
 ## Article 3 — Separate knowledge and performance
 
@@ -22,7 +22,7 @@ Hints, replay, transcript, dictionary, translation, models, sentence starters, a
 
 ## Article 5 — Require durability and transfer
 
-Immediate post-instruction success is not mastery. Strong promotion requires delayed retention and success in sufficiently novel contexts appropriate to the competency.
+Immediate post-instruction success is not mastery. Strong promotion requires delayed retention and success at sufficient transfer distance across ItemFamilies/contexts appropriate to the competency. Forgetting is not the same as never learned.
 
 ## Article 6 — Diagnose before labeling
 
@@ -54,8 +54,16 @@ Hard constraints, vetoes, soft objectives, selected action, and reason trace mus
 
 ## Article 13 — Govern change
 
-Curriculum, competency graphs, content, assessment items, evaluators, evidence policies, and decision policies are versioned. Historical attempts keep the exact versions used.
+Curriculum, competency graphs/claims, content/item families, evaluators, evidence/decision policies, goals/targets, and feature releases are versioned. Historical attempts and consequential decisions keep the versions used; explicit reprojection never rewrites their facts.
 
 ## Article 14 — Preserve privacy and access boundaries
 
 Learners own access to their data but do not author derived intelligence. Speaking recordings and writing artifacts have explicit retention, access, export, and deletion behavior.
+
+## Article 15 — Separate learner and system learning
+
+The Learner Learning Loop changes capability through instruction, practice, feedback, retry, transfer, and retention. The System Learning Loop improves content, evaluators, policies, and interventions through governed evidence. System learning cannot silently relabel learners or publish unvalidated changes.
+
+## Article 16 — Preserve agency without falsifying state
+
+Skip, defer, replace, and explore are legitimate learner choices. DailyPlan owns sequence and NextAction is its preferred executable projection; overrides change orchestration, not historical performance or capability.

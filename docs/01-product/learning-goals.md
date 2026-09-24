@@ -15,7 +15,7 @@ Build the English competence and adaptive learning habits needed for IELTS Acade
 - Current competency profile by modality.
 - Language, academic, and study-abroad readiness gaps.
 
-Goals are versioned. Changing a target or deadline changes planning, gaps, forecasts, and the roadmap; it does not rewrite historical evidence.
+Goals and target profiles are versioned with explicit effective time. Changing a target or deadline changes future planning, gaps, forecasts, and the roadmap; it does not rewrite historical evidence or the goal/target version attached to a past decision.
 
 ## Learning outcomes
 
@@ -27,6 +27,9 @@ The system develops:
 - academic skills: note-taking, summarizing, synthesizing, seminar participation, and academic task handling;
 - exam performance: format knowledge, timing, strategy, and calibrated benchmark performance;
 - metacognition: planning, monitoring, self-correction, reflection, and responsible support use.
+- study-abroad capability: lecture/seminar participation, clarification, note-taking, academic integrity/communication, practical interaction, and help-seeking.
+
+Language Capability, IELTS Strategy, and IELTS Performance are separate outcome families. A strategy score cannot compensate for missing language capability; a language profile alone cannot claim timed exam performance.
 
 ## Evidence standard
 

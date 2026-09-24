@@ -24,6 +24,8 @@ The learner should always understand:
 5. Feedback must lead to self-correction, targeted practice, rewrite/retry, transfer, and later verification.
 6. Sustainability is a system constraint: breaks, lighter days, consolidation, and safe return after absence are first-class.
 7. Uncertainty is shown and managed rather than hidden behind precise-looking scores.
+8. Learner agency is real: skip, defer, replace, and explore are supported without converting choice into failure.
+9. The product learns about its own content, evaluators, and interventions through a governed System Learning Loop distinct from learner capability inference.
 
 ## Success
 

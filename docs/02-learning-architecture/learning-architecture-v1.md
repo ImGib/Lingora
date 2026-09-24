@@ -31,13 +31,23 @@ The architecture is a set of cooperating engines, not one “AI tutor”:
 - Recovery Engine: root-cause probes, alternative explanation, targeted practice, retest, and later verification.
 - Planning Engine: selects an explainable next action set under learning, balance, deadline, and sustainability constraints.
 
-## Three learning loops
+## Learner learning patterns
 
 1. Knowledge acquisition: context -> notice -> compare -> guided rule formation -> worked example -> faded example -> retrieval.
 2. Skill acquisition: part practice -> supported whole task -> independent performance -> feedback -> retry.
 3. Performance and transfer: novel task -> realistic constraints -> delayed verification -> calibration/benchmark.
 
-These loops interact but do not substitute for each other. Knowing a rule does not prove spontaneous performance; one good performance does not prove durable knowledge.
+These patterns interact but do not substitute for each other. Knowing a rule does not prove spontaneous performance; one good performance does not prove durable knowledge. The enclosing Learner Learning Loop and the separate System Learning Loop are canonical in `learning-kernel-v1.md`.
+
+## Capability and readiness boundaries
+
+```text
+Language Capability != IELTS Strategy != IELTS Performance
+```
+
+Exam strategies depend on language capability; timed IELTS performance additionally depends on task familiarity, pacing, conditions, and calibrated benchmark evidence. Study Abroad competencies—lecture/seminar participation, clarification, note-taking, academic integrity, practical interaction, and help-seeking—are first-class outcomes, not an IELTS afterthought.
+
+Integrated tasks may produce cross-skill observations and evidence, but mappings preserve which claim each source supports, attribution confidence, prerequisites, and confounding load. Readiness requires policy-defined minimum coverage, modality, recency, independence, difficulty, retention/transfer, and benchmark evidence. No average, streak, activity count, or single mock score may dominate the decision; metric-gaming safeguards cap repeated/familiar-item contribution and monitor suspicious optimization.
 
 ## Progression
 
@@ -64,4 +74,4 @@ Stages orient the roadmap; they are not hard locks. A learner can test out, brid
 
 ## Integrity
 
-Definitions, observations, evidence, inference, state, and decisions are separate layers. Evaluator disagreement, stale evidence, suspected content defects, support contamination, and technical failures remain explicit. Policies and evaluators are versioned so state can be recomputed.
+Definitions, performance, evaluation, observations, evidence, inference, state, and decisions are separate layers. Evaluator disagreement, stale evidence, suspected content defects, support contamination, and technical failures remain explicit. External learning enters only with source/provenance, verification status, context, and calibrated trust. Policies and evaluators are versioned so state can be recomputed.

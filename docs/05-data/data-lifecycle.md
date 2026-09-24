@@ -8,6 +8,7 @@
 - Separate active/hot access, compact historical facts, cold/archive copies, and true backup.
 - Retention is explicit by data class and may be shortened by learner deletion/privacy requirements.
 - Archival never silently changes learner evidence semantics.
+- Every class declares privacy sensitivity, purpose, lawful/consent basis where applicable, audience, provider disclosure, hot/archive duration, deletion behavior, and whether it may train/improve a model.
 
 ## Data classes
 
@@ -22,6 +23,8 @@ Goals, attempts, responses, support use, observations, evidence links, and essen
 ### Derived projections
 
 Competency states, readiness, dashboards, and forecasts are recomputable. Keep current projections; add periodic snapshots only for proven analytics/performance needs. Do not duplicate every transition by default.
+
+DecisionTrace retains only the minimum inputs/version references/reason codes necessary to reproduce or explain a consequential decision. Product analytics, provider telemetry, and learner evidence have different purposes and retention; do not merge them into one event lake by default.
 
 ### Writing
 
@@ -53,3 +56,5 @@ TEMPORARY -> HOT -> COLD_ARCHIVED -> DELETE_ELIGIBLE -> DELETED
 ## Deletion and export
 
 Learner deletion is orchestrated across database and providers, with legal/operational exceptions explicit. Tombstones/audit records must contain no unnecessary content. Export includes understandable learner-owned data and artifact references/files where permitted.
+
+Derived state, caches, embeddings, transcripts, evaluator payloads, provider copies, and backups are included in the retention/deletion inventory. Invalidation retains only the lineage and audit facts needed to explain why evidence no longer contributes.

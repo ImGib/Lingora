@@ -26,6 +26,7 @@ Clerk is the external authentication identity. `identity_accounts(provider, prov
 ## RLS direction
 
 - Enable RLS on every exposed table.
+- Slice 01A revokes all `anon` and `authenticated` privileges on identity/profile tables and defines no Data API policies because every access goes through NestJS. A later direct-access path requires a separate reviewed grant plus ownership policy.
 - Core flows use NestJS authorization with `RequestContext.learnerId`; no client-provided learner ID is trusted.
 - For an explicitly approved direct Supabase path, ownership checks map `auth.jwt()->>'sub'` through `identity_accounts` to the Lingora learner UUID. Provider subjects are never compared directly to learner foreign keys.
 - Derived intelligence is learner-readable through safe views/queries but server-writable only.
@@ -53,3 +54,5 @@ Publishing additionally enforces authoring capability, readiness/QA, optimistic 
 ## Privacy
 
 Speaking/writing data receives explicit consent, private access, retention visibility, export/deletion support, and purpose limitation. AI-provider submission is minimized and governed; learner content is not silently reused. Audit access to sensitive artifacts and privileged operations.
+
+Data classes carry privacy/retention classification. Native language, disability/accessibility signals, voice, free writing, and inferred learning issues are sensitive in different ways and are exposed only for a declared purpose. `uiLocale`, `instructionLanguage`, `nativeLanguage`, `targetLanguage`, and `contentLocale` must never be silently conflated.

@@ -1,6 +1,6 @@
-# Lingora Architecture Guardrails
+# Lingora Architecture Guardrails — Consolidation v2
 
-**Status:** FROZEN  
+**Status:** Architecture v2 — FROZEN FOR IMPLEMENTATION
 **Audience:** Developers, reviewers, and coding agents
 
 This file is the short, mandatory contract. Detailed rationale lives under `docs/`.
@@ -25,9 +25,15 @@ Authentication resolves `Clerk JWT.sub -> identity_accounts -> Lingora LearnerId
 ```text
 Observation != Evidence
 Evidence != Mastery
+Learning Claim != Competency
+Exposure != Practice Opportunity != Evidence Opportunity
+Evidence Exists != Evidence Sufficiency
+Historical Evidence != Current Confidence
 Assessment != Decision
 Curriculum != Learner State
+Curriculum != Calendar
 Knowledge != Performance
+Language Capability != IELTS Strategy != IELTS Performance
 Weakness != Bottleneck
 Unknown != Weak
 Skipped != Failed
@@ -41,7 +47,11 @@ AI output != Learner production
 - One error must not create a confirmed weakness or downgrade mastery.
 - Repetition is not transfer; immediate success is not retention.
 - Stale evidence means confidence needs refreshing, not that learning vanished.
+- Forgetting and never learned are different hypotheses; neither is inferred from one failure.
+- Transfer distance, item-family exposure, session context, and processing conditions change evidential meaning.
 - Conflicting evidence remains visible and lowers certainty; it is not averaged away.
+- L1-associated risk is a probe-selection hypothesis, never a learner diagnosis.
+- Cross-skill and integrated-task evidence may inform several claims but must preserve attribution and confounds.
 - Every state, error, interruption, and failure path must offer a valid next action.
 
 ## Data and code boundaries
@@ -63,6 +73,8 @@ AI output != Learner production
 - Keep definitions, learner facts, learner intelligence, and orchestration conceptually separate.
 - Store text writing artifacts in PostgreSQL; store binary audio/assets outside PostgreSQL.
 - Preserve exact definition, package, item, evaluator, and policy versions used by an attempt.
+- Preserve the lineage `State <- Evidence <- Observation <- Evaluation <- Performance <- Content`; invalidation and supersession propagate by recomputation without deleting history.
+- Policy changes create a new projection context. Historical decisions remain reproducible under their original policy; current state may be reprojected explicitly.
 - Separate stable content identity from immutable `learning_package_versions` and assessment-item versions.
 - Prefer compact relational cores and bounded JSONB for type-specific payloads.
 - Free-tier lifecycle rules are part of the design, not an afterthought.
@@ -82,9 +94,13 @@ AI output != Learner production
 - Save and submit are distinct; retryable mutations and evaluation effects are idempotent.
 - Grammar Slice 01 evaluates synchronously and deterministically. Later slow evaluation uses the same NestJS codebase with a PostgreSQL-backed job adapter and worker entry point.
 - UI renders server-owned decisions through `NextActionDto`; it does not infer learning policy from scores.
+- `DailyPlan` owns selected sequencing; `NextAction` is its preferred executable projection, with standardized reason codes and a reproducible `DecisionTrace`.
+- Learner skip, defer, replace, and explore are first-class overrides. They change orchestration, never falsify completion, evidence, or ability.
 - Learning Mode is soft and encouraging. Exam Mode is restrained and protects assessment conditions.
 - Color, motion, charts, completion, streaks, or XP must not imply competence unsupported by evidence.
 
 ## Change rule
 
 Changing a frozen invariant requires: a new ADR, affected-document updates, migration/recomputation impact, and a compatibility plan. Silent divergence is not allowed.
+
+Consolidation v2 is recorded in `docs/08-decisions/ADR-007-architecture-consolidation-v2.md`. After Slices 01–03, horizontal architecture expansion stops by default; effort shifts to curriculum quality, content health, and real-learner validation.

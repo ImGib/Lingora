@@ -44,7 +44,11 @@ Issue clusters repeated attributable evidence and moves through suspicion, confi
 
 ### Roadmap and DailyPlan
 
-Roadmap versions provide longer orientation; DailyPlan owns a dated set of ordered blocks. A block can produce many attempts. Replanning creates or revises plan state without rewriting learning facts.
+Roadmap versions provide longer orientation; DailyPlan owns a dated set of ordered blocks and is the source for planned sequence. NextAction is the preferred executable projection, not an independent plan. A block can produce many attempts. Replanning or skip/defer/replace/explore creates/revises plan state without rewriting learning facts.
+
+### DecisionTrace and governance projections
+
+A concise DecisionTrace captures decision type/time, relevant goal/target and curriculum versions, state/evidence snapshot references or digest, policy version, hard constraints/vetoes, selected action, standardized reason codes, and override. It need not store every candidate. Content Health, intervention effectiveness, release readiness, and evaluator-quality views remain projections/configuration until a slice proves aggregate persistence.
 
 ## Transaction examples
 

@@ -4,7 +4,7 @@
 
 ## Definition
 
-Curriculum is the versioned universe of learning definitions and relationships. A roadmap is one learner-specific path through it; a daily plan is a time-bounded action set. Neither belongs inside curriculum definitions.
+Curriculum is the versioned universe of learning definitions and relationships. A roadmap is one learner-specific path through it; a daily plan is a time-bounded action set. Neither belongs inside curriculum definitions: `Curriculum != Calendar`.
 
 ## Structure
 
@@ -33,7 +33,7 @@ Stages and tracks are many-to-many so listening, vocabulary, writing, and other 
 - S5 IELTS Academic Skills: integrated language and task-specific performance.
 - S6 IELTS Performance: calibrated mocks, timing, stability, and final preparation.
 
-Study-abroad capabilities are cross-stage and continue beyond the exam.
+Study-abroad capabilities are cross-stage and continue beyond the exam: lecture/seminar participation, clarification/repair, note-taking, synthesis, academic integrity, practical interaction, and help-seeking. They are assessed as capabilities, not inferred from an IELTS score.
 
 ## Definition hierarchy
 
@@ -46,6 +46,8 @@ Study-abroad capabilities are cross-stage and continue beyond the exam.
 - Learning package version: immutable learner-delivered realization once published.
 - Activity: an interaction with purpose, load, support, and evidence opportunities.
 - Assessment item and item version: stable item family identity plus the exact delivered prompt/answer/rubric definition.
+- ItemFamily: shared construct/generation constraints and exposure/memorization boundary across variants.
+- LearningClaim: the precise recognition/recall/production/transfer/retention/real-time proposition an opportunity can support; not a replacement for Competency.
 
 ## Coverage contract
 
@@ -63,7 +65,9 @@ Detailed lifecycle, readiness, QA, provenance, AI governance, and benchmark isol
 - Target band influences depth, not only content volume.
 - Spiral learning revisits capabilities with greater independence, novelty, speed, genre, and integration.
 - Skill-first learning precedes extensive exam question-type optimization.
-- A stage transition is a multidimensional readiness profile, never one boolean.
+- A stage transition is a multidimensional readiness profile, never one boolean. Readiness policies require minimum evidence coverage across relevant claims/skills/modalities and guard against repeated-family, completion, streak, and single-score gaming.
+
+Curriculum versions have effective semantics. Historical attempts retain their delivered definition versions; new versions affect future planning, while explicit migration/reprojection rules handle renamed, split, merged, or retired competencies without rewriting history.
 
 ## Lesson contract
 

@@ -30,6 +30,8 @@ Transfer:  UNTESTED -> NEAR -> VARIED -> FAR/GENERALIZED
 
 Stale evidence triggers verification; it does not assert forgetting. Transfer failure updates transfer/performance state before changing knowledge state.
 
+Evidence-age policy may decay current confidence and make verification due. `NEVER_LEARNED`, `FORGOTTEN`, and `CONTEXT/PERFORMANCE_FAILURE` are competing hypotheses requiring different prior history and probes, not proficiency states assigned from one response.
+
 ## Learning issue and recovery
 
 ```text
@@ -72,6 +74,8 @@ Roadmap: DRAFT -> ACTIVE -> REQUIRES_REPLAN -> SUPERSEDED
 ```
 
 Changing goal, deadline, meaningful state, availability, or curriculum version may require replanning. It does not erase history.
+
+Each activation/supersession records version and effective time. A historical plan/decision retains the goal/target and curriculum versions it used; a newer version affects future decisions unless explicit reprojection is requested.
 
 ## Content
 

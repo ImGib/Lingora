@@ -1,13 +1,13 @@
 # Lingora Documentation Map
 
-**Status:** BASELINE
+**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION
 
 ## Architecture map
 
 ```text
 Product intent
   -> Learning Constitution (what must remain true)
-  -> Learning Kernel (the closed learning loop)
+  -> Learning Kernel (Definition, Learning, Decision, Governance/System Learning planes)
   -> Curriculum (what can be learned)
   -> Domain (meaning, ownership, transitions)
   -> Data (durable facts and projections)
@@ -37,7 +37,8 @@ Product intent
 | Content authoring and publishing | `03-curriculum/content-authoring-publishing-v1.md` | FROZEN |
 | UI and Information Architecture | `07-ui/ui-architecture.md` | VALIDATED |
 | Design System and components | `07-ui/design-system-v1.md` | VALIDATED |
-| Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | DEFINED |
+| Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | 01A IMPLEMENTED, LIVE VERIFICATION PENDING; 01B–01F DEFERRED |
+| Architecture Gap Audit / Consolidation v2 | `08-decisions/ADR-007-architecture-consolidation-v2.md` | ACCEPTED |
 | Technical decisions | `08-decisions/` | ACCEPTED |
 
 ## Source-of-truth rule
@@ -45,12 +46,14 @@ Product intent
 - Curriculum definitions say what learning opportunities exist.
 - Attempts, responses, artifacts, and support use record what happened.
 - Observations describe what evaluators detected.
-- Evidence interprets observations for a competency under stated conditions.
+- Learning claims state the precise inference being tested within a competency.
+- Exposure, practice opportunity, and evidence opportunity remain distinct.
+- Evidence interprets observations for a claim/competency under stated conditions; existence is not sufficiency.
 - Learner state is a recomputable projection from evidence and policy.
-- Decisions select actions from state, goal, context, constraints, and curriculum.
+- Decisions select actions from state, goal/target version, context, constraints, and a curriculum version, and retain a concise trace.
 
 Do not collapse these layers into one table, score, endpoint, or UI percentage.
 
 ## Current implementation gate
 
-No coding has started. The next authorized build scope is only Slice 01: Clerk login and learner provisioning through goal, dashboard, Present Simple third-person singular lesson, deterministic evaluation, evidence/state update, and a refreshed next action. Later slices remain planned, not implemented.
+Architecture v2 is frozen for implementation. Slice 01A Foundation & Identity is implemented in code; live Clerk + Supabase verification awaits configured credentials/infrastructure. Checkpoints 01B–01F remain planned and are not authorized by the 01A checkpoint. Migration groups remain gated by integration tests, and PracticeItem versus AssessmentItem must be resolved before the first content migration.

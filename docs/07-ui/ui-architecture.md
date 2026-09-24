@@ -30,14 +30,17 @@ Routes are presentation organization, not Domain boundaries. Learner primary nav
 
 ## Dashboard and resume
 
-Dashboard answers “What should I do today?” rather than maximizing charts. Information order is: next/resume action, today's plan, due review/attention, journey, then concise progress summary. A `GET /v1/dashboard` projection can aggregate the learner-safe view; it is not a Dashboard entity.
+Dashboard answers “What should I do today?” rather than maximizing charts. v0 is deliberately small: next/resume action, compact ordered plan, one due review/recovery signal, and a concise honest progress/uncertainty summary. Journey and richer analytics are progressive disclosure. A `GET /v1/dashboard` projection can aggregate the learner-safe view; it is not a Dashboard entity.
 
-Resume priority is unfinished attempt, unfinished session, today's plan, then next recommended action. The primary CTA comes from `NextActionDto`; frontend code must not derive a recommendation from score thresholds.
+Resume priority is unfinished attempt, unfinished session, today's plan, then next recommended action. DailyPlan owns order; the primary CTA is its server-selected `NextActionDto` projection. Frontend code must not derive a recommendation from score thresholds.
+
+Goal onboarding asks only what planning currently needs: purpose, target (including per-skill when known), deadline, and sustainable availability. It is resumable, permits “not sure,” and defers advanced preferences rather than presenting one large form.
 
 ## Learn, Practice, Review, and Progress
 
 - Learn uses progressive disclosure `Stage -> Track -> Module -> Unit -> Lesson` and allows adjacent/independent track progress. Locking appears only for real prerequisites.
 - Practice separates recommended practice from learner-controlled Explore mode.
+- Plan actions make skip, defer, replace, and explore visibly distinct; none uses failure language. A replacement explains whether it preserves the same learning obligation.
 - Review includes due knowledge/skills, issues, and recovery; it is not only flashcards. Learner-facing issue language uses “Needs Attention” and appears only after backend diagnosis policy confirms it.
 - Progress separates overview, skills, vocabulary, study time, and test history. It shows qualitative state, evidence sufficiency/confidence, review health, and ranges. No universal mastery percentage or false-precision radar chart.
 
@@ -61,6 +64,8 @@ Submission received
 ```
 
 Important results are not delivered only by toast.
+
+Provider degradation is explicit and calm: evaluation queued, transcript unavailable, text alternative, alternate modality, retry, or safe stop. Cost/provider limits never appear as learner error. Pre-feedback confidence, when requested, is captured before correctness/reveal and is optional/non-punitive.
 
 ## Authoring information architecture
 
@@ -96,5 +101,7 @@ Use feature-oriented folders for onboarding, goals, roadmap, planning, learning,
 - `UI-10` Learner work survives recoverable network/provider failure.
 - `UI-11` Authoring makes readiness, immutable publication, and QA blockers visible.
 - `UI-12` Accessibility and responsive behavior are acceptance criteria, not polish.
+- `UI-13` Standard reason codes drive stable semantics; learner-facing explanation is localized presentation.
+- `UI-14` UI locale, instruction language, native language, target language, and content locale remain separate preferences.
 
 Visual tokens, component contracts, and the locked Soft Study Companion identity are canonical in `design-system-v1.md`.

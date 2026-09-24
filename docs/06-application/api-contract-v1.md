@@ -32,11 +32,13 @@ Failure:
 }
 ```
 
-IDs are opaque. Instants use ISO 8601 UTC; learner calendar dates use `YYYY-MM-DD` and the server applies the profile IANA timezone. Historical collections use cursor pagination. Retryable commands carry `Idempotency-Key`.
+IDs are opaque. Instants use ISO 8601 UTC; learner calendar dates use `YYYY-MM-DD` plus the applicable IANA timezone. Timezone changes do not silently relocate historical plan/session dates. Historical collections use cursor pagination. Retryable commands carry `Idempotency-Key`.
 
 ## Identity and onboarding
 
 `GET /v1/me` returns Lingora learner/profile identity and resumable onboarding state. It never returns Clerk identifiers or Supabase internals.
+
+Slice 01A returns the minimal implemented profile subset: `displayName`, `nativeLanguage`, and `timezone`. The richer locale/language fields shown below remain the forward v1 contract and are added only with the slice that consumes them.
 
 ```json
 {
@@ -44,7 +46,11 @@ IDs are opaque. Instants use ISO 8601 UTC; learner calendar dates use `YYYY-MM-D
     "id": "learner_uuid",
     "profile": {
       "displayName": "Bảo",
+      "uiLocale": "vi-VN",
+      "instructionLanguage": "vi",
       "nativeLanguage": "vi",
+      "targetLanguage": "en",
+      "contentLocale": "en-GB",
       "timezone": "Asia/Ho_Chi_Minh"
     },
     "onboarding": {
@@ -69,7 +75,7 @@ Onboarding is resumable across `PROFILE -> GOAL -> PLACEMENT -> BASELINE_READY -
 - `GET /v1/dashboard`
 - `GET /v1/resume`
 
-Goal input contains goal type, overall/skill targets, intended study level, deadline, and study preference. Learner identity is omitted because it comes from authenticated context.
+Goal input is deliberately small: purpose/goal type, overall/skill targets when known, intended study level, deadline, and sustainable study preference. Advanced constraints are progressive/resumable, not one blocking form. Goal responses expose `goalVersion`/`targetVersion` and effective time where relevant. Learner identity is omitted because it comes from authenticated context.
 
 Dashboard, plan, progress, and resume are projections. They carry server-selected semantic actions rather than asking the frontend to reconstruct planning policy.
 
@@ -84,7 +90,9 @@ type NextActionType =
   | "VIEW_FEEDBACK" | "TAKE_BREAK" | "FINISH_DAY";
 ```
 
-`NextActionDto` includes a typed target and optional learner-facing reason. It is an ephemeral decision output, not permanent source truth.
+`NextActionDto` includes a typed target, standardized `reasonCodes`, optional localized learner-facing reason, plan/block reference when planned, and a decision trace identifier/version when retained. It is the preferred executable projection of DailyPlan, not an independent plan or permanent source truth.
+
+Plan commands distinguish `skip`, `defer`, `replace`, and `explore`; responses return the revised plan projection and next action. None records learner failure or completion. Dashboard v0 remains resume/next-action first: current action, compact today sequence, due review/recovery signal, and honest uncertainty—no speculative analytics wall.
 
 ## Placement and curriculum
 
@@ -114,7 +122,7 @@ Lesson DTOs contain navigation and instruction metadata: title, stage/track, dur
 - `PUT /v1/attempts/:attemptId/responses/:itemId`
 - `POST /v1/attempts/:id/submit`
 
-Starting an attempt resolves and pins exact package and assessment-item versions. `planBlockId` may be absent in Explore mode. Response payloads are tagged by response type; save is upsertable while the attempt is in progress and does not evaluate.
+Starting an attempt resolves and pins exact package and delivered item versions plus relevant curriculum/goal context. `planBlockId` may be absent in Explore mode. Response payloads are tagged by response type; save is upsertable while the attempt is in progress and does not evaluate. Where useful, responses capture pre-feedback confidence separately from correctness.
 
 Submit sends no duplicate response body. For deterministic grammar it may return `EVALUATED/COMPLETED`, feedback, and a next action synchronously. For async skills it returns `EVALUATING/QUEUED` or `PROCESSING`, normally with HTTP `202`, plus a non-blocking next action. `GET /v1/attempts/:id` is the common polling contract.
 
@@ -155,5 +163,8 @@ At minimum distinguish authentication required, forbidden, not found, validation
 - `DTO-12` Historical collections use cursor pagination.
 - `DTO-13` Consumers cannot mutate derived intelligence.
 - `DTO-14` Compatibility-relevant content, evaluator, and policy versions remain traceable server-side and are exposed only where useful.
+- `DTO-15` Locale/language fields and UTC/local-date/timezone semantics remain distinct.
+- `DTO-16` Overrides and degraded modes are explicit and cannot serialize as learner failure.
+- `DTO-17` Reason codes are stable/versioned semantics; localized reason text is presentation.
 
 OpenAPI examples and contract tests must enforce these projections during implementation. No client may infer missing answer, evidence, state, or planning fields from database shape.

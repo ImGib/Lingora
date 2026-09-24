@@ -1,10 +1,10 @@
-# Lingora — Architecture Baseline v1
+# Lingora — Architecture Baseline v2
 
-**Document set:** Architecture Baseline v1  
-**Status:** IMPLEMENTATION READY — SLICE 01  
+**Document set:** Architecture Consolidation v2
+**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION; SLICE 01A IMPLEMENTED, LIVE VERIFICATION PENDING
 **Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
 
-This folder is the implementation-neutral design baseline for Lingora. It consolidates the accepted learning, curriculum, domain, data, application, content-authoring, UI, and infrastructure decisions. Superseded brainstorms are intentionally excluded; coding has not started.
+This repository contains the frozen Architecture v2 baseline and the first implementation checkpoint. Consolidation v2 refines the accepted learning, curriculum, domain, data, application, content-authoring, UI, and infrastructure decisions without speculatively materializing every concept as a table. Slice 01A implements only Foundation & Identity.
 
 ## Current baseline
 
@@ -22,7 +22,8 @@ This folder is the implementation-neutral design baseline for Lingora. It consol
 | UI & Information Architecture v1 | **VALIDATED** |
 | Design System & Component Architecture v1 | **VALIDATED** |
 | Visual identity — Soft Study Companion | **LOCKED** |
-| Implementation Readiness — Slice 01 | **DEFINED** |
+| Implementation Readiness — Slice 01 | **01A IMPLEMENTED, LIVE VERIFICATION PENDING; 01B–01F DEFERRED** |
+| Architecture Gap Audit / Consolidation v2 | **ACCEPTED** |
 
 `FROZEN` means implementation must conform to the document. A change to a frozen invariant requires an explicit decision record and impact review; it does not mean the design can never evolve.
 
@@ -39,6 +40,8 @@ This folder is the implementation-neutral design baseline for Lingora. It consol
 ## Non-negotiable boundaries
 
 - Observation is not Evidence; Evidence is not Mastery; Assessment is not Decision.
+- Learning Claim is not Competency; exposure, practice opportunity, and evidence opportunity are distinct.
+- Evidence existence is not sufficiency; historical evidence is not current confidence.
 - Curriculum is not Learner State; Knowledge is not Performance.
 - Weakness is not Bottleneck; Unknown is not Weak; Skipped is not Failed.
 - Feedback is not Learning; Correction is not Mastery.
@@ -62,8 +65,22 @@ This folder is the implementation-neutral design baseline for Lingora. It consol
 5. Read the Application Architecture and API DTO Contract before controllers, clients, jobs, or auth integration.
 6. Read Content Authoring before changing package/item lifecycle or publishing behavior.
 7. Read UI Architecture and Design System together before implementing learner or authoring surfaces.
-8. Implement only the defined [Slice 01](docs/09-implementation-readiness/slice-01-present-simple.md) before expanding horizontally.
+8. Use [ADR-007](docs/08-decisions/ADR-007-architecture-consolidation-v2.md) for the v2 refinements.
+9. Implement Slice 01 through checkpoints 1A–1F before expanding; after Slices 01–03, prioritize curriculum/content and real-learner testing over horizontal architecture.
+
+## Implemented checkpoint
+
+Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
+
+## Run Slice 01A
+
+1. Install with `pnpm install`.
+2. Copy `apps/web/.env.example` to `apps/web/.env.local` and `apps/api/.env.example` to `apps/api/.env`, then replace placeholders with the same Clerk instance and a PostgreSQL connection.
+3. Apply `apps/api/migrations/0001_foundation_identity.sql` to the target Supabase PostgreSQL database.
+4. Run `pnpm dev`, then open `http://localhost:3000`.
+
+The API fails at startup when required server configuration is absent. `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are intentionally absent: Slice 01A connects to PostgreSQL through `DATABASE_URL` and does not use Supabase Storage or the Supabase SDK.
 
 ## Deliberate exclusions
 
-This package contains no application source code, executable SQL migrations, generated schema, secrets, deployment configuration, or Git history. The first migration set and seed package are specifications only.
+Slices 01B–01F remain unimplemented. In particular, the repository contains no goal, curriculum, competency, content, attempt, response, evaluation, observation, evidence, competency-state, planning, or dashboard-learning persistence.
