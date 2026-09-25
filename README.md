@@ -1,7 +1,7 @@
 # Lingora — Architecture Baseline v2
 
 **Document set:** Architecture Consolidation v2
-**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION; SLICES 01A–01B IMPLEMENTED, LIVE VERIFICATION PENDING
+**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION; 01A LIVE VERIFIED; 01B IMPLEMENTED, LIVE VERIFICATION PENDING
 **Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
 
 This repository contains the frozen Architecture v2 baseline and the first implementation checkpoint. Consolidation v2 refines the accepted learning, curriculum, domain, data, application, content-authoring, UI, and infrastructure decisions without speculatively materializing every concept as a table. Slice 01A implements only Foundation & Identity.
@@ -22,7 +22,7 @@ This repository contains the frozen Architecture v2 baseline and the first imple
 | UI & Information Architecture v1 | **VALIDATED** |
 | Design System & Component Architecture v1 | **VALIDATED** |
 | Visual identity — Soft Study Companion | **LOCKED** |
-| Implementation Readiness — Slice 01 | **01A–01B IMPLEMENTED, LIVE VERIFICATION PENDING; 01C–01F DEFERRED** |
+| Implementation Readiness — Slice 01 | **01A LIVE VERIFIED; 01B IMPLEMENTED, LIVE VERIFICATION PENDING; 01C–01F DEFERRED** |
 | Architecture Gap Audit / Consolidation v2 | **ACCEPTED** |
 
 `FROZEN` means implementation must conform to the document. A change to a frozen invariant requires an explicit decision record and impact review; it does not mean the design can never evolve.
@@ -73,6 +73,8 @@ This repository contains the frozen Architecture v2 baseline and the first imple
 Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
 
 Slice 01B adds versioned curriculum hierarchy, bounded competencies/relations, immutable published package/item definitions, ItemFamily exposure boundaries, a learner-safe lesson endpoint, and lesson rendering. ADR-008 keeps Practice and Assessment semantically distinct inside one versioned LearningItem lifecycle.
+
+Slice 01A was live-verified on 2026-09-25 against a Clerk development instance and Supabase PostgreSQL: login, idempotent learner provisioning, profile read/update/reload, unauthenticated rejection, schema constraints, RLS, and revoked browser-role grants all passed. The temporary Clerk and database fixtures were removed after verification.
 
 ## Run Slice 01A
 

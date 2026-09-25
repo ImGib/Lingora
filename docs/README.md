@@ -37,7 +37,7 @@ Product intent
 | Content authoring and publishing | `03-curriculum/content-authoring-publishing-v1.md` | FROZEN |
 | UI and Information Architecture | `07-ui/ui-architecture.md` | VALIDATED |
 | Design System and components | `07-ui/design-system-v1.md` | VALIDATED |
-| Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | 01A–01B IMPLEMENTED, LIVE VERIFICATION PENDING; 01C–01F DEFERRED |
+| Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | 01A LIVE VERIFIED; 01B IMPLEMENTED, LIVE VERIFICATION PENDING; 01C–01F DEFERRED |
 | Architecture Gap Audit / Consolidation v2 | `08-decisions/ADR-007-architecture-consolidation-v2.md` | ACCEPTED |
 | Unified Practice/Assessment item model | `08-decisions/ADR-008-unified-learning-item-model.md` | ACCEPTED |
 | Technical decisions | `08-decisions/` | ACCEPTED |
@@ -57,4 +57,4 @@ Do not collapse these layers into one table, score, endpoint, or UI percentage.
 
 ## Current implementation gate
 
-Architecture v2 is frozen for implementation. Slices 01A Foundation & Identity and 01B Curriculum + Competency + Content are implemented in code; live Clerk + Supabase verification awaits configured credentials/infrastructure. Checkpoints 01C–01F remain planned. ADR-008 resolves PracticeItem versus AssessmentItem before the first content migration.
+Architecture v2 is frozen for implementation. Slice 01A Foundation & Identity is implemented and live-verified against Clerk and Supabase PostgreSQL. Slice 01B Curriculum + Competency + Content is implemented in code and still awaits live verification. Checkpoints 01C–01F remain planned. ADR-008 resolves PracticeItem versus AssessmentItem before the first content migration.

@@ -1,7 +1,7 @@
 # Implementation Readiness — Slice 01: Present Simple Third-Person Singular
 
 **Status:** DEFINED  
-**Implementation:** 01A–01B IMPLEMENTED, LIVE VERIFICATION PENDING; 01C–01F NOT STARTED
+**Implementation:** 01A LIVE VERIFIED; 01B IMPLEMENTED, LIVE VERIFICATION PENDING; 01C–01F NOT STARTED
 
 Slice 01 is the smallest end-to-end proof of the Lingora kernel. It is not an MCQ demo and does not authorize unrelated platform work.
 
@@ -32,6 +32,10 @@ This staging changes delivery order, not the final vertical-slice contract.
 Architecture v2 is **FROZEN FOR IMPLEMENTATION**. Checkpoint 01A is limited to the pnpm foundation, Next.js + Clerk presentation boundary, NestJS authentication/identity boundary, `RequestContext { learnerId, requestId }`, and PostgreSQL `learners`, `identity_accounts`, and `profiles` persistence. Its public API is only `GET /v1/me` and `PATCH /v1/me/profile`.
 
 The 01A profile stores only `display_name`, `native_language`, and IANA `timezone`. It does not prematurely implement goal or locale/content preferences required by later checkpoints. Authentication/database failures have no path to learning facts or derived state because no such module or table exists in 01A.
+
+### Checkpoint 01A live verification
+
+On 2026-09-25, the timestamped 01A migration was applied to Supabase PostgreSQL and verified for table creation, constraints, RLS enablement, and absence of `anon`/`authenticated` grants. A temporary Clerk test identity completed the browser-to-database flow: Clerk login, `GET /v1/me` provisioning, `PATCH /v1/me/profile`, and persisted values after reload. A request without a token returned `401 AUTHENTICATION_REQUIRED`. The temporary Clerk user and its database rows were removed after the verification run.
 
 ## Workspace and code boundaries
 
