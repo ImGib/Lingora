@@ -67,6 +67,7 @@ This repository contains the frozen Architecture v2 baseline and the staged Slic
 7. Read UI Architecture and Design System together before implementing learner or authoring surfaces.
 8. Use [ADR-007](docs/08-decisions/ADR-007-architecture-consolidation-v2.md) for the v2 refinements.
 9. Implement Slice 01 through checkpoints 1A–1F before expanding; after Slices 01–03, prioritize curriculum/content and real-learner testing over horizontal architecture.
+10. Use the [post-Slice 01 roadmap](docs/09-implementation-readiness/post-slice-01-roadmap.md) for the concrete gates and work order after 01F.
 
 ## Implemented checkpoint
 

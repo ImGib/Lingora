@@ -38,6 +38,7 @@ Product intent
 | UI and Information Architecture | `07-ui/ui-architecture.md` | VALIDATED |
 | Design System and components | `07-ui/design-system-v1.md` | VALIDATED |
 | Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LIVE SUPABASE CORE FLOW VERIFIED; 01F FINAL GATES PENDING |
+| Post-Slice 01 roadmap | `09-implementation-readiness/post-slice-01-roadmap.md` | PLANNED; 01F FINAL GATES PENDING |
 | Vercel deployment | `10-deployment-vercel.md` | LOCAL BUILD VERIFIED; CLOUD PREVIEW PENDING |
 | Architecture Gap Audit / Consolidation v2 | `08-decisions/ADR-007-architecture-consolidation-v2.md` | ACCEPTED |
 | Unified Practice/Assessment item model | `08-decisions/ADR-008-unified-learning-item-model.md` | ACCEPTED |
