@@ -1,6 +1,6 @@
 # Lingora Documentation Map
 
-**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION
+**Status:** CONSOLIDATION V3 — CONCEPTUALLY FROZEN; M0 AUDITED; M1 DESIGNED
 
 ## Architecture map
 
@@ -15,7 +15,7 @@ Product intent
   -> API DTO contracts
   -> Content authoring and publishing
   -> UI and Design System
-  -> Implementation Readiness slices
+  -> Milestones and vertical implementation proofs
   -> ADRs (why the technical choices were made)
 ```
 
@@ -37,10 +37,12 @@ Product intent
 | Content authoring and publishing | `03-curriculum/content-authoring-publishing-v1.md` | FROZEN |
 | UI and Information Architecture | `07-ui/ui-architecture.md` | VALIDATED |
 | Design System and components | `07-ui/design-system-v1.md` | VALIDATED |
-| Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LIVE SUPABASE CORE FLOW VERIFIED; 01F FINAL GATES PENDING |
-| Post-Slice 01 roadmap | `09-implementation-readiness/post-slice-01-roadmap.md` | PLANNED; 01F FINAL GATES PENDING |
+| Implementation milestones | `09-implementation/README.md` | M0 PARTIAL; M1 DESIGNED |
+| M0 Slice 01 source audit | `09-implementation/m0-kernel/slice-01/README.md` | 01A–01E DONE; 01F PARTIAL |
+| M1 4-Week Learning MVP | `09-implementation/m1-four-week-learning/` | DESIGNED / NOT STARTED |
 | Vercel deployment | `10-deployment-vercel.md` | LOCAL BUILD VERIFIED; CLOUD PREVIEW PENDING |
 | Architecture Gap Audit / Consolidation v2 | `08-decisions/ADR-007-architecture-consolidation-v2.md` | ACCEPTED |
+| Architecture Consolidation v3 | `08-decisions/ADR-009-architecture-consolidation-v3.md` | ACCEPTED |
 | Unified Practice/Assessment item model | `08-decisions/ADR-008-unified-learning-item-model.md` | ACCEPTED |
 | Technical decisions | `08-decisions/` | ACCEPTED |
 
@@ -53,10 +55,11 @@ Product intent
 - Exposure, practice opportunity, and evidence opportunity remain distinct.
 - Evidence interprets observations for a claim/competency under stated conditions; existence is not sufficiency.
 - Learner state is a recomputable projection from evidence and policy.
+- Learner state is a falsifiable inference with uncertainty, not a fact about the learner.
 - Decisions select actions from state, goal/target version, context, constraints, and a curriculum version, and retain a concise trace.
 
 Do not collapse these layers into one table, score, endpoint, or UI percentage.
 
 ## Current implementation gate
 
-Architecture v2 is frozen for implementation. Slice 01A Foundation & Identity is live-verified against Clerk and Supabase PostgreSQL. Checkpoints 01B–01F are implemented and passed local and live Supabase authenticated core-flow verification, plus PostgreSQL integration and HTTP contracts. All eight migration groups are applied to the Lingora Supabase project. The remaining 01F gates are live retry/idempotency and second-learner/auth-failure isolation; Vercel Preview is not deployed. ADR-008 resolves PracticeItem versus AssessmentItem.
+Architecture v3 is conceptually frozen. The source-backed audit rates 01A–01E DONE and 01F PARTIAL. Remaining 01F gates are live retry/idempotency, live second-learner/auth-failure isolation, Vercel Preview and frontend/accessibility verification. M1 is documentation only; do not claim its 28-day outcomes until implementation and real-learner gates pass.

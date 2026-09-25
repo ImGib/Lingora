@@ -46,3 +46,8 @@ Vocabulary/knowledge items may maintain receptive/productive state, exposure, su
 ## Recomputability
 
 Current state is derived from durable facts and versioned policies. Reprojection records policy/effective time and never mutates source facts or historical DecisionTrace. Early versions avoid a full state-history table; add periodic snapshots only for proven analytics/performance needs. Learner-facing UI uses qualitative language and uncertainty rather than fake precision.
+# Consolidation v3 inference contract
+
+Learner State is a versioned, recomputable and falsifiable inference over an evidence cutoff. It must include uncertainty/sufficiency and must be possible to state a future observation that would weaken it. Absence of evidence remains `UNKNOWN`; stale evidence lowers current confidence rather than rewriting historical success.
+
+Decision consumers must respect horizon and impact. One observation may drive feedback; it cannot by itself justify a weekly progression, confirmed weakness, placement or readiness claim. High-impact decisions require independent, varied, technically valid and appropriately retained/transferred evidence or must return `INSUFFICIENT EVIDENCE`.

@@ -1,6 +1,6 @@
-# Lingora Architecture Guardrails — Consolidation v2
+# Lingora Architecture Guardrails — Consolidation v3
 
-**Status:** Architecture v2 — FROZEN FOR IMPLEMENTATION
+**Status:** Conceptually frozen for M0/M1 implementation
 **Audience:** Developers, reviewers, and coding agents
 
 This file is the short, mandatory contract. Detailed rationale lives under `docs/`.
@@ -27,6 +27,7 @@ Observation != Evidence
 Evidence != Mastery
 Learning Claim != Competency
 Exposure != Practice Opportunity != Evidence Opportunity
+Activity != Valid Performance Opportunity
 Evidence Exists != Evidence Sufficiency
 Historical Evidence != Current Confidence
 Assessment != Decision
@@ -44,6 +45,7 @@ AI output != Learner production
 ```
 
 - Correct with high support is weaker evidence than independent success.
+- A Performance Opportunity must preserve target claim, conditions, allowed/used support, modality, difficulty, context, transfer distance, expected independence and technical validity.
 - One error must not create a confirmed weakness or downgrade mastery.
 - Repetition is not transfer; immediate success is not retention.
 - Stale evidence means confidence needs refreshing, not that learning vanished.
@@ -53,6 +55,8 @@ AI output != Learner production
 - L1-associated risk is a probe-selection hypothesis, never a learner diagnosis.
 - Cross-skill and integrated-task evidence may inform several claims but must preserve attribution and confounds.
 - Every state, error, interruption, and failure path must offer a valid next action.
+- Learner State is a falsifiable, versioned inference rather than a fact; it must expose uncertainty and what future evidence could revise it.
+- Decision evidence burden rises with decision impact: immediate feedback < daily sequencing < weekly progression < placement/readiness.
 
 ## Data and code boundaries
 
@@ -94,7 +98,7 @@ AI output != Learner production
 - Save and submit are distinct; retryable mutations and evaluation effects are idempotent.
 - Grammar Slice 01 evaluates synchronously and deterministically. Later slow evaluation uses the same NestJS codebase with a PostgreSQL-backed job adapter and worker entry point.
 - UI renders server-owned decisions through `NextActionDto`; it does not infer learning policy from scores.
-- `DailyPlan` owns selected sequencing; `NextAction` is its preferred executable projection, with standardized reason codes and a reproducible `DecisionTrace`.
+- `DailyPlan` owns selected sequencing; `NextAction` is its preferred executable projection, with standardized reason codes and a reproducible `DecisionTrace` containing the material version/evidence/constraint context.
 - Learner skip, defer, replace, and explore are first-class overrides. They change orchestration, never falsify completion, evidence, or ability.
 - Learning Mode is soft and encouraging. Exam Mode is restrained and protects assessment conditions.
 - Color, motion, charts, completion, streaks, or XP must not imply competence unsupported by evidence.
@@ -103,4 +107,4 @@ AI output != Learner production
 
 Changing a frozen invariant requires: a new ADR, affected-document updates, migration/recomputation impact, and a compatibility plan. Silent divergence is not allowed.
 
-Consolidation v2 is recorded in `docs/08-decisions/ADR-007-architecture-consolidation-v2.md`. After Slices 01–03, horizontal architecture expansion stops by default; effort shifts to curriculum quality, content health, and real-learner validation.
+Consolidation v3 is recorded in `docs/08-decisions/ADR-009-architecture-consolidation-v3.md`. Work is milestone-led. Use NOW / PROTECT / LATER: implement only what M0/M1 needs, preserve essential seams/invariants, and defer generalized machinery until evidence justifies it.

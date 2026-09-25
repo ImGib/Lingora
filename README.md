@@ -1,10 +1,10 @@
-# Lingora — Architecture Baseline v2
+# Lingora — Architecture Consolidation v3
 
-**Document set:** Architecture Consolidation v2
-**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION; 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LIVE SUPABASE CORE FLOW VERIFIED; 01F FINAL GATES PENDING
+**Document set:** Architecture Consolidation v3 + M1 4-Week Learning MVP
+**Status:** CONCEPTUALLY FROZEN; M0 01A–01E DONE, 01F PARTIAL; M1 DESIGNED / NOT STARTED
 **Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
 
-This repository contains the frozen Architecture v2 baseline and the staged Slice 01 implementation. Consolidation v2 refines the accepted learning, curriculum, domain, data, application, content-authoring, UI, and infrastructure decisions without speculatively materializing every concept as a table.
+This repository contains the conceptually frozen architecture, the audited M0 kernel implementation and the design for M1: a meaningful 28-day beginner learning journey. Consolidation v3 preserves earlier decisions while adding the missing opportunity, measurement, inference, governance and decision-burden contracts.
 
 ## Current baseline
 
@@ -22,8 +22,9 @@ This repository contains the frozen Architecture v2 baseline and the staged Slic
 | UI & Information Architecture v1 | **VALIDATED** |
 | Design System & Component Architecture v1 | **VALIDATED** |
 | Visual identity — Soft Study Companion | **LOCKED** |
-| Implementation Readiness — Slice 01 | **01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LIVE SUPABASE CORE FLOW VERIFIED; 01F FINAL GATES PENDING** |
-| Architecture Gap Audit / Consolidation v2 | **ACCEPTED** |
+| M0 implementation audit | **01A–01E DONE; 01F PARTIAL** |
+| M1 — 4-Week Learning MVP | **DESIGNED / NOT STARTED** |
+| Architecture Consolidation v3 | **ACCEPTED** |
 
 `FROZEN` means implementation must conform to the document. A change to a frozen invariant requires an explicit decision record and impact review; it does not mean the design can never evolve.
 
@@ -40,7 +41,7 @@ This repository contains the frozen Architecture v2 baseline and the staged Slic
 ## Non-negotiable boundaries
 
 - Observation is not Evidence; Evidence is not Mastery; Assessment is not Decision.
-- Learning Claim is not Competency; exposure, practice opportunity, and evidence opportunity are distinct.
+- Learning Claim is not Competency; exposure, practice opportunity, and evidence opportunity are distinct; an activity is not automatically a valid Performance Opportunity.
 - Evidence existence is not sufficiency; historical evidence is not current confidence.
 - Curriculum is not Learner State; Knowledge is not Performance.
 - Weakness is not Bottleneck; Unknown is not Weak; Skipped is not Failed.
@@ -65,13 +66,13 @@ This repository contains the frozen Architecture v2 baseline and the staged Slic
 5. Read the Application Architecture and API DTO Contract before controllers, clients, jobs, or auth integration.
 6. Read Content Authoring before changing package/item lifecycle or publishing behavior.
 7. Read UI Architecture and Design System together before implementing learner or authoring surfaces.
-8. Use [ADR-007](docs/08-decisions/ADR-007-architecture-consolidation-v2.md) for the v2 refinements.
-9. Implement Slice 01 through checkpoints 1A–1F before expanding; after Slices 01–03, prioritize curriculum/content and real-learner testing over horizontal architecture.
-10. Use the [post-Slice 01 roadmap](docs/09-implementation-readiness/post-slice-01-roadmap.md) for the concrete gates and work order after 01F.
+8. Use [ADR-009](docs/08-decisions/ADR-009-architecture-consolidation-v3.md) for Consolidation v3.
+9. Use the [implementation map](docs/09-implementation/README.md) for audited status and milestone gates.
+10. Build toward [M1 — 4-Week Learning MVP](docs/09-implementation/m1-four-week-learning/overview.md), prioritizing curriculum/content and real-learner validation over speculative platform expansion.
 
 ## Implemented checkpoint
 
-Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
+The source audit on 2026-09-25 rates 01A–01E `DONE` and 01F `PARTIAL`. See the [evidence-backed audit](docs/09-implementation/m0-kernel/slice-01/README.md). Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
 
 Slice 01B adds versioned curriculum hierarchy, bounded competencies/relations, immutable published package/item definitions, ItemFamily exposure boundaries, a learner-safe lesson endpoint, and lesson rendering. ADR-008 keeps Practice and Assessment semantically distinct inside one versioned LearningItem lifecycle.
 
@@ -96,4 +97,4 @@ Use two Vercel Projects from this monorepo, with root directories `apps/api` and
 
 ## Deliberate exclusions
 
-Slice 01F remains incomplete pending a live duplicate-submit/retry check and a second-learner/auth-failure isolation check. These paths pass the disposable PostgreSQL/HTTP suite, but have not been repeated with real Clerk identities against Supabase. Vercel Preview and production Clerk keys also remain to be configured and verified. Placement, audio, AI evaluation, retention, transfer, and later slices remain outside this checkpoint.
+Slice 01F remains partial pending a live duplicate-submit/retry check and a second-learner/auth-failure isolation check. These paths pass the disposable PostgreSQL/HTTP suite, but have not been repeated with real Clerk identities against Supabase. Vercel Preview and frontend/accessibility verification also remain open. M1 retention, transfer, recovery, multi-skill content and the 28-day journey are designed, not implemented.

@@ -77,3 +77,15 @@ Slice 01 Evidence v0 requires source observation/content version, learner, compe
 - replay-assisted listening is not first-pass listening.
 - transcript analysis cannot establish pronunciation.
 - correction after full answer reveal is not independent learning evidence.
+# Consolidation v3 evidence contract
+
+Evidence sufficiency is a profile, not a score: quantity, independence, breadth, recency, retention, transfer, source trust, technical validity and construct coverage remain visible. `ItemFamily` exposure prevents memorized variants from being counted as breadth. Feedback and all support retain provenance and timing; AI-suggested/inserted text is not learner production.
+
+Lineage is preserved end to end:
+
+```text
+State inference <- Evidence <- Observation <- Evaluation
+<- Performance <- Performance Opportunity <- versioned content
+```
+
+Invalid/quarantined content or evaluator defects do not delete history. They invalidate or supersede affected evidence and trigger explicit reprojection. Immediate performance, delayed retention, successful relearning and near/far transfer are separate evidence meanings.

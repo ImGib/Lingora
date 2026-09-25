@@ -81,3 +81,8 @@ DailyPlan 1--N PlanBlock 1--N Attempt
 - LearningClaim != Competency; Curriculum != Calendar; Evidence existence != sufficiency.
 - AI contributions never masquerade as learner-authored production.
 - Domain objects have no infrastructure SDK dependencies.
+# Consolidation v3 additions
+
+The domain vocabulary includes `PerformanceOpportunity`, `LearningEpisode`, verification probe, evidence sufficiency/coverage, content health/quarantine and `DecisionTrace`. These are semantic contracts first; they become entities/tables only when identity, lifecycle, audit or query needs justify persistence.
+
+Curriculum, content/package, evaluator and inference/decision policy versions evolve independently. A consequential decision records their relevant versions or digests. Learner override is a first-class orchestration fact and never alters historical performance or inferred ability.

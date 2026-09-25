@@ -76,3 +76,18 @@ Eligible actions may then be ranked by goal impact, critical-path relevance, evi
 ## Completion contract
 
 A kernel run never equates “finished activity” with “learned.” It records what happened and creates the next valid action. If evaluation is asynchronous, the learner receives a provisional continuation that cannot falsely update mastery.
+# Consolidation v3 kernel extension
+
+The canonical kernel now makes opportunity explicit:
+
+```text
+Language Model -> Competency -> Learning Claim
+-> Exposure | Practice Opportunity | Evidence Opportunity
+-> Performance Opportunity -> Performance -> Evaluation
+-> Observation -> Evidence -> Learner State inference
+-> DecisionTrace -> Learning Episode / Next Action
+```
+
+`PerformanceOpportunity` carries the target claim, conditions, support allowance/use, modality, context, difficulty, transfer distance, expected independence, time condition and technical validity. `LearningEpisode` groups coherent work around a communicative goal and may span acquisition, practice, application, transfer, review and recovery. Verification probes gather discriminating evidence before diagnosis or high-cost intervention.
+
+The kernel operates at immediate, session/day, episode/week and milestone decision horizons. Evidence burden and required reliability increase at each horizon.

@@ -67,3 +67,6 @@ The Learner Learning Loop changes capability through instruction, practice, feed
 ## Article 16 — Preserve agency without falsifying state
 
 Skip, defer, replace, and explore are legitimate learner choices. DailyPlan owns sequence and NextAction is its preferred executable projection; overrides change orchestration, not historical performance or capability.
+# Consolidation v3 clarification
+
+This constitution is read with ADR-009. In addition to the invariants below: an activity is not automatically a valid `PerformanceOpportunity`; learner state is a falsifiable inference rather than a learner fact; and the evidence burden must increase with the impact and horizon of a decision. Privacy, security, accessibility, content health, degraded operation and idempotency are learning-validity requirements because failures in them can corrupt opportunity or evidence meaning.
