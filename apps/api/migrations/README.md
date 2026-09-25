@@ -1,6 +1,6 @@
 # Database migrations
 
-Apply SQL files in lexical order to the Supabase PostgreSQL database with the platform SQL editor or a PostgreSQL migration runner. Slice 01A intentionally contains only `learners`, `identity_accounts`, and `profiles`.
+Canonical Supabase migrations live under `../supabase/migrations` and apply in lexical timestamp order. Slice 01A contains only `learners`, `identity_accounts`, and `profiles`; Slice 01B adds only curriculum, competency, and versioned content definitions.
 
 The API uses `DATABASE_URL`; `SUPABASE_URL` and a service-role key are not required because this slice does not use the Supabase SDK or Storage.
 

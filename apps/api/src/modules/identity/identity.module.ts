@@ -23,5 +23,6 @@ import { MeController } from './me.controller.js';
     { provide: IDENTITY_REPOSITORY, useClass: PostgresIdentityRepository },
     { provide: PROVIDER_IDENTITY_VERIFIER, useClass: ClerkIdentityVerifier },
   ],
+  exports: [IdentityResolver, PROVIDER_IDENTITY_VERIFIER],
 })
 export class IdentityModule {}

@@ -1,4 +1,4 @@
-import { meResponseSchema, type MeResponseDto, type UpdateProfileDto } from '@lingora/contracts';
+import { lessonResponseSchema, meResponseSchema, type LessonDto, type MeResponseDto, type UpdateProfileDto } from '@lingora/contracts';
 
 function apiUrl(): string {
   const value = process.env.NEXT_PUBLIC_API_URL;
@@ -25,4 +25,12 @@ export function getMe(token: string): Promise<MeResponseDto> {
 
 export function updateProfile(token: string, patch: UpdateProfileDto): Promise<MeResponseDto> {
   return requestMe(token, { method: 'PATCH', body: JSON.stringify(patch) });
+}
+
+export async function getLesson(token: string, lessonId: string): Promise<LessonDto> {
+  const response = await fetch(`${apiUrl()}/v1/lessons/${encodeURIComponent(lessonId)}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) throw new Error(response.status === 404 ? 'Lesson unavailable.' : 'Unable to load lesson.');
+  return lessonResponseSchema.parse(await response.json()).data;
 }

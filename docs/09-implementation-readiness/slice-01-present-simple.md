@@ -1,7 +1,7 @@
 # Implementation Readiness — Slice 01: Present Simple Third-Person Singular
 
 **Status:** DEFINED  
-**Implementation:** 01A IMPLEMENTED, LIVE VERIFICATION PENDING; 01B–01F NOT STARTED
+**Implementation:** 01A–01B IMPLEMENTED, LIVE VERIFICATION PENDING; 01C–01F NOT STARTED
 
 Slice 01 is the smallest end-to-end proof of the Lingora kernel. It is not an MCQ demo and does not authorize unrelated platform work.
 
@@ -19,7 +19,7 @@ Each checkpoint must pass its focused integration/contract tests before the next
 | Checkpoint | Proof |
 |---|---|
 | 1A Identity + Profile | Clerk subject idempotently resolves to Lingora LearnerId; minimal distinct locale/language/timezone preferences round-trip |
-| 1B Curriculum + Lesson rendering | real hierarchy and published package render safely; no learner facts/intelligence required |
+| 1B Curriculum + Lesson rendering | real hierarchy and published package render safely through a learner-safe DTO; unified LearningItem model follows ADR-008; no learner facts/intelligence required |
 | 1C Attempt + Response + deterministic evaluation | save/submit/support/idempotency and source-near evaluation work with exact versions |
 | 1D Observation + Evidence + CompetencyState | minimal Evidence v0 and semantic state projection preserve lineage and uncertainty |
 | 1E Planner + Dashboard | DailyPlan owns sequence; compact dashboard renders preferred NextAction and reason code |

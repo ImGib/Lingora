@@ -27,7 +27,7 @@ AssessmentItem  -> AssessmentItemVersion 1, 2, ...
 
 Attempts pin `learning_package_version_id` and every delivered `assessment_item_version_id` at start. A publication while an attempt is in progress cannot replace its content or answer definition. Archived referenced versions remain addressable; published referenced content is not hard-deleted.
 
-Before the first content migration, resolve whether practice interactions and assessment evidence need distinct `PracticeItem` and `AssessmentItem` roots or one versioned item with explicit purpose/evidence eligibility. The decision must preserve exact delivery version, answer/rubric secrecy where applicable, support policy, and evidence-opportunity meaning; table naming must not decide pedagogy.
+ADR-008 resolves the first content migration to one versioned `LearningItem` model with explicit purpose and evidence eligibility. This shared lifecycle does not collapse Practice into Assessment; it preserves exact delivery version, answer/rubric secrecy where applicable, support policy, benchmark isolation, and evidence-opportunity meaning.
 
 ## Authoring sequence
 

@@ -35,3 +35,36 @@ export type ProfileDto = z.infer<typeof profileSchema>;
 export type UpdateProfileDto = z.infer<typeof updateProfileSchema>;
 export type MeDataDto = z.infer<typeof meDataSchema>;
 export type MeResponseDto = z.infer<typeof meResponseSchema>;
+
+export const lessonActivitySchema = z.object({
+  id: z.uuid(),
+  code: z.string(),
+  type: z.enum(['INSTRUCTION', 'RECOGNITION', 'CONTROLLED_PRACTICE', 'INDEPENDENT_CHECK', 'REFLECTION']),
+  title: z.string(),
+  position: z.number().int().nonnegative(),
+  content: z.record(z.string(), z.unknown()),
+  items: z.array(
+    z.object({
+      id: z.uuid(),
+      versionId: z.uuid(),
+      responseType: z.enum(['SINGLE_CHOICE', 'SHORT_TEXT']),
+      prompt: z.record(z.string(), z.unknown()),
+      supportPolicy: z.record(z.string(), z.unknown()),
+    }),
+  ),
+});
+
+export const lessonResponseSchema = z.object({
+  data: z.object({
+    id: z.uuid(),
+    code: z.string(),
+    title: z.string(),
+    summary: z.string(),
+    packageVersionId: z.uuid(),
+    packageVersion: z.number().int().positive(),
+    activities: z.array(lessonActivitySchema),
+  }),
+  meta: z.object({ requestId: z.uuid() }),
+});
+
+export type LessonDto = z.infer<typeof lessonResponseSchema>['data'];

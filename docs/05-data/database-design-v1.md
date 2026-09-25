@@ -77,7 +77,7 @@ Slice 01 deliberately defers `artifacts`, `artifact_versions`, `evaluation_runs`
 - `learning_packages` owns stable package identity; `learning_package_versions` owns monotonic version number, lifecycle/readiness, policy/configuration, provenance, and publication timestamps.
 - `activities(config JSONB)` belongs to an exact package version.
 - `content_objects`, `content_competencies`, `activity_content`.
-- Before Migration C, decide whether practice interactions and assessment items share one versioned item model with explicit purpose/evidence eligibility or need distinct `PracticeItem` and `AssessmentItem` roots. Do not let the existing name decide semantics.
+- ADR-008 selects one `learning_items` / `learning_item_versions` model with explicit purpose and evidence eligibility for Migration C. Practice and Assessment remain semantically distinct despite sharing lifecycle persistence.
 - `item_families` express shared construct/generation constraints and exposure/memorization risk; authored difficulty is definition data while empirical difficulty is a versioned aggregate/projection requiring adequate samples. Delivered attempts/responses reference exact item versions.
 - `assets`: metadata/reference only; binary lives in object storage.
 

@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 describe('Slice 01A migration scope', () => {
   it('creates only identity/profile tables', () => {
-    const path = fileURLToPath(new URL('../migrations/0001_foundation_identity.sql', import.meta.url));
+    const path = fileURLToPath(new URL('../supabase/migrations/20260924000000_slice_01a_foundation_identity.sql', import.meta.url));
     const sql = readFileSync(path, 'utf8');
     const tables = [...sql.matchAll(/CREATE TABLE\s+([a-z_]+)/gi)].map((match) => match[1]);
     expect(tables).toEqual(['learners', 'identity_accounts', 'profiles']);
@@ -12,7 +12,7 @@ describe('Slice 01A migration scope', () => {
   });
 
   it('keeps identity tables private from Supabase Data API roles', () => {
-    const path = fileURLToPath(new URL('../migrations/0001_foundation_identity.sql', import.meta.url));
+    const path = fileURLToPath(new URL('../supabase/migrations/20260924000000_slice_01a_foundation_identity.sql', import.meta.url));
     const sql = readFileSync(path, 'utf8');
     for (const table of ['learners', 'identity_accounts', 'profiles']) {
       expect(sql).toContain(`ALTER TABLE ${table} ENABLE ROW LEVEL SECURITY`);

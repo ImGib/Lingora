@@ -8,3 +8,4 @@ coverage/
 !.env.example
 *.tsbuildinfo
 pnpm-debug.log*
+**/supabase/.temp/
