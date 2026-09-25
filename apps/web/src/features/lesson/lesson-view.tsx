@@ -3,10 +3,12 @@
 import { useAuth } from '@clerk/nextjs';
 import type { LessonDto } from '@lingora/contracts';
 import { useEffect, useState } from 'react';
-import { getLesson } from '@/lib/api';
+import { useRouter } from 'next/navigation';
+import { getLesson, startAttempt } from '@/lib/api';
 
 export function LessonView({ lessonId }: { lessonId: string }) {
   const { getToken, isLoaded, isSignedIn } = useAuth();
+  const router = useRouter();
   const [lesson, setLesson] = useState<LessonDto | null>(null);
   const [message, setMessage] = useState('Preparing your lesson…');
 
@@ -25,6 +27,14 @@ export function LessonView({ lessonId }: { lessonId: string }) {
 
   if (!lesson) return <section className="card" aria-live="polite">{message}</section>;
   const text = (value: unknown) => typeof value === 'string' ? value : '';
+  async function begin() {
+    try {
+      setMessage('Opening your practice…');
+      const token = await getToken(); if (!token) throw new Error('Please sign in again.');
+      const attempt = await startAttempt(token, lessonId);
+      router.push(`/attempts/${attempt.id}`);
+    } catch (error) { setMessage(error instanceof Error ? error.message : 'Unable to start practice.'); }
+  }
   return (
     <article className="lesson-stack">
       <header className="section-heading">
@@ -48,6 +58,8 @@ export function LessonView({ lessonId }: { lessonId: string }) {
           ))}
         </section>
       ))}
+      <p className="status" role="status">{message}</p>
+      <button className="button primary" onClick={() => void begin()}>Start or resume practice</button>
     </article>
   );
 }

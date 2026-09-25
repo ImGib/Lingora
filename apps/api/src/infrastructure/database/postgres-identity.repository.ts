@@ -76,6 +76,14 @@ export class PostgresIdentityRepository implements IdentityRepository {
     return result.rows[0] ? this.mapProfile(result.rows[0]) : null;
   }
 
+  async hasActiveGoal(learnerId: string): Promise<boolean> {
+    const result = await this.pool.query<{ exists: boolean }>(
+      `SELECT EXISTS (SELECT 1 FROM learner_goals WHERE learner_id = $1 AND status = 'ACTIVE') AS exists`,
+      [learnerId],
+    );
+    return result.rows[0]?.exists === true;
+  }
+
   async updateProfile(learnerId: string, patch: UpdateProfileDto): Promise<LearnerProfile> {
     const fields: string[] = [];
     const values: unknown[] = [];

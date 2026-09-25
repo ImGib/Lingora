@@ -31,12 +31,17 @@ export class ApiExceptionFilter implements ExceptionFilter {
             ? exception.message
             : 'Request failed.';
 
+    const codes: Record<number, string> = {
+      400: 'VALIDATION_FAILED', 401: 'AUTHENTICATION_REQUIRED', 403: 'FORBIDDEN',
+      404: 'NOT_FOUND', 409: 'INVALID_TRANSITION', 422: 'RESPONSE_INCOMPLETE',
+    };
     response.status(status).json({
       error: {
-        code: status === 401 ? 'AUTHENTICATION_REQUIRED' : status === 400 ? 'VALIDATION_FAILED' : 'REQUEST_FAILED',
+        code: codes[status] ?? 'REQUEST_FAILED',
         message,
         retryable: status >= 500,
         requestId,
+        ...(status === 422 ? { nextAction: 'RESUME_ATTEMPT' } : {}),
         ...(detail && 'issues' in detail ? { issues: detail.issues } : {}),
       },
     });

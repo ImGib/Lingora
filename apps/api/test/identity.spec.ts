@@ -31,6 +31,11 @@ class DurableIdentityStore implements IdentityRepository {
     return Promise.resolve(this.learners.get(learnerId) ?? null);
   }
 
+  hasActiveGoal(learnerId: string): Promise<boolean> {
+    void learnerId;
+    return Promise.resolve(false);
+  }
+
   updateProfile(
     learnerId: string,
     patch: UpdateProfileDto,

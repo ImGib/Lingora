@@ -29,7 +29,8 @@ export class PostgresCurriculumRepository implements CurriculumRepository {
        FROM lessons l
        JOIN learning_packages lp ON lp.lesson_id = l.id
        JOIN learning_package_versions lpv ON lpv.learning_package_id = lp.id
-       WHERE l.id = $1 AND l.status = 'PUBLISHED' AND lpv.status = 'PUBLISHED'`,
+       WHERE l.id = $1 AND l.status = 'PUBLISHED' AND lpv.status = 'PUBLISHED'
+       ORDER BY lpv.version DESC LIMIT 1`,
       [lessonId],
     );
     const lesson = lessonResult.rows[0];
@@ -76,7 +77,7 @@ export class PostgresCurriculumRepository implements CurriculumRepository {
             versionId: item.version_id,
             responseType: item.response_type,
             prompt: item.prompt,
-            supportPolicy: item.support_policy,
+            supportPolicy: { hintAllowed: item.support_policy.hintAllowed === true },
           })),
       })),
     };

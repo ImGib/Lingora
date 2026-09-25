@@ -15,10 +15,13 @@ export class GetMe {
   async execute(learnerId: string): Promise<MeDataDto> {
     const learner = await this.identities.getLearnerProfile(learnerId);
     if (!learner) throw new NotFoundException('Learner not found');
+    const hasGoal = await this.identities.hasActiveGoal(learnerId);
     return {
       id: learner.learnerId,
       profile: learner.profile,
-      onboarding: { status: 'INCOMPLETE', nextStep: 'SET_GOAL' },
+      onboarding: hasGoal
+        ? { status: 'READY_FOR_LEARNING', nextStep: 'OPEN_TODAY_PLAN' }
+        : { status: 'INCOMPLETE', nextStep: 'SET_GOAL' },
     };
   }
 }

@@ -9,6 +9,7 @@ export type LearnerProfile = Readonly<{
 export interface IdentityRepository {
   resolveOrProvision(provider: string, providerUserId: string): Promise<string>;
   getLearnerProfile(learnerId: string): Promise<LearnerProfile | null>;
+  hasActiveGoal(learnerId: string): Promise<boolean>;
   updateProfile(learnerId: string, patch: UpdateProfileDto): Promise<LearnerProfile>;
 }
 
