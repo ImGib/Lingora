@@ -1,7 +1,7 @@
 # Lingora — Architecture Baseline v2
 
 **Document set:** Architecture Consolidation v2
-**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION; 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LOCAL AUTHENTICATED E2E VERIFIED; LIVE SUPABASE E2E PENDING
+**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION; 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LIVE SUPABASE CORE FLOW VERIFIED; 01F FINAL GATES PENDING
 **Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
 
 This repository contains the frozen Architecture v2 baseline and the staged Slice 01 implementation. Consolidation v2 refines the accepted learning, curriculum, domain, data, application, content-authoring, UI, and infrastructure decisions without speculatively materializing every concept as a table.
@@ -22,7 +22,7 @@ This repository contains the frozen Architecture v2 baseline and the staged Slic
 | UI & Information Architecture v1 | **VALIDATED** |
 | Design System & Component Architecture v1 | **VALIDATED** |
 | Visual identity — Soft Study Companion | **LOCKED** |
-| Implementation Readiness — Slice 01 | **01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LOCAL AUTHENTICATED E2E VERIFIED; LIVE SUPABASE E2E PENDING** |
+| Implementation Readiness — Slice 01 | **01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LIVE SUPABASE CORE FLOW VERIFIED; 01F FINAL GATES PENDING** |
 | Architecture Gap Audit / Consolidation v2 | **ACCEPTED** |
 
 `FROZEN` means implementation must conform to the document. A change to a frozen invariant requires an explicit decision record and impact review; it does not mean the design can never evolve.
@@ -74,7 +74,7 @@ Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, C
 
 Slice 01B adds versioned curriculum hierarchy, bounded competencies/relations, immutable published package/item definitions, ItemFamily exposure boundaries, a learner-safe lesson endpoint, and lesson rendering. ADR-008 keeps Practice and Assessment semantically distinct inside one versioned LearningItem lifecycle.
 
-Slice 01B package v2 adds the missing controlled-practice activity and a hint delivered only after support use is recorded. It retains package v1 for already-pinned attempts. Slices 01C–01E add exact-version attempts, saved responses, support use, deterministic submit with idempotency, source-near observations, separate evidence and conservative competency state, plus a versioned goal, daily plan, dashboard action and resume path. Slice 01F adds persisted study sessions, explicit pause/resume/complete/abandon transitions, and an attempt-to-session link. The dashboard and practice UI connect these steps. Typecheck, lint, unit tests, build, and the disposable PostgreSQL integration/HTTP suite pass. All eight Slice 01 migration groups are applied to the Lingora Supabase project; its `public` schema contains 33 tables with RLS enabled and no `anon`/`authenticated` table SELECT grants. A disposable Clerk development user completed the browser flow against local PostgreSQL: sign in, goal and plan, lesson, saved responses across reload, hint, submit, feedback, updated evidence/action, and pause/resume across reload. The live Supabase-backed browser run remains pending.
+Slice 01B package v2 adds the missing controlled-practice activity and a hint delivered only after support use is recorded. It retains package v1 for already-pinned attempts. Slices 01C–01E add exact-version attempts, saved responses, support use, deterministic submit with idempotency, source-near observations, separate evidence and conservative competency state, plus a versioned goal, daily plan, dashboard action and resume path. Slice 01F adds persisted study sessions, explicit pause/resume/complete/abandon transitions, and an attempt-to-session link. The dashboard and practice UI connect these steps. Typecheck, lint, unit tests, build, and the disposable PostgreSQL integration/HTTP suite pass. All eight Slice 01 migration groups are applied to the Lingora Supabase project; its `public` schema contains 33 tables with RLS enabled and no `anon`/`authenticated` table SELECT grants. A disposable Clerk development user completed the browser flow against both local PostgreSQL and live Supabase: sign in, goal and plan, lesson, saved responses across reload, hint, submit, feedback, updated evidence/action, and pause/resume across reload. The live fixture was removed after verification.
 
 Slice 01A was live-verified on 2026-09-25 against a Clerk development instance and Supabase PostgreSQL: login, idempotent learner provisioning, profile read/update/reload, unauthenticated rejection, schema constraints, RLS, and revoked browser-role grants all passed. The temporary Clerk and database fixtures were removed after verification.
 
@@ -91,8 +91,8 @@ The API fails at startup when required server configuration is absent. `SUPABASE
 
 ## Deploy
 
-Use two Vercel Projects from this monorepo, with root directories `apps/api` and `apps/web`. Follow the [Vercel deployment guide](docs/10-deployment-vercel.md) for build settings, environment variables, database preflight, and Preview verification. A live Supabase-backed deployment remains gated by the current `28P01` database authentication failure.
+Use two Vercel Projects from this monorepo, with root directories `apps/api` and `apps/web`. Follow the [Vercel deployment guide](docs/10-deployment-vercel.md) for build settings, environment variables, database preflight, and Preview verification. The Supabase database preflight now passes; no Vercel Preview has been deployed or verified yet.
 
 ## Deliberate exclusions
 
-Slice 01F remains incomplete until the same authenticated browser flow passes against the live Supabase database. The current API connection to its session pooler returns password authentication error `28P01`, despite a database password reset and URL update. Placement, audio, AI evaluation, retention, transfer, and later slices remain outside this checkpoint.
+Slice 01F remains incomplete pending a live duplicate-submit/retry check and a second-learner/auth-failure isolation check. These paths pass the disposable PostgreSQL/HTTP suite, but have not been repeated with real Clerk identities against Supabase. Vercel Preview and production Clerk keys also remain to be configured and verified. Placement, audio, AI evaluation, retention, transfer, and later slices remain outside this checkpoint.

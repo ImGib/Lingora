@@ -37,7 +37,7 @@ Product intent
 | Content authoring and publishing | `03-curriculum/content-authoring-publishing-v1.md` | FROZEN |
 | UI and Information Architecture | `07-ui/ui-architecture.md` | VALIDATED |
 | Design System and components | `07-ui/design-system-v1.md` | VALIDATED |
-| Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LOCAL AUTHENTICATED E2E VERIFIED; LIVE SUPABASE E2E PENDING |
+| Implementation Readiness — Slice 01 | `09-implementation-readiness/slice-01-present-simple.md` | 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LIVE SUPABASE CORE FLOW VERIFIED; 01F FINAL GATES PENDING |
 | Vercel deployment | `10-deployment-vercel.md` | LOCAL BUILD VERIFIED; CLOUD PREVIEW PENDING |
 | Architecture Gap Audit / Consolidation v2 | `08-decisions/ADR-007-architecture-consolidation-v2.md` | ACCEPTED |
 | Unified Practice/Assessment item model | `08-decisions/ADR-008-unified-learning-item-model.md` | ACCEPTED |
@@ -58,4 +58,4 @@ Do not collapse these layers into one table, score, endpoint, or UI percentage.
 
 ## Current implementation gate
 
-Architecture v2 is frozen for implementation. Slice 01A Foundation & Identity is live-verified against Clerk and Supabase PostgreSQL. Checkpoints 01B–01F are implemented and passed local authenticated browser verification, PostgreSQL integration, and HTTP contracts. All eight migration groups are applied to the Lingora Supabase project. Live Supabase-backed E2E remains blocked by API database password error `28P01`. ADR-008 resolves PracticeItem versus AssessmentItem.
+Architecture v2 is frozen for implementation. Slice 01A Foundation & Identity is live-verified against Clerk and Supabase PostgreSQL. Checkpoints 01B–01F are implemented and passed local and live Supabase authenticated core-flow verification, plus PostgreSQL integration and HTTP contracts. All eight migration groups are applied to the Lingora Supabase project. The remaining 01F gates are live retry/idempotency and second-learner/auth-failure isolation; Vercel Preview is not deployed. ADR-008 resolves PracticeItem versus AssessmentItem.

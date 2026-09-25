@@ -1,7 +1,7 @@
 # Implementation Readiness — Slice 01: Present Simple Third-Person Singular
 
 **Status:** DEFINED  
-**Implementation:** 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LOCAL AUTHENTICATED E2E VERIFIED; LIVE SUPABASE E2E PENDING
+**Implementation:** 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, LIVE SUPABASE CORE FLOW VERIFIED; 01F FINAL GATES PENDING
 
 Slice 01 is the smallest end-to-end proof of the Lingora kernel. It is not an MCQ demo and does not authorize unrelated platform work.
 
@@ -27,7 +27,7 @@ Each checkpoint must pass its focused integration/contract tests before the next
 
 This staging changes delivery order, not the final vertical-slice contract.
 
-As of 2026-09-25, all eight Slice 01 migration groups are applied to the Lingora Supabase project. The disposable PostgreSQL integration/HTTP suite passes for sessions, attempts, planning, idempotency, lineage, ownership, and RLS. A disposable Clerk development user completed the browser flow against local PostgreSQL: sign in, goal/plan, lesson, response save and reload, hint, submit and feedback, updated dashboard, and session pause/resume across reload. The local test database recorded one session, one attempt, three responses, one support use, three observations, three evidence records, and three competency states. The same flow against live Supabase is pending because the API connection to its session pooler still returns `28P01` after a password reset.
+As of 2026-09-25, all eight Slice 01 migration groups are applied to the Lingora Supabase project. The disposable PostgreSQL integration/HTTP suite passes for sessions, attempts, planning, idempotency, lineage, ownership, and RLS. A disposable Clerk development user completed the browser flow against both local PostgreSQL and live Supabase: sign in, goal/plan, lesson, response save and reload, hint, submit and feedback, updated dashboard, and session pause/resume across reload. The live database recorded one session, one attempt, three responses, one support use, three observations, three evidence records, and three competency states. The test user and its rows were removed after verification. To close 01F, repeat duplicate submit/retry and second-learner/auth-failure isolation with real Clerk identities against Supabase.
 
 ### Checkpoint 01A freeze
 
