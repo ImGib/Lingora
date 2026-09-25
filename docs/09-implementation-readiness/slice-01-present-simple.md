@@ -1,7 +1,7 @@
 # Implementation Readiness — Slice 01: Present Simple Third-Person Singular
 
 **Status:** DEFINED  
-**Implementation:** 01A LIVE VERIFIED; 01B–01E IMPLEMENTED, LIVE VERIFICATION PENDING; 01F PENDING
+**Implementation:** 01A LIVE VERIFIED; 01B–01E IMPLEMENTED, LIVE VERIFICATION PENDING; 01F POSTGRES/HTTP VERIFIED, AUTHENTICATED E2E PENDING
 
 Slice 01 is the smallest end-to-end proof of the Lingora kernel. It is not an MCQ demo and does not authorize unrelated platform work.
 

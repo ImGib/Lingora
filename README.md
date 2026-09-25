@@ -1,7 +1,7 @@
 # Lingora — Architecture Baseline v2
 
 **Document set:** Architecture Consolidation v2
-**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION; 01A LIVE VERIFIED; 01B–01E IMPLEMENTED, LIVE VERIFICATION PENDING; 01F PENDING
+**Status:** ARCHITECTURE V2 — FROZEN FOR IMPLEMENTATION; 01A LIVE VERIFIED; 01B–01E IMPLEMENTED, LIVE VERIFICATION PENDING; 01F POSTGRES/HTTP VERIFIED, AUTHENTICATED E2E PENDING
 **Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
 
 This repository contains the frozen Architecture v2 baseline and the staged Slice 01 implementation. Consolidation v2 refines the accepted learning, curriculum, domain, data, application, content-authoring, UI, and infrastructure decisions without speculatively materializing every concept as a table.
@@ -22,7 +22,7 @@ This repository contains the frozen Architecture v2 baseline and the staged Slic
 | UI & Information Architecture v1 | **VALIDATED** |
 | Design System & Component Architecture v1 | **VALIDATED** |
 | Visual identity — Soft Study Companion | **LOCKED** |
-| Implementation Readiness — Slice 01 | **01A LIVE VERIFIED; 01B–01E IMPLEMENTED, LIVE VERIFICATION PENDING; 01F PENDING** |
+| Implementation Readiness — Slice 01 | **01A LIVE VERIFIED; 01B–01E IMPLEMENTED, LIVE VERIFICATION PENDING; 01F POSTGRES/HTTP VERIFIED, AUTHENTICATED E2E PENDING** |
 | Architecture Gap Audit / Consolidation v2 | **ACCEPTED** |
 
 `FROZEN` means implementation must conform to the document. A change to a frozen invariant requires an explicit decision record and impact review; it does not mean the design can never evolve.
@@ -84,6 +84,8 @@ Slice 01A was live-verified on 2026-09-25 against a Clerk development instance a
 2. Copy `apps/web/.env.example` to `apps/web/.env.local` and `apps/api/.env.example` to `apps/api/.env`, then replace placeholders with the same Clerk instance and a PostgreSQL connection.
 3. Apply the timestamped migrations under `apps/api/supabase/migrations` in lexical order to the target Supabase PostgreSQL database. Use a disposable database first for integration verification.
 4. Run `pnpm dev`, then open `http://localhost:3000`.
+
+To repeat the backend verification, set `TEST_DATABASE_URL` to a PostgreSQL database reserved for tests and run `pnpm --filter @lingora/api verify:slice01`. The command creates an isolated schema, applies all migrations, checks RLS and learner ownership, exercises the learning flow and HTTP contracts with a test identity verifier, then drops that schema. The connection needs permission to create schemas (and to create the `anon`/`authenticated` roles if the database does not already have them). This check does not replace the real Clerk browser flow.
 
 The API fails at startup when required server configuration is absent. `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are intentionally absent: these checkpoints connect to PostgreSQL through `DATABASE_URL` and do not use Supabase Storage or the Supabase SDK.
 

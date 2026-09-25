@@ -13,6 +13,7 @@ export class AttemptsService {
   constructor(@Inject(DATABASE_POOL) private readonly pool: Pool, private readonly planning: PlanningService) {}
 
   async start(learnerId: string, lessonId: string) {
+    if (!await this.planning.getGoal(learnerId)) throw new ConflictException('Set a study goal before starting a lesson');
     const client = await this.pool.connect();
     try {
       await client.query('BEGIN');

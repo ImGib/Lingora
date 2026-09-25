@@ -14,11 +14,11 @@ export function AttemptView({ attemptId }: { attemptId: string }) {
   const [message, setMessage] = useState('Loading saved work…');
   const [busy, setBusy] = useState(false);
 
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (resetAnswers = true) => {
     const token = await getToken(); if (!token) throw new Error('Please sign in again.');
     const loaded = await getAttempt(token, attemptId);
     setAttempt(loaded);
-    setAnswers(Object.fromEntries(loaded.items.map((item) => [item.id, item.response ?? ''])));
+    if (resetAnswers) setAnswers(Object.fromEntries(loaded.items.map((item) => [item.id, item.response ?? ''])));
     setMessage('');
   }, [attemptId, getToken]);
   useEffect(() => {
@@ -31,7 +31,7 @@ export function AttemptView({ attemptId }: { attemptId: string }) {
     try {
       const token = await getToken(); if (!token) throw new Error('Please sign in again.');
       await saveResponse(token, attemptId, itemId, answers[itemId] ?? '');
-      await refresh(); setMessage('Saved. You can close this page and return later.');
+      await refresh(false); setMessage('Saved. You can close this page and return later.');
     } catch (error) { setMessage(error instanceof Error ? error.message : 'Unable to save.'); }
     finally { setBusy(false); }
   }
@@ -40,7 +40,7 @@ export function AttemptView({ attemptId }: { attemptId: string }) {
     setBusy(true); setMessage('');
     try { const token = await getToken(); if (!token) throw new Error('Please sign in again.');
       const hint = await revealHint(token, attemptId, itemId);
-      setHints((current) => ({ ...current, [itemId]: hint })); await refresh();
+      setHints((current) => ({ ...current, [itemId]: hint })); await refresh(false);
     } catch (error) { setMessage(error instanceof Error ? error.message : 'Hint unavailable.'); }
     finally { setBusy(false); }
   }
