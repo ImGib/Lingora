@@ -1,0 +1,6 @@
+{
+  "name": "@lingora/eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Workspace ESLint configuration is intentionally centralized at the repository root."
+}

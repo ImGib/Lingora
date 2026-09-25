@@ -1,0 +1,20 @@
+{
+  "name": "lingora",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm --filter @lingora/contracts build && pnpm --parallel --filter @lingora/api --filter @lingora/web dev",
+    "lint": "pnpm -r lint",
+    "test": "pnpm --filter @lingora/contracts build && pnpm -r test",
+    "typecheck": "pnpm --filter @lingora/contracts build && pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.70.1"
+  }
+}
