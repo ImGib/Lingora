@@ -21,6 +21,8 @@ import { PostgresIdentityRepository } from '../dist/infrastructure/database/post
 import { PostgresCurriculumRepository } from '../dist/infrastructure/database/postgres-curriculum.repository.js';
 import { PlanningService } from '../dist/modules/planning/planning.service.js';
 import { AttemptsService } from '../dist/modules/learning/attempts.service.js';
+import { SessionsService } from '../dist/modules/learning/sessions.service.js';
+import { SessionsController } from '../dist/modules/learning/sessions.controller.js';
 
 const connectionString = process.env.TEST_DATABASE_URL;
 if (!connectionString) throw new Error('TEST_DATABASE_URL must point to a disposable PostgreSQL database.');
@@ -77,7 +79,8 @@ try {
   assert.doesNotMatch(JSON.stringify(lesson), /accepted|answer_definition|For she, add -s/);
 
   const planning = new PlanningService(pool);
-  const attempts = new AttemptsService(pool, planning);
+  const sessions = new SessionsService(pool);
+  const attempts = new AttemptsService(pool, planning, sessions);
   assert.equal((await planning.dashboard(learnerA)).nextAction.type, 'SET_GOAL');
   const goal = await planning.setGoal(learnerA, { purpose: 'IELTS_ACADEMIC', studyMinutesPerDay: 20 });
   assert.equal(goal.goalVersion, 1);
@@ -87,6 +90,12 @@ try {
   assert.equal((await planning.dashboard(learnerA)).nextAction.type, 'OPEN_LESSON');
 
   const attempt = await attempts.start(learnerA, lessonId);
+  assert.ok(attempt.sessionId);
+  assert.equal((await sessions.current(learnerA)).id, attempt.sessionId);
+  await sessions.transition(learnerA, attempt.sessionId, 'pause');
+  assert.equal((await planning.dashboard(learnerA)).nextAction.type, 'RESUME_SESSION');
+  await assert.rejects(attempts.save(learnerA, attempt.id, attempt.items[0].id, 'works'));
+  await sessions.transition(learnerA, attempt.sessionId, 'resume');
   assert.equal((await attempts.start(learnerA, lessonId)).id, attempt.id);
   assert.equal(attempt.packageVersionId, lesson.packageVersionId);
   assert.doesNotMatch(JSON.stringify(attempt), /accepted|answer_definition|For she, add -s/);
@@ -118,6 +127,7 @@ try {
   assert.equal((await planning.dashboard(learnerA)).nextAction.type, 'START_ACTIVITY');
 
   const second = await attempts.start(learnerA, lessonId);
+  await assert.rejects(sessions.transition(learnerA, second.sessionId, 'complete'));
   await assert.rejects(attempts.submit(learnerA, second.id, 'submit-incomplete'));
   assert.equal((await attempts.get(learnerA, second.id)).status, 'IN_PROGRESS');
   assert.equal((await pool.query('SELECT count(*)::int AS n FROM observations WHERE attempt_id = $1', [second.id])).rows[0].n, 0);
@@ -132,10 +142,11 @@ try {
   await planning.setGoal(learnerB, { purpose: 'STUDY_ABROAD', studyMinutesPerDay: 15 });
   class HttpModule {}
   Module({
-    controllers: [LessonsController, AttemptsController, PlanningController],
+    controllers: [LessonsController, AttemptsController, SessionsController, PlanningController],
     providers: [
       AuthGuard, GetPublishedLesson,
       { provide: AttemptsService, useValue: attempts },
+      { provide: SessionsService, useValue: sessions },
       { provide: PlanningService, useValue: planning },
       { provide: CURRICULUM_REPOSITORY, useValue: new PostgresCurriculumRepository(pool) },
       { provide: PROVIDER_IDENTITY_VERIFIER, useValue: {
@@ -171,8 +182,12 @@ try {
   const httpReplay = await http.post(`/v1/attempts/${attemptB.id}/submit`)
     .set('Authorization','Bearer learner-b').set('Idempotency-Key','http-submit').expect(201);
   assert.equal(httpReplay.body.data.replayed, true);
+  const sessionB = await http.get('/v1/sessions/current').set('Authorization','Bearer learner-b').expect(200);
+  assert.equal(sessionB.body.data.id, attemptB.sessionId);
+  await http.post(`/v1/sessions/${attemptB.sessionId}/complete`).set('Authorization','Bearer learner-a').expect(404);
+  await http.post(`/v1/sessions/${attemptB.sessionId}/complete`).set('Authorization','Bearer learner-b').expect(201);
 
-  console.log('Slice 01 verification passed: PostgreSQL migrations/RLS, identity, content, goal/plan, attempts, idempotency, lineage, overrides, ownership and HTTP contracts.');
+  console.log('Slice 01 verification passed: PostgreSQL migrations/RLS, identity, content, sessions, goal/plan, attempts, idempotency, lineage, overrides, ownership and HTTP contracts.');
 } finally {
   if (app) await app.close();
   if (pool) await pool.end();

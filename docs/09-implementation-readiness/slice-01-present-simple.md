@@ -1,7 +1,7 @@
 # Implementation Readiness — Slice 01: Present Simple Third-Person Singular
 
 **Status:** DEFINED  
-**Implementation:** 01A LIVE VERIFIED; 01B–01E IMPLEMENTED, LIVE VERIFICATION PENDING; 01F POSTGRES/HTTP VERIFIED, AUTHENTICATED E2E PENDING
+**Implementation:** 01A LIVE VERIFIED; 01B–01F IMPLEMENTED, AUTHENTICATED E2E VERIFICATION PENDING
 
 Slice 01 is the smallest end-to-end proof of the Lingora kernel. It is not an MCQ demo and does not authorize unrelated platform work.
 
@@ -26,6 +26,8 @@ Each checkpoint must pass its focused integration/contract tests before the next
 | 1F Full E2E | login -> goal -> plan -> lesson -> submit -> state -> refreshed action, including resume/failure/security paths |
 
 This staging changes delivery order, not the final vertical-slice contract.
+
+As of 2026-09-25, all eight Slice 01 migration groups are applied to the Lingora Supabase project. The disposable PostgreSQL integration/HTTP suite passes for sessions, attempts, planning, idempotency, lineage, ownership, and RLS. Real Clerk keys render the landing and sign-up pages. The full authenticated browser flow is pending a working API database password (`28P01` on the current connection).
 
 ### Checkpoint 01A freeze
 

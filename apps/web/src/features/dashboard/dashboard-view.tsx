@@ -4,7 +4,7 @@ import { useAuth } from '@clerk/nextjs';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import type { DashboardDto, GoalInputDto } from '@lingora/contracts';
-import { completeBreak, createGoal, generatePlan, getDashboard, overrideBlock } from '@/lib/api';
+import { completeBreak, createGoal, generatePlan, getDashboard, overrideBlock, transitionSession } from '@/lib/api';
 
 export function DashboardView() {
   const { getToken, isLoaded, isSignedIn } = useAuth();
@@ -55,6 +55,16 @@ export function DashboardView() {
     finally { setBusy(false); }
   }
 
+  async function changeSession(action: 'pause' | 'resume' | 'complete') {
+    if (!dashboard?.session) return;
+    setBusy(true); setMessage('Updating your study session…');
+    try { const token = await getToken(); if (!token) throw new Error('Please sign in again.');
+      await transitionSession(token, dashboard.session.id, action); await refresh();
+      setMessage(action === 'pause' ? 'Session paused. Your saved answers are ready when you return.' : 'Session updated.');
+    } catch (error) { setMessage(error instanceof Error ? error.message : 'Unable to update session.'); }
+    finally { setBusy(false); }
+  }
+
   const action = dashboard?.nextAction;
   const href = action?.type === 'RESUME_ATTEMPT' || action?.type === 'VIEW_FEEDBACK'
     ? `/attempts/${action.target.attemptId}`
@@ -78,9 +88,16 @@ export function DashboardView() {
     {dashboard?.goal && <div className="lesson-stack">
       <section className="card"><p className="eyebrow">Next action · {action?.reasonCodes.join(', ')}</p>
         <h2>{action?.type.replaceAll('_', ' ')}</h2>
-        {href ? <Link className="button primary" href={href}>Continue</Link> : action?.type === 'OPEN_TODAY_PLAN'
+        {href ? <Link className="button primary" href={href}>Continue</Link> : action?.type === 'RESUME_SESSION'
+          ? <button className="button primary" onClick={() => void changeSession('resume')} disabled={busy}>Resume session</button>
+          : action?.type === 'FINISH_DAY' && dashboard.session
+            ? <button className="button primary" onClick={() => void changeSession('complete')} disabled={busy}>Finish study day</button>
+            : action?.type === 'OPEN_TODAY_PLAN'
           ? <button className="button primary" onClick={() => void createPlan()} disabled={busy}>Prepare today’s plan</button>
           : <p>Return when you are ready for the next study day.</p>}
+        {dashboard.session?.status === 'IN_PROGRESS' && action?.type !== 'FINISH_DAY' && <div className="row-actions">
+          <button className="button secondary" onClick={() => void changeSession('pause')} disabled={busy}>Pause session</button>
+        </div>}
       </section>
       <section className="card"><h2>Today’s sequence</h2>
         {dashboard.plan ? <ol>{dashboard.plan.blocks.map((block) => <li key={block.id}>

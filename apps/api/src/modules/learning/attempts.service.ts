@@ -3,14 +3,16 @@ import type { Pool, PoolClient } from 'pg';
 import { DATABASE_POOL } from '../../infrastructure/database/database.module.js';
 import { EVALUATOR_VERSION, EVIDENCE_POLICY_VERSION, evaluateGrammar, projectState } from '../../domain/learning/grammar-evaluator.js';
 import { PlanningService } from '../planning/planning.service.js';
+import { SessionsService } from './sessions.service.js';
 
-type AttemptRow = { id: string; lesson_id: string; package_version_id: string; status: 'IN_PROGRESS' | 'SUBMITTED' | 'EVALUATED'; idempotency_key: string | null; feedback: { items: FeedbackItem[] } | null };
+type AttemptRow = { id: string; lesson_id: string; package_version_id: string; session_id: string | null; status: 'IN_PROGRESS' | 'SUBMITTED' | 'EVALUATED'; idempotency_key: string | null; feedback: { items: FeedbackItem[] } | null };
 type ItemRow = { item_id: string; item_version_id: string; response_type: 'SINGLE_CHOICE' | 'SHORT_TEXT'; prompt: Record<string, unknown>; support_policy: Record<string, unknown>; answer_definition: { accepted?: string[] }; feedback_definition: { explanation?: string }; evidence_eligibility: 'NONE' | 'FORMATIVE' | 'SUMMATIVE'; provenance: string; item_family_id: string; value: string | null; first_value: string | null; used_support: boolean; competency_id: string | null; learning_claim: string | null; modality: string | null };
 type FeedbackItem = { itemId: string; code: string; correct: boolean; explanation: string };
 
 @Injectable()
 export class AttemptsService {
-  constructor(@Inject(DATABASE_POOL) private readonly pool: Pool, private readonly planning: PlanningService) {}
+  constructor(@Inject(DATABASE_POOL) private readonly pool: Pool, private readonly planning: PlanningService,
+    private readonly sessions: SessionsService) {}
 
   async start(learnerId: string, lessonId: string) {
     if (!await this.planning.getGoal(learnerId)) throw new ConflictException('Set a study goal before starting a lesson');
@@ -47,6 +49,7 @@ export class AttemptsService {
       );
       const count = await client.query<{ total: string }>('SELECT count(*)::text AS total FROM attempt_items WHERE attempt_id = $1', [attempt.id]);
       if (count.rows[0]?.total === '0') throw new UnprocessableEntityException('Published package has no answerable items');
+      const sessionId = await this.sessions.ensureActive(client, learnerId);
       await client.query(
         `UPDATE attempts SET plan_block_id = (
            SELECT pb.id FROM plan_blocks pb JOIN daily_plans dp ON dp.id = pb.plan_id
@@ -54,6 +57,7 @@ export class AttemptsService {
              AND pb.lesson_id = $3 AND pb.status = 'PENDING' ORDER BY pb.position LIMIT 1
          ) WHERE id = $1`, [attempt.id,learnerId,lessonId],
       );
+      await client.query('UPDATE attempts SET session_id = $2 WHERE id = $1', [attempt.id,sessionId]);
       await client.query('COMMIT');
       return this.get(learnerId, attempt.id);
     } catch (error) {
@@ -66,7 +70,7 @@ export class AttemptsService {
     const attempt = await this.findAttempt(this.pool, learnerId, attemptId);
     const items = await this.items(this.pool, attemptId);
     return {
-      id: attempt.id, lessonId: attempt.lesson_id, packageVersionId: attempt.package_version_id,
+      id: attempt.id, lessonId: attempt.lesson_id, packageVersionId: attempt.package_version_id, sessionId: attempt.session_id,
       status: attempt.status,
       items: items.map((item) => ({
         id: item.item_id, versionId: item.item_version_id, responseType: item.response_type,
@@ -214,7 +218,7 @@ export class AttemptsService {
 
   private async findAttempt(executor: Pick<Pool | PoolClient, 'query'>, learnerId: string, attemptId: string, lock = false): Promise<AttemptRow> {
     const result = await executor.query<AttemptRow>(
-      `SELECT id,lesson_id,package_version_id,status,idempotency_key,feedback FROM attempts WHERE id = $1 AND learner_id = $2${lock ? ' FOR UPDATE' : ''}`,
+      `SELECT id,lesson_id,package_version_id,session_id,status,idempotency_key,feedback FROM attempts WHERE id = $1 AND learner_id = $2${lock ? ' FOR UPDATE' : ''}`,
       [attemptId,learnerId],
     );
     if (!result.rows[0]) throw new NotFoundException('Attempt not found');
@@ -230,6 +234,10 @@ export class AttemptsService {
     try {
       await client.query('BEGIN');
       const attempt = await this.findAttempt(client, learnerId, attemptId, true);
+      if (attempt.session_id && attempt.status === 'IN_PROGRESS') {
+        const session = await client.query<{ status: string }>('SELECT status FROM sessions WHERE id = $1', [attempt.session_id]);
+        if (session.rows[0]?.status === 'PAUSED') throw new ConflictException('Resume your study session first');
+      }
       const result = await work(client, attempt);
       await client.query('COMMIT');
       return result;

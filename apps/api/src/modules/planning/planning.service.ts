@@ -9,6 +9,7 @@ type GoalRow = { id: string; version: number; purpose: string; target_band: stri
 type PlanRow = { id: string; local_date: string; timezone: string; policy_version: string; goal_id: string };
 type BlockRow = { id: string; position: number; block_type: 'LESSON' | 'PRACTICE' | 'BREAK'; lesson_id: string | null; status: 'PENDING' | 'COMPLETED' | 'SKIPPED' | 'DEFERRED' };
 type AttemptRow = { id: string; status: string; lesson_id: string };
+type ActiveSessionRow = { id: string; status: 'IN_PROGRESS' | 'PAUSED' };
 
 @Injectable()
 export class PlanningService {
@@ -137,6 +138,9 @@ export class PlanningService {
       `SELECT id,status,lesson_id FROM attempts WHERE learner_id = $1 AND status = 'IN_PROGRESS'
        ORDER BY created_at DESC LIMIT 1`, [learnerId],
     );
+    const session = await this.pool.query<ActiveSessionRow>(
+      `SELECT id,status FROM sessions WHERE learner_id = $1 AND status IN ('IN_PROGRESS','PAUSED')`, [learnerId],
+    );
     const latest = await this.pool.query<AttemptRow>(
       `SELECT id,status,lesson_id FROM attempts WHERE learner_id = $1 AND status = 'EVALUATED'
        ORDER BY evaluated_at DESC LIMIT 1`, [learnerId],
@@ -149,6 +153,7 @@ export class PlanningService {
     const pending = plan?.blocks.find((block) => block.status === 'PENDING');
     let type = 'FINISH_DAY'; let target: Record<string,string> = {}; let reasonCode = 'PLAN_COMPLETE';
     if (!goal) { type = 'SET_GOAL'; reasonCode = 'GOAL_MISSING'; }
+    else if (session.rows[0]?.status === 'PAUSED') { type = 'RESUME_SESSION'; target = { sessionId: session.rows[0].id }; reasonCode = 'SESSION_PAUSED'; }
     else if (active.rows[0]) { type = 'RESUME_ATTEMPT'; target = { attemptId: active.rows[0].id }; reasonCode = 'ATTEMPT_IN_PROGRESS'; }
     else if (!plan) { type = 'OPEN_TODAY_PLAN'; reasonCode = 'PLAN_NOT_GENERATED'; }
     else if (pending?.type === 'BREAK') { type = 'TAKE_BREAK'; reasonCode = 'BREAK_SCHEDULED'; }
@@ -157,7 +162,9 @@ export class PlanningService {
       target = { lessonId: pending.lessonId ?? LESSON_ID };
       reasonCode = pending.type === 'PRACTICE' ? 'MORE_EVIDENCE_NEEDED' : 'LESSON_AVAILABLE';
     } else if (latest.rows[0]) { type = 'VIEW_FEEDBACK'; target = { attemptId: latest.rows[0].id }; reasonCode = 'FEEDBACK_READY'; }
-    return { goal, plan, competency: state.rows[0] ?? { label: 'UNKNOWN', confidence: 'LOW' },
+    if (type === 'FINISH_DAY' && session.rows[0]) target = { sessionId: session.rows[0].id };
+    return { goal, plan, session: session.rows[0] ?? null,
+      competency: state.rows[0] ?? { label: 'UNKNOWN', confidence: 'LOW' },
       nextAction: { type, target, reasonCodes: [reasonCode], planBlockId: pending?.id ?? null,
         decisionTrace: { policyVersion: POLICY_VERSION, goalVersion: goal?.goalVersion ?? null,
           curriculumVersion: 1, evidenceState: state.rows[0]?.label ?? 'UNKNOWN' } } };

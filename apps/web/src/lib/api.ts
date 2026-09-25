@@ -65,6 +65,9 @@ export async function overrideBlock(token: string, blockId: string, action: 'ski
 export async function completeBreak(token: string, blockId: string): Promise<DashboardDto> {
   return dashboardSchema.parse(await apiData(token, `/v1/plans/blocks/${blockId}/complete`, { method: 'POST' }));
 }
+export async function transitionSession(token: string, sessionId: string, action: 'pause' | 'resume' | 'complete'): Promise<void> {
+  await apiData(token, `/v1/sessions/${sessionId}/${action}`, { method: 'POST' });
+}
 export async function startAttempt(token: string, lessonId: string): Promise<AttemptDto> {
   return attemptSchema.parse(await apiData(token, '/v1/attempts', { method: 'POST', body: JSON.stringify({ lessonId }) }));
 }

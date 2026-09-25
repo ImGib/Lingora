@@ -70,7 +70,7 @@ export const lessonResponseSchema = z.object({
 export type LessonDto = z.infer<typeof lessonResponseSchema>['data'];
 
 export const attemptSchema = z.object({
-  id: z.uuid(), lessonId: z.uuid(), packageVersionId: z.uuid(),
+  id: z.uuid(), lessonId: z.uuid(), packageVersionId: z.uuid(), sessionId: z.uuid().nullable(),
   status: z.enum(['IN_PROGRESS','SUBMITTED','EVALUATED']),
   items: z.array(z.object({
     id: z.uuid(), versionId: z.uuid(), responseType: z.enum(['SINGLE_CHOICE','SHORT_TEXT']),
@@ -100,6 +100,7 @@ export const nextActionSchema = z.object({
 });
 export const dashboardSchema = z.object({
   goal: goalSchema.nullable(),
+  session: z.object({ id: z.uuid(), status: z.enum(['IN_PROGRESS','PAUSED']) }).nullable(),
   plan: z.object({
     id: z.uuid(), localDate: z.string(), timezone: z.string(), policyVersion: z.string(), goalId: z.uuid(),
     blocks: z.array(z.object({ id: z.uuid(), position: z.number(), type: z.enum(['LESSON','PRACTICE','BREAK']),
