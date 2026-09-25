@@ -1,6 +1,6 @@
 # 01F — End-to-End and Release — PARTIAL
 
-Completed evidence: automated PostgreSQL/HTTP flow covers migrations/RLS, identity, sessions, planning, attempts, idempotency, lineage, ownership and contracts. A recorded browser run with a disposable Clerk learner against live Supabase covered sign-in, goal/plan, lesson, save/reload, hint, submit, feedback, updated dashboard and pause/resume/reload.
+Completed evidence: automated PostgreSQL/HTTP flow covers migrations/RLS, identity, sessions, planning, attempts, idempotency, lineage, ownership and contracts. Authenticated browser validation covers persisted feedback/evidence/plan rendering and pause → reload → resume, including recovery after temporary API unavailability. Earlier recorded live flow covered sign-in, goal/plan, lesson, save/reload, hint, submit and updated dashboard. Detailed evidence is in [validation-2026-09-25.md](validation-2026-09-25.md).
 
 Open gates:
 
