@@ -89,6 +89,10 @@ To repeat the backend verification, set `TEST_DATABASE_URL` to a PostgreSQL data
 
 The API fails at startup when required server configuration is absent. `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are intentionally absent: these checkpoints connect to PostgreSQL through `DATABASE_URL` and do not use Supabase Storage or the Supabase SDK.
 
+## Deploy
+
+Use two Vercel Projects from this monorepo, with root directories `apps/api` and `apps/web`. Follow the [Vercel deployment guide](docs/10-deployment-vercel.md) for build settings, environment variables, database preflight, and Preview verification. A live Supabase-backed deployment remains gated by the current `28P01` database authentication failure.
+
 ## Deliberate exclusions
 
 Slice 01F remains incomplete until the same authenticated browser flow passes against the live Supabase database. The current API connection to its session pooler returns password authentication error `28P01`, despite a database password reset and URL update. Placement, audio, AI evaluation, retention, transfer, and later slices remain outside this checkpoint.

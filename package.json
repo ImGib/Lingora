@@ -1,7 +1,7 @@
 {
   "name": "lingora",
   "private": true,
-  "packageManager": "pnpm@11.25.0",
+  "packageManager": "pnpm@10.34.5",
   "engines": { "node": ">=22" },
   "scripts": {
     "build": "pnpm -r build",

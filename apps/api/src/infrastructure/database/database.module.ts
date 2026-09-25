@@ -1,5 +1,6 @@
 import { Global, Inject, Module, OnApplicationShutdown } from '@nestjs/common';
 import { Pool } from 'pg';
+import { attachDatabasePool } from '@vercel/functions';
 import type { Environment } from '../../config/environment.js';
 import { ENVIRONMENT } from '../environment.module.js';
 
@@ -24,8 +25,11 @@ export function normalizeDatabaseUrl(databaseUrl: string): string {
     {
       provide: DATABASE_POOL,
       inject: [ENVIRONMENT],
-      useFactory: (environment: Environment) =>
-        new Pool({ connectionString: normalizeDatabaseUrl(environment.DATABASE_URL), max: 10 }),
+      useFactory: (environment: Environment) => {
+        const pool = new Pool({ connectionString: normalizeDatabaseUrl(environment.DATABASE_URL), max: 5 });
+        if (process.env.VERCEL) attachDatabasePool(pool);
+        return pool;
+      },
     },
   ],
   exports: [DATABASE_POOL],

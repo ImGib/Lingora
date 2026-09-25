@@ -6,7 +6,7 @@ const environmentSchema = z.object({
   DATABASE_URL: z.url(),
   CLERK_SECRET_KEY: z.string().min(1),
   CLERK_AUTHORIZED_PARTIES: z.string().min(1),
-  WEB_ORIGIN: z.url().default('http://localhost:3000'),
+  WEB_ORIGIN: z.url(),
 });
 
 export type Environment = z.infer<typeof environmentSchema>;

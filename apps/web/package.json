@@ -2,8 +2,9 @@
   "name": "@lingora/web",
   "version": "0.0.0",
   "private": true,
+  "engines": { "node": "24.x" },
   "scripts": {
-    "build": "next build",
+    "build": "pnpm --filter @lingora/contracts build && next build",
     "dev": "next dev",
     "lint": "eslint src",
     "start": "next start",
