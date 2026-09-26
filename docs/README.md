@@ -1,6 +1,6 @@
 # Lingora Documentation Map
 
-**Status:** CONSOLIDATION V3 — CONCEPTUALLY FROZEN; M0 AUDITED; M1 DESIGNED
+**Status:** CONSOLIDATION V3 — CONCEPTUALLY FROZEN; M0 DONE; M1 DESIGNED
 
 ## Architecture map
 
@@ -37,8 +37,8 @@ Product intent
 | Content authoring and publishing | `03-curriculum/content-authoring-publishing-v1.md` | FROZEN |
 | UI and Information Architecture | `07-ui/ui-architecture.md` | VALIDATED |
 | Design System and components | `07-ui/design-system-v1.md` | VALIDATED |
-| Implementation milestones | `09-implementation/README.md` | M0 PARTIAL; M1 DESIGNED |
-| M0 Slice 01 source audit | `09-implementation/m0-kernel/slice-01/README.md` | 01A–01E DONE; 01F PARTIAL |
+| Implementation milestones | `09-implementation/README.md` | M0 DONE; M1 DESIGNED |
+| M0 Slice 01 source audit | `09-implementation/m0-kernel/slice-01/README.md` | 01A–01F DONE |
 | M1 4-Week Learning MVP | `09-implementation/m1-four-week-learning/` | DESIGNED / NOT STARTED |
 | Vercel deployment | `10-deployment-vercel.md` | LOCAL BUILD VERIFIED; CLOUD PREVIEW PENDING |
 | Architecture Gap Audit / Consolidation v2 | `08-decisions/ADR-007-architecture-consolidation-v2.md` | ACCEPTED |
@@ -62,4 +62,4 @@ Do not collapse these layers into one table, score, endpoint, or UI percentage.
 
 ## Current implementation gate
 
-Architecture v3 is conceptually frozen. The source-backed audit rates 01A–01E DONE and 01F PARTIAL. Remaining 01F gates are live retry/idempotency, live second-learner/auth-failure isolation, Vercel Preview and frontend/accessibility verification. M1 is documentation only; do not claim its 28-day outcomes until implementation and real-learner gates pass.
+Architecture v3 is conceptually frozen. The source-backed audit rates 01A–01F DONE, including live retry/idempotency, second-learner/auth-failure isolation, Vercel Preview rollback and automated frontend/accessibility verification. M1 is documentation only; do not claim its 28-day outcomes until implementation and real-learner gates pass.

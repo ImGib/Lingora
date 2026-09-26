@@ -1,6 +1,6 @@
 # M1 Slice 01 — Entry and Week 1: Me & My English
 
-**Status:** READY FOR IMPLEMENTATION AFTER M0/01F CLOSURE  
+**Status:** READY FOR IMPLEMENTATION
 **Outcome:** a beginner can start safely, learn across several resumable days, understand a simple unseen introduction and produce a short original self-introduction.
 
 ## Vertical learner flow

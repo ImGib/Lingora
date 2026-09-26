@@ -1,7 +1,7 @@
 # Lingora — Architecture Consolidation v3
 
 **Document set:** Architecture Consolidation v3 + M1 4-Week Learning MVP
-**Status:** CONCEPTUALLY FROZEN; M0 01A–01E DONE, 01F PARTIAL; M1 DESIGNED / NOT STARTED
+**Status:** CONCEPTUALLY FROZEN; M0 SLICE 01 DONE; M1 DESIGNED / NOT STARTED
 **Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
 
 This repository contains the conceptually frozen architecture, the audited M0 kernel implementation and the design for M1: a meaningful 28-day beginner learning journey. Consolidation v3 preserves earlier decisions while adding the missing opportunity, measurement, inference, governance and decision-burden contracts.
@@ -22,7 +22,7 @@ This repository contains the conceptually frozen architecture, the audited M0 ke
 | UI & Information Architecture v1 | **VALIDATED** |
 | Design System & Component Architecture v1 | **VALIDATED** |
 | Visual identity — Soft Study Companion | **LOCKED** |
-| M0 implementation audit | **01A–01E DONE; 01F PARTIAL** |
+| M0 implementation audit | **01A–01F DONE** |
 | M1 — 4-Week Learning MVP | **DESIGNED / NOT STARTED** |
 | Architecture Consolidation v3 | **ACCEPTED** |
 
@@ -72,7 +72,7 @@ This repository contains the conceptually frozen architecture, the audited M0 ke
 
 ## Implemented checkpoint
 
-The source audit on 2026-09-25 rates 01A–01E `DONE` and 01F `PARTIAL`. See the [evidence-backed audit](docs/09-implementation/m0-kernel/slice-01/README.md). Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
+The source audit was closed on 2026-09-26 with 01A–01F rated `DONE`. See the [evidence-backed audit](docs/09-implementation/m0-kernel/slice-01/README.md). Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
 
 Slice 01B adds versioned curriculum hierarchy, bounded competencies/relations, immutable published package/item definitions, ItemFamily exposure boundaries, a learner-safe lesson endpoint, and lesson rendering. ADR-008 keeps Practice and Assessment semantically distinct inside one versioned LearningItem lifecycle.
 
@@ -93,8 +93,8 @@ The API fails at startup when required server configuration is absent. `SUPABASE
 
 ## Deploy
 
-Use two Vercel Projects from this monorepo, with root directories `apps/api` and `apps/web`. Follow the [Vercel deployment guide](docs/10-deployment-vercel.md) for build settings, environment variables, database preflight, and Preview verification. The Supabase database preflight now passes; no Vercel Preview has been deployed or verified yet.
+Use two Vercel Projects from this monorepo, with root directories `apps/api` and `apps/web`. Follow the [Vercel deployment guide](docs/10-deployment-vercel.md) for build settings, environment variables, database preflight, and Preview verification. The Supabase database preflight passes, both Preview projects are READY, API CORS/auth behavior is verified, and the API Preview alias rollback path has been exercised and restored.
 
 ## Deliberate exclusions
 
-Slice 01F remains partial pending a live duplicate-submit/retry check and a second-learner/auth-failure isolation check. These paths pass the disposable PostgreSQL/HTTP suite, but have not been repeated with real Clerk identities against Supabase. Vercel Preview and frontend/accessibility verification also remain open. M1 retention, transfer, recovery, multi-skill content and the 28-day journey are designed, not implemented.
+Slice 01F is DONE. A repeatable Playwright suite uses two disposable real Clerk identities against live Supabase to verify duplicate-submit replay without duplicate observations/evidence, cross-learner isolation, authentication failures, keyboard operation and automated WCAG A/AA checks. Vercel Preview and rollback are also verified. M1 retention, transfer, recovery, multi-skill content and the 28-day journey remain designed, not implemented.

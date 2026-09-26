@@ -10,6 +10,6 @@ authenticate -> plan -> lesson -> attempt -> performance
 
 M0 is not a claim that the product can teach for 28 days. Its implementation is audited in [Slice 01](slice-01/README.md).
 
-**NOW:** close the remaining 01F proof gates and preserve the working kernel.  
-**PROTECT:** opportunity semantics, evidence lineage/sufficiency, versioning, agency and degraded-mode invariants.  
+**NOW:** preserve the verified Slice 01 kernel and begin M1 only through its defined vertical-slice gates.
+**PROTECT:** opportunity semantics, evidence lineage/sufficiency, versioning, agency and degraded-mode invariants.
 **LATER:** generalized learning engines not required by M1.

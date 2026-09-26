@@ -1,6 +1,6 @@
 # Implementation — Milestones and Vertical Proofs
 
-**Status:** Consolidation v3 baseline; implementation status audited 2026-09-25
+**Status:** Consolidation v3 baseline; M0 verification closed 2026-09-26
 
 This area answers four separate questions: what exists in code, what has automated proof, what has been verified in a live environment, and what is release-ready. A feature is not `DONE` merely because a table or endpoint exists.
 
@@ -8,7 +8,7 @@ This area answers four separate questions: what exists in code, what has automat
 
 | Milestone | Purpose | Status |
 |---|---|---|
-| M0 — Learning Kernel | Prove one trustworthy end-to-end learning loop | **PARTIAL**; 01A–01E done, 01F partial |
+| M0 — Learning Kernel | Prove one trustworthy end-to-end learning loop | **DONE**; 01A–01F verified |
 | M1 — 4-Week Learning MVP | A beginner can learn meaningfully for 28 continuous days | **DESIGNED / NOT STARTED** |
 | Later maturity | Multi-skill depth, calibration, IELTS and academic readiness | **LATER** |
 
