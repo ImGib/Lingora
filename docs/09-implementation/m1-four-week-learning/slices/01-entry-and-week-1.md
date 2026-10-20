@@ -1,6 +1,6 @@
 # M1 Slice 01 — Entry and Week 1: Me & My English
 
-**Status:** READY FOR IMPLEMENTATION
+**Status:** IN PROGRESS
 **Outcome:** a beginner can start safely, learn across several resumable days, understand a simple unseen introduction and produce a short original self-introduction.
 
 ## Vertical learner flow
@@ -76,3 +76,18 @@ Commands that can be retried—starting/resuming a check, artifact finalization,
 - Week 1 content, accessibility, privacy, health/quarantine and real-beginner usability gates pass.
 
 Passing this slice proves Week 1, not the 28-day M1 outcome. Week 2 should open only after the slice report identifies actual coverage and usability gaps.
+
+## Implementation status — 2026-10-20
+
+Completed so far:
+
+- versioned Starting Point Check content, learner runs and saved responses;
+- authenticated start, skip, resume/read, next-item, response-save and complete endpoints;
+- idempotent start, one active check per learner and cross-learner ownership enforcement;
+- deterministic per-claim output limited to `ALREADY_DEMONSTRATED` and `NEED_MORE_EVIDENCE`;
+- skip and incomplete completion recommend Day 1 without creating weakness or competency evidence;
+- RLS enabled and all `anon`/`authenticated` table privileges revoked.
+- learner-facing optional check, including skip, saved-answer resume, question progress and per-item results;
+- latest-check API for resume across devices, and serialized answer save/complete operations.
+
+Remaining: Week 1 Days 1–7 content/artifacts, delayed review/recovery, content quarantine, accessibility/privacy/degraded-mode and real-beginner gates. The slice remains **IN PROGRESS**. The Starting Point migration and HTTP flow still require verification against a disposable PostgreSQL database before release.

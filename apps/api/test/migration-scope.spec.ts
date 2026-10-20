@@ -21,3 +21,18 @@ describe('Slice 01A migration scope', () => {
     expect(sql).not.toMatch(/CREATE POLICY/i);
   });
 });
+
+describe('M1 Starting Point migration security', () => {
+  it('keeps diagnostic content and learner responses behind the NestJS boundary', () => {
+    const path = fileURLToPath(new URL('../supabase/migrations/20260926052857_m1_starting_point_check.sql', import.meta.url));
+    const sql = readFileSync(path, 'utf8');
+    for (const table of ['placement_versions', 'placement_items', 'placements', 'placement_responses']) {
+      expect(sql).toContain(`ALTER TABLE %I ENABLE ROW LEVEL SECURITY`);
+      expect(sql).toContain(`REVOKE ALL ON TABLE %I FROM anon, authenticated`);
+      expect(sql).toContain(`'${table}'`);
+    }
+    expect(sql).not.toMatch(/CREATE POLICY/i);
+    expect(sql).toContain("status IN ('IN_PROGRESS', 'SKIPPED', 'COMPLETED')");
+    expect(sql).toContain('placements_one_active_per_learner_idx');
+  });
+});

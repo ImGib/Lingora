@@ -23,6 +23,8 @@ import { PlanningService } from '../dist/modules/planning/planning.service.js';
 import { AttemptsService } from '../dist/modules/learning/attempts.service.js';
 import { SessionsService } from '../dist/modules/learning/sessions.service.js';
 import { SessionsController } from '../dist/modules/learning/sessions.controller.js';
+import { PlacementController } from '../dist/modules/placement/placement.controller.js';
+import { PlacementService } from '../dist/modules/placement/placement.service.js';
 
 const connectionString = process.env.TEST_DATABASE_URL;
 if (!connectionString) throw new Error('TEST_DATABASE_URL must point to a disposable PostgreSQL database.');
@@ -69,6 +71,27 @@ try {
   assert.equal(await identities.hasActiveGoal(learnerA), false);
   await identities.updateProfile(learnerA, { displayName: 'Test learner', timezone: 'Asia/Ho_Chi_Minh' });
   assert.equal((await identities.getLearnerProfile(learnerA)).profile.displayName, 'Test learner');
+
+  const placements = new PlacementService(pool);
+  const placementA = await placements.start(learnerA, 'placement-a', 'START');
+  assert.equal(placementA.status, 'IN_PROGRESS');
+  assert.equal((await placements.start(learnerA, 'placement-a', 'START')).id, placementA.id);
+  assert.equal((await placements.current(learnerA)).id, placementA.id);
+  assert.doesNotMatch(JSON.stringify(placementA), /answer_definition|accepted/);
+  for (const [item, value] of placementA.items.map((item, index) => [item, ['Linh','am','Hue'][index]])) {
+    await placements.saveResponse(learnerA, placementA.id, item.id, value);
+  }
+  await assert.rejects(placements.get(learnerB, placementA.id));
+  const completedPlacement = await placements.complete(learnerA, placementA.id);
+  assert.equal(completedPlacement.status, 'COMPLETED');
+  assert.equal(completedPlacement.recommendedStart, 'WEEK_1_DAY_2');
+  assert.ok(completedPlacement.items.every((item) => item.result === 'ALREADY_DEMONSTRATED'));
+  await assert.rejects(placements.saveResponse(learnerA, placementA.id, placementA.items[0].id, 'Mai'));
+  assert.equal((await pool.query('SELECT count(*)::int AS n FROM evidence WHERE learner_id = $1', [learnerA])).rows[0].n, 0);
+  const skippedPlacement = await placements.start(learnerB, 'placement-skip', 'SKIP');
+  assert.equal(skippedPlacement.status, 'SKIPPED');
+  assert.equal(skippedPlacement.recommendedStart, 'WEEK_1_DAY_1');
+  assert.equal((await placements.current(learnerB)).id, skippedPlacement.id);
 
   const lessonId = '10000000-0000-4000-8000-000000000008';
   const lesson = await new PostgresCurriculumRepository(pool).getPublishedLesson(lessonId);
@@ -142,12 +165,13 @@ try {
   await planning.setGoal(learnerB, { purpose: 'STUDY_ABROAD', studyMinutesPerDay: 15 });
   class HttpModule {}
   Module({
-    controllers: [LessonsController, AttemptsController, SessionsController, PlanningController],
+    controllers: [LessonsController, AttemptsController, SessionsController, PlanningController, PlacementController],
     providers: [
       AuthGuard, GetPublishedLesson,
       { provide: AttemptsService, useValue: attempts },
       { provide: SessionsService, useValue: sessions },
       { provide: PlanningService, useValue: planning },
+      { provide: PlacementService, useValue: placements },
       { provide: CURRICULUM_REPOSITORY, useValue: new PostgresCurriculumRepository(pool) },
       { provide: PROVIDER_IDENTITY_VERIFIER, useValue: {
         verify: async (header) => {
@@ -167,6 +191,21 @@ try {
   const lessonHttp = await http.get(`/v1/lessons/${lessonId}`).set('Authorization','Bearer learner-a').expect(200);
   assert.equal(lessonHttp.body.data.packageVersion, 2);
   assert.doesNotMatch(JSON.stringify(lessonHttp.body), /accepted|answer_definition/);
+  await http.post('/v1/placements').set('Authorization','Bearer learner-b').send({ mode: 'START' }).expect(400);
+  const placementHttp = await http.post('/v1/placements').set('Authorization','Bearer learner-b')
+    .set('Idempotency-Key','placement-http').send({ mode: 'START' }).expect(201);
+  assert.equal(placementHttp.body.data.status, 'IN_PROGRESS');
+  const currentPlacementHttp = await http.get('/v1/placements').set('Authorization','Bearer learner-b').expect(200);
+  assert.equal(currentPlacementHttp.body.data.id, placementHttp.body.data.id);
+  assert.doesNotMatch(JSON.stringify(placementHttp.body), /accepted|answer_definition/);
+  await http.get(`/v1/placements/${placementHttp.body.data.id}`).set('Authorization','Bearer learner-a').expect(404);
+  const nextPlacementItem = await http.get(`/v1/placements/${placementHttp.body.data.id}/next`)
+    .set('Authorization','Bearer learner-b').expect(200);
+  assert.equal(nextPlacementItem.body.data.item.position, 1);
+  const placementCompletedHttp = await http.post(`/v1/placements/${placementHttp.body.data.id}/complete`)
+    .set('Authorization','Bearer learner-b').expect(201);
+  assert.equal(placementCompletedHttp.body.data.recommendedStart, 'WEEK_1_DAY_1');
+  assert.ok(placementCompletedHttp.body.data.items.every((item) => item.result === 'NEED_MORE_EVIDENCE'));
   const startedHttp = await http.post('/v1/attempts').set('Authorization','Bearer learner-b').send({ lessonId }).expect(201);
   const attemptB = startedHttp.body.data;
   await http.get(`/v1/attempts/${attemptB.id}`).set('Authorization','Bearer learner-a').expect(404);
@@ -187,7 +226,7 @@ try {
   await http.post(`/v1/sessions/${attemptB.sessionId}/complete`).set('Authorization','Bearer learner-a').expect(404);
   await http.post(`/v1/sessions/${attemptB.sessionId}/complete`).set('Authorization','Bearer learner-b').expect(201);
 
-  console.log('Slice 01 verification passed: PostgreSQL migrations/RLS, identity, content, sessions, goal/plan, attempts, idempotency, lineage, overrides, ownership and HTTP contracts.');
+  console.log('Verification passed: M0 Slice 01 plus M1 Starting Point migrations/RLS, skip/resume/complete, honest coverage, idempotency, ownership and HTTP contracts.');
 } finally {
   if (app) await app.close();
   if (pool) await pool.end();

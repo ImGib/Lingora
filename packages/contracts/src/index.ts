@@ -110,3 +110,28 @@ export const dashboardSchema = z.object({
   nextAction: nextActionSchema,
 });
 export type DashboardDto = z.infer<typeof dashboardSchema>;
+
+export const placementItemSchema = z.object({
+  id: z.uuid(),
+  code: z.string(),
+  position: z.number().int().positive(),
+  claimCode: z.string(),
+  modality: z.string(),
+  responseType: z.enum(['SINGLE_CHOICE', 'SHORT_TEXT']),
+  prompt: z.record(z.string(), z.unknown()),
+  response: z.string().nullable(),
+  result: z.enum(['ALREADY_DEMONSTRATED', 'NEED_MORE_EVIDENCE']).nullable(),
+});
+
+export const placementSchema = z.object({
+  id: z.uuid(),
+  status: z.enum(['IN_PROGRESS', 'SKIPPED', 'COMPLETED']),
+  version: z.number().int().positive(),
+  policyVersion: z.string(),
+  recommendedStart: z.enum(['WEEK_1_DAY_1', 'WEEK_1_DAY_2']).nullable(),
+  startedAt: z.coerce.date(),
+  completedAt: z.coerce.date().nullable(),
+  items: z.array(placementItemSchema),
+});
+
+export type PlacementDto = z.infer<typeof placementSchema>;

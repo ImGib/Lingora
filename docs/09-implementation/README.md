@@ -9,7 +9,7 @@ This area answers four separate questions: what exists in code, what has automat
 | Milestone | Purpose | Status |
 |---|---|---|
 | M0 — Learning Kernel | Prove one trustworthy end-to-end learning loop | **DONE**; 01A–01F verified |
-| M1 — 4-Week Learning MVP | A beginner can learn meaningfully for 28 continuous days | **DESIGNED / NOT STARTED** |
+| M1 — 4-Week Learning MVP | A beginner can learn meaningfully for 28 continuous days | **IN PROGRESS**; Starting Point Check backend and UI built |
 | Later maturity | Multi-skill depth, calibration, IELTS and academic readiness | **LATER** |
 
 Read [M0 overview](m0-kernel/overview.md), the [Slice 01 audit](m0-kernel/slice-01/README.md), and [M1 overview](m1-four-week-learning/overview.md). Cross-milestone views live under [roadmap](roadmap/learner-journey.md).

@@ -1,5 +1,6 @@
 import { lessonResponseSchema, meResponseSchema, type LessonDto, type MeResponseDto, type UpdateProfileDto } from '@lingora/contracts';
 import { attemptSchema, dashboardSchema, goalSchema, type AttemptDto, type DashboardDto, type GoalDto, type GoalInputDto } from '@lingora/contracts';
+import { placementSchema, type PlacementDto } from '@lingora/contracts';
 
 function apiUrl(): string {
   const value = process.env.NEXT_PUBLIC_API_URL;
@@ -84,4 +85,22 @@ export async function revealHint(token: string, attemptId: string, itemId: strin
 export async function submitAttempt(token: string, attemptId: string, key: string): Promise<AttemptDto['feedback']> {
   const data = await apiData(token, `/v1/attempts/${attemptId}/submit`, { method: 'POST', headers: { 'Idempotency-Key': key } });
   return (data as { feedback: AttemptDto['feedback'] }).feedback;
+}
+
+export async function getCurrentPlacement(token: string): Promise<PlacementDto | null> {
+  const data = await apiData(token, '/v1/placements');
+  return data === null ? null : placementSchema.parse(data);
+}
+export async function startPlacement(token: string, mode: 'START' | 'SKIP', key: string): Promise<PlacementDto> {
+  return placementSchema.parse(await apiData(token, '/v1/placements', {
+    method: 'POST', headers: { 'Idempotency-Key': key }, body: JSON.stringify({ mode }),
+  }));
+}
+export async function savePlacementResponse(token: string, placementId: string, itemId: string, value: string): Promise<PlacementDto> {
+  return placementSchema.parse(await apiData(token, `/v1/placements/${placementId}/responses`, {
+    method: 'POST', body: JSON.stringify({ itemId, value }),
+  }));
+}
+export async function completePlacement(token: string, placementId: string): Promise<PlacementDto> {
+  return placementSchema.parse(await apiData(token, `/v1/placements/${placementId}/complete`, { method: 'POST' }));
 }

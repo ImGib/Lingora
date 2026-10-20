@@ -12,4 +12,4 @@
 | [01E](01e-planning-dashboard.md) | **DONE** | versioned goal, DailyPlan/blocks, overrides, dashboard/next action and compact DecisionTrace implemented and exercised |
 | [01F](01f-e2e-release.md) | **DONE** | repeatable real-Clerk/live-Supabase retry and two-learner isolation passed; frontend WCAG checks and Vercel Preview/CORS/rollback are recorded |
 
-Therefore M0 Slice 01 is **DONE**. This is an engineering verification claim, not evidence that the M1 28-day learner outcome has been achieved. No M1 implementation was found.
+Therefore M0 Slice 01 is **DONE**. This is an engineering verification claim, not evidence that the M1 28-day learner outcome has been achieved. At the 2026-09-26 audit close, no M1 implementation had started.

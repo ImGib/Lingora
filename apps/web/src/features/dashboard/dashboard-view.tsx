@@ -73,7 +73,8 @@ export function DashboardView() {
 
   return <>
     <header className="section-heading"><p className="eyebrow">Your study day</p><h1>A clear next step</h1>
-      <p>Small steps count. Your ability label reflects only the evidence gathered so far.</p></header>
+      <p>Small steps count. Your ability label reflects only the evidence gathered so far.</p>
+      <Link className="button secondary" href="/starting-point">Optional starting point check</Link></header>
     <p className="status" role="status">{message}</p>
     {dashboard && !dashboard.goal && <form className="card form-stack" onSubmit={(event) => void saveGoal(event)}>
       <h2>Set a study goal</h2>

@@ -1,6 +1,6 @@
 # Lingora Documentation Map
 
-**Status:** CONSOLIDATION V3 — CONCEPTUALLY FROZEN; M0 DONE; M1 DESIGNED
+**Status:** CONSOLIDATION V3 — CONCEPTUALLY FROZEN; M0 DONE; M1 SLICE 01 IN PROGRESS
 
 ## Architecture map
 
@@ -37,9 +37,9 @@ Product intent
 | Content authoring and publishing | `03-curriculum/content-authoring-publishing-v1.md` | FROZEN |
 | UI and Information Architecture | `07-ui/ui-architecture.md` | VALIDATED |
 | Design System and components | `07-ui/design-system-v1.md` | VALIDATED |
-| Implementation milestones | `09-implementation/README.md` | M0 DONE; M1 DESIGNED |
+| Implementation milestones | `09-implementation/README.md` | M0 DONE; M1 IN PROGRESS |
 | M0 Slice 01 source audit | `09-implementation/m0-kernel/slice-01/README.md` | 01A–01F DONE |
-| M1 4-Week Learning MVP | `09-implementation/m1-four-week-learning/` | DESIGNED / NOT STARTED |
+| M1 4-Week Learning MVP | `09-implementation/m1-four-week-learning/` | SLICE 01 IN PROGRESS |
 | Vercel deployment | `10-deployment-vercel.md` | LOCAL BUILD VERIFIED; CLOUD PREVIEW PENDING |
 | Architecture Gap Audit / Consolidation v2 | `08-decisions/ADR-007-architecture-consolidation-v2.md` | ACCEPTED |
 | Architecture Consolidation v3 | `08-decisions/ADR-009-architecture-consolidation-v3.md` | ACCEPTED |
@@ -62,4 +62,4 @@ Do not collapse these layers into one table, score, endpoint, or UI percentage.
 
 ## Current implementation gate
 
-Architecture v3 is conceptually frozen. The source-backed audit rates 01A–01F DONE, including live retry/idempotency, second-learner/auth-failure isolation, Vercel Preview rollback and automated frontend/accessibility verification. M1 is documentation only; do not claim its 28-day outcomes until implementation and real-learner gates pass.
+Architecture v3 is conceptually frozen. The source-backed audit rates 01A–01F DONE, including live retry/idempotency, second-learner/auth-failure isolation, Vercel Preview rollback and automated frontend/accessibility verification. M1 Slice 01 implementation has begun with the Starting Point Check backend and learner-facing flow; do not claim Week 1 or 28-day outcomes until their remaining implementation and real-learner gates pass.

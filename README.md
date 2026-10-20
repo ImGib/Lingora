@@ -1,7 +1,7 @@
 # Lingora — Architecture Consolidation v3
 
 **Document set:** Architecture Consolidation v3 + M1 4-Week Learning MVP
-**Status:** CONCEPTUALLY FROZEN; M0 SLICE 01 DONE; M1 DESIGNED / NOT STARTED
+**Status:** CONCEPTUALLY FROZEN; M0 SLICE 01 DONE; M1 SLICE 01 IN PROGRESS
 **Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
 
 This repository contains the conceptually frozen architecture, the audited M0 kernel implementation and the design for M1: a meaningful 28-day beginner learning journey. Consolidation v3 preserves earlier decisions while adding the missing opportunity, measurement, inference, governance and decision-burden contracts.
@@ -23,7 +23,7 @@ This repository contains the conceptually frozen architecture, the audited M0 ke
 | Design System & Component Architecture v1 | **VALIDATED** |
 | Visual identity — Soft Study Companion | **LOCKED** |
 | M0 implementation audit | **01A–01F DONE** |
-| M1 — 4-Week Learning MVP | **DESIGNED / NOT STARTED** |
+| M1 — 4-Week Learning MVP | **SLICE 01 IN PROGRESS** |
 | Architecture Consolidation v3 | **ACCEPTED** |
 
 `FROZEN` means implementation must conform to the document. A change to a frozen invariant requires an explicit decision record and impact review; it does not mean the design can never evolve.
@@ -97,4 +97,4 @@ Use two Vercel Projects from this monorepo, with root directories `apps/api` and
 
 ## Deliberate exclusions
 
-Slice 01F is DONE. A repeatable Playwright suite uses two disposable real Clerk identities against live Supabase to verify duplicate-submit replay without duplicate observations/evidence, cross-learner isolation, authentication failures, keyboard operation and automated WCAG A/AA checks. Vercel Preview and rollback are also verified. M1 retention, transfer, recovery, multi-skill content and the 28-day journey remain designed, not implemented.
+Slice 01F is DONE. A repeatable Playwright suite uses two disposable real Clerk identities against live Supabase to verify duplicate-submit replay without duplicate observations/evidence, cross-learner isolation, authentication failures, keyboard operation and automated WCAG A/AA checks. Vercel Preview and rollback are also verified. M1 Slice 01 is now in progress with the Starting Point Check backend and learner-facing flow implemented; Week 1 content and release gates remain open.
