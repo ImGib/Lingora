@@ -91,3 +91,5 @@ Completed so far:
 - latest-check API for resume across devices, and serialized answer save/complete operations.
 
 Remaining: Week 1 Days 1–7 content/artifacts, delayed review/recovery, content quarantine, accessibility/privacy/degraded-mode and real-beginner gates. The slice remains **IN PROGRESS**. The Starting Point migration and HTTP flow still require verification against a disposable PostgreSQL database before release.
+
+Day 1 now has an unpublished [content draft](../curriculum/day-01-draft.md). It is an authoring checkpoint; audio, practice, learner navigation and publication gates remain open.

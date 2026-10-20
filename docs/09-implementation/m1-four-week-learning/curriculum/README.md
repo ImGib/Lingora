@@ -1,5 +1,7 @@
 # M1 Curriculum Entry and Rhythm
 
+Day 1's first content version is tracked as a [draft authoring checkpoint](day-01-draft.md). It is not yet learner-exposable.
+
 ## Starting Point Check
 
 Before Day 1, offer a short, optional check limited to M1-supported claims. It samples simple personal/routine vocabulary, `be`, basic Present Simple meaning/form, short reading/listening and one tiny production prompt. It is not adaptive placement and does not emit a level or IELTS prediction.
