@@ -78,6 +78,7 @@ try {
   assert.equal((await placements.start(learnerA, 'placement-a', 'START')).id, placementA.id);
   assert.equal((await placements.current(learnerA)).id, placementA.id);
   assert.doesNotMatch(JSON.stringify(placementA), /answer_definition|accepted/);
+  await assert.rejects(placements.saveResponse(learnerA, placementA.id, placementA.items[0].id, 'Not an offered answer'));
   for (const [item, value] of placementA.items.map((item, index) => [item, ['Linh','am','Hue'][index]])) {
     await placements.saveResponse(learnerA, placementA.id, item.id, value);
   }

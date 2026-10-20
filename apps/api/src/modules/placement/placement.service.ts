@@ -1,4 +1,4 @@
-import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import type { Pool, PoolClient } from 'pg';
 import { evaluateStartingPoint } from '../../domain/placement/starting-point-policy.js';
 import { DATABASE_POOL } from '../../infrastructure/database/database.module.js';
@@ -104,6 +104,18 @@ export class PlacementService {
       await client.query('BEGIN');
       const placement = await this.getPlacement(client, learnerId, placementId, true);
       if (placement.status !== 'IN_PROGRESS') throw new ConflictException('Starting Point Check is already closed');
+      const itemResult = await client.query<Pick<ItemRow, 'response_type' | 'prompt'>>(
+        `SELECT response_type,prompt FROM placement_items WHERE id = $1 AND placement_version_id = $2`,
+        [itemId, placement.placement_version_id],
+      );
+      const item = itemResult.rows[0];
+      if (!item) throw new NotFoundException('Starting Point item not found');
+      const normalized = value.trim();
+      if (!normalized || normalized.length > 500 ||
+        (item.response_type === 'SINGLE_CHOICE' &&
+          (!Array.isArray(item.prompt.options) || !item.prompt.options.includes(normalized)))) {
+        throw new UnprocessableEntityException('Response does not match item format');
+      }
       const result = await client.query(
         `INSERT INTO placement_responses (placement_id,placement_item_id,value,correct)
          SELECT $1,pi.id,$3,NULL FROM placement_items pi
@@ -111,7 +123,7 @@ export class PlacementService {
          ON CONFLICT (placement_id,placement_item_id)
          DO UPDATE SET value = EXCLUDED.value,correct = NULL,saved_at = now()
          RETURNING placement_item_id`,
-        [placementId, itemId, value.trim(), placement.placement_version_id],
+        [placementId, itemId, normalized, placement.placement_version_id],
       );
       if (!result.rowCount) throw new NotFoundException('Starting Point item not found');
       await client.query('COMMIT');
@@ -229,7 +241,7 @@ export class PlacementService {
       completedAt: placement.completed_at,
       items: items.map((item) => ({
         ...this.publicItem(item),
-        result: item.correct === null ? null : item.correct ? 'ALREADY_DEMONSTRATED' : 'NEED_MORE_EVIDENCE',
+        result: placement.status === 'IN_PROGRESS' ? null : item.correct ? 'ALREADY_DEMONSTRATED' : 'NEED_MORE_EVIDENCE',
       })),
     };
   }
