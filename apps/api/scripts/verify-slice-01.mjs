@@ -15,6 +15,7 @@ import { PROVIDER_IDENTITY_VERIFIER } from '../dist/application/identity/provide
 import { CURRICULUM_REPOSITORY } from '../dist/application/curriculum/curriculum-repository.port.js';
 import { GetPublishedLesson } from '../dist/application/curriculum/get-published-lesson.js';
 import { LessonsController } from '../dist/modules/curriculum/lessons.controller.js';
+import { LessonExposureService } from '../dist/modules/curriculum/lesson-exposure.service.js';
 import { AttemptsController } from '../dist/modules/learning/attempts.controller.js';
 import { PlanningController } from '../dist/modules/planning/planning.controller.js';
 import { PostgresIdentityRepository } from '../dist/infrastructure/database/postgres-identity.repository.js';
@@ -95,6 +96,20 @@ try {
   assert.equal((await placements.current(learnerB)).id, skippedPlacement.id);
 
   const lessonId = '10000000-0000-4000-8000-000000000008';
+  const day1LessonId = '61000000-0000-4000-8000-000000000005';
+  const exposures = new LessonExposureService(pool);
+  await assert.rejects(exposures.get(learnerA, day1LessonId));
+  // Publish only inside this disposable schema to exercise the future exposure path.
+  await pool.query("UPDATE lessons SET status = 'PUBLISHED' WHERE id = $1", [day1LessonId]);
+  await pool.query("UPDATE learning_package_versions SET status = 'PUBLISHED',published_at = now() WHERE id = $1",
+    ['61000000-0000-4000-8000-000000000008']);
+  assert.equal((await exposures.get(learnerA, day1LessonId)).status, 'NOT_COMPLETED');
+  const exposureA = await exposures.complete(learnerA, day1LessonId);
+  assert.equal(exposureA.status, 'COMPLETED');
+  assert.equal((await exposures.complete(learnerA, day1LessonId)).completedAt.getTime(), exposureA.completedAt.getTime());
+  assert.equal((await exposures.get(learnerB, day1LessonId)).status, 'NOT_COMPLETED');
+  await assert.rejects(exposures.get(learnerA, lessonId));
+  assert.equal((await pool.query('SELECT count(*)::int AS n FROM evidence WHERE learner_id = $1', [learnerA])).rows[0].n, 0);
   const lesson = await new PostgresCurriculumRepository(pool).getPublishedLesson(lessonId);
   assert.equal(lesson.packageVersion, 2);
   assert.deepEqual(lesson.activities.map((activity) => activity.type),
@@ -173,6 +188,7 @@ try {
       { provide: SessionsService, useValue: sessions },
       { provide: PlanningService, useValue: planning },
       { provide: PlacementService, useValue: placements },
+      { provide: LessonExposureService, useValue: exposures },
       { provide: CURRICULUM_REPOSITORY, useValue: new PostgresCurriculumRepository(pool) },
       { provide: PROVIDER_IDENTITY_VERIFIER, useValue: {
         verify: async (header) => {
@@ -192,6 +208,12 @@ try {
   const lessonHttp = await http.get(`/v1/lessons/${lessonId}`).set('Authorization','Bearer learner-a').expect(200);
   assert.equal(lessonHttp.body.data.packageVersion, 2);
   assert.doesNotMatch(JSON.stringify(lessonHttp.body), /accepted|answer_definition/);
+  const exposureHttp = await http.get(`/v1/lessons/${day1LessonId}/exposure`).set('Authorization','Bearer learner-b').expect(200);
+  assert.equal(exposureHttp.body.data.status, 'NOT_COMPLETED');
+  const completedExposureHttp = await http.post(`/v1/lessons/${day1LessonId}/exposure/complete`)
+    .set('Authorization','Bearer learner-b').expect(201);
+  assert.equal(completedExposureHttp.body.data.status, 'COMPLETED');
+  await http.get(`/v1/lessons/${lessonId}/exposure`).set('Authorization','Bearer learner-b').expect(404);
   await http.post('/v1/placements').set('Authorization','Bearer learner-b').send({ mode: 'START' }).expect(400);
   const placementHttp = await http.post('/v1/placements').set('Authorization','Bearer learner-b')
     .set('Idempotency-Key','placement-http').send({ mode: 'START' }).expect(201);

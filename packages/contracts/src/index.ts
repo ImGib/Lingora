@@ -69,6 +69,14 @@ export const lessonResponseSchema = z.object({
 
 export type LessonDto = z.infer<typeof lessonResponseSchema>['data'];
 
+export const lessonExposureSchema = z.object({
+  lessonId: z.uuid(),
+  packageVersionId: z.uuid(),
+  status: z.enum(['NOT_COMPLETED', 'COMPLETED']),
+  completedAt: z.coerce.date().nullable(),
+});
+export type LessonExposureDto = z.infer<typeof lessonExposureSchema>;
+
 export const attemptSchema = z.object({
   id: z.uuid(), lessonId: z.uuid(), packageVersionId: z.uuid(), sessionId: z.uuid().nullable(),
   status: z.enum(['IN_PROGRESS','SUBMITTED','EVALUATED']),

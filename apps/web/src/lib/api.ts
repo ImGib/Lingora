@@ -1,4 +1,4 @@
-import { lessonResponseSchema, meResponseSchema, type LessonDto, type MeResponseDto, type UpdateProfileDto } from '@lingora/contracts';
+import { lessonExposureSchema, lessonResponseSchema, meResponseSchema, type LessonDto, type LessonExposureDto, type MeResponseDto, type UpdateProfileDto } from '@lingora/contracts';
 import { attemptSchema, dashboardSchema, goalSchema, type AttemptDto, type DashboardDto, type GoalDto, type GoalInputDto } from '@lingora/contracts';
 import { placementSchema, type PlacementDto } from '@lingora/contracts';
 
@@ -35,6 +35,13 @@ export async function getLesson(token: string, lessonId: string): Promise<Lesson
   });
   if (!response.ok) throw new Error(response.status === 404 ? 'Lesson unavailable.' : 'Unable to load lesson.');
   return lessonResponseSchema.parse(await response.json()).data;
+}
+
+export async function getLessonExposure(token: string, lessonId: string): Promise<LessonExposureDto> {
+  return lessonExposureSchema.parse(await apiData(token, `/v1/lessons/${lessonId}/exposure`));
+}
+export async function completeLessonExposure(token: string, lessonId: string): Promise<LessonExposureDto> {
+  return lessonExposureSchema.parse(await apiData(token, `/v1/lessons/${lessonId}/exposure/complete`, { method: 'POST' }));
 }
 
 async function apiData(token: string, path: string, init?: RequestInit): Promise<unknown> {

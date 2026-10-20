@@ -36,3 +36,14 @@ describe('M1 Starting Point migration security', () => {
     expect(sql).toContain('placements_one_active_per_learner_idx');
   });
 });
+
+describe('M1 exposure progress migration security', () => {
+  it('keeps reading progress private and separate from evidence', () => {
+    const path = fileURLToPath(new URL('../supabase/migrations/20261020155214_m1_exposure_progress.sql', import.meta.url));
+    const sql = readFileSync(path, 'utf8');
+    expect(sql).toContain('CREATE TABLE lesson_exposures');
+    expect(sql).toContain('ALTER TABLE lesson_exposures ENABLE ROW LEVEL SECURITY');
+    expect(sql).toContain('REVOKE ALL ON TABLE lesson_exposures FROM anon, authenticated');
+    expect(sql).not.toMatch(/INSERT INTO (observations|evidence|competency_states)/i);
+  });
+});

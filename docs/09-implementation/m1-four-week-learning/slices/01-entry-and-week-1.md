@@ -93,3 +93,4 @@ Completed so far:
 Remaining: Week 1 Days 1–7 content/artifacts, delayed review/recovery, content quarantine, accessibility/privacy/degraded-mode and real-beginner gates. The slice remains **IN PROGRESS**. The Starting Point migration and HTTP flow still require verification against a disposable PostgreSQL database before release.
 
 Day 1 now has an unpublished [content draft](../curriculum/day-01-draft.md). It is an authoring checkpoint; audio, practice, learner navigation and publication gates remain open.
+The exposure progress API and lesson UI path are implemented for future published, item-free content; they do not make this draft learner-visible.

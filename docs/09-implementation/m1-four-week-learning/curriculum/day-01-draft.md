@@ -15,7 +15,11 @@ The lesson targets understanding explicitly stated name, place and role in a sho
 - Add a recorded beginner introduction with checked audio quality and an aligned transcript. A synthetic or missing audio asset cannot silently count as listening evidence.
 - Add the Day 2 guided practice and a later independent reading opportunity in a distinct ItemFamily before declaring the Week 1 reading claim covered.
 - Check language, names, text alternatives, keyboard flow and screen-reader reading order with a reviewer.
-- Build a learner path that records exposure separately from assessed attempts and resumes the correct episode without marking a missed day as failure.
+- Connect exposure completion to the M1 planner so the correct episode resumes without marking a missed day as failure.
 - Run the content QA/readiness and real-beginner checks before changing the lesson and package from `DRAFT` to learner-exposable status.
 
 The Day 1 draft is an authoring checkpoint. It does not close any Week 1 release gate.
+
+## Exposure progress foundation
+
+An authenticated learner can read and complete a published, item-free lesson through `GET /v1/lessons/:lessonId/exposure` and `POST /v1/lessons/:lessonId/exposure/complete`. Completion is idempotent for a learner and exact package version. It creates a `lesson_exposures` row only; no attempt, observation, evidence or competency state is inferred. The Day 1 draft remains unavailable to these endpoints until its publication gates pass.
