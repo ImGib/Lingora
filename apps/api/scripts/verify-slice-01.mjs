@@ -97,6 +97,8 @@ try {
 
   const lessonId = '10000000-0000-4000-8000-000000000008';
   const day1LessonId = '61000000-0000-4000-8000-000000000005';
+  const day2LessonId = '62000000-0000-4000-8000-000000000001';
+  assert.equal(await new PostgresCurriculumRepository(pool).getPublishedLesson(day2LessonId), null);
   const exposures = new LessonExposureService(pool);
   await assert.rejects(exposures.get(learnerA, day1LessonId));
   // Publish only inside this disposable schema to exercise the future exposure path.
@@ -123,6 +125,7 @@ try {
   assert.equal((await planning.dashboard(learnerA)).nextAction.type, 'SET_GOAL');
   const goal = await planning.setGoal(learnerA, { purpose: 'IELTS_ACADEMIC', studyMinutesPerDay: 20 });
   assert.equal(goal.goalVersion, 1);
+  await assert.rejects(attempts.start(learnerA, day2LessonId));
   assert.equal(await identities.hasActiveGoal(learnerA), true);
   const plan = await planning.generate(learnerA);
   assert.equal(plan.blocks.length, 3);

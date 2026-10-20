@@ -94,3 +94,4 @@ Remaining: Week 1 Days 1–7 content/artifacts, delayed review/recovery, content
 
 Day 1 now has an unpublished [content draft](../curriculum/day-01-draft.md). It is an authoring checkpoint; audio, practice, learner navigation and publication gates remain open.
 The exposure progress API and lesson UI path are implemented for future published, item-free content; they do not make this draft learner-visible.
+Day 2 now has an unpublished [guided-practice draft](../curriculum/day-02-draft.md) with `evidence_eligibility = NONE`.

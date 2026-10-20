@@ -1,6 +1,7 @@
 # M1 Curriculum Entry and Rhythm
 
 Day 1's first content version is tracked as a [draft authoring checkpoint](day-01-draft.md). It is not yet learner-exposable.
+Day 2's [guided `be` practice draft](day-02-draft.md) is also unpublished and creates no competency evidence.
 
 ## Starting Point Check
 

@@ -60,7 +60,7 @@ export function AttemptView({ attemptId }: { attemptId: string }) {
 
   return <article className="lesson-stack">
     <header className="section-heading"><p className="eyebrow">Learning mode · saved practice</p>
-      <h1>Try the routine forms</h1><p>Save each response before submitting. Your first answer and any hint use are kept with this attempt.</p></header>
+      <h1>Practice your answers</h1><p>Save each response before submitting. Your first answer and any hint use are kept with this attempt.</p></header>
     <p className="status" role="status">{message}</p>
     {attempt?.items.map((item, index) => <section className="card" key={item.id}>
       <p className="eyebrow">Question {index + 1}</p><h2>{typeof item.prompt.text === 'string' ? item.prompt.text : ''}</h2>
