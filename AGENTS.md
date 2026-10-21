@@ -28,7 +28,14 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
    - `IPA Studio`: Strict 1 phoneme/viewport. All text labels MUST be HTML outside `<svg>`.
    - `Grammar`: 6-part ForumFlash structure.
 
-5. **VERIFICATION & HANDOVER:**
+5. **TOKEN EXHAUSTION & RECOVERY PROTOCOL (If your context window is filling up > 70%):**
+   - Save your current work immediately by running:
+     `node .agents/scripts/task-coordinator.mjs checkpoint <TASK_ID> <current_progress_%> "Summary of work done"`
+   - If you cannot continue due to hard token limit, release the task back to the pool:
+     `node .agents/scripts/task-coordinator.mjs release <TASK_ID>`
+   - The user or next agent will read `.agents/coordination/checkpoints/<TASK_ID>.json` and resume seamlessly without losing a single line of progress!
+
+6. **VERIFICATION & HANDOVER:**
    - Execute: `pnpm --filter @lingora/web typecheck`
    - Once it exits with 0 errors:
      - Run: `node .agents/scripts/task-coordinator.mjs complete <TASK_ID>`

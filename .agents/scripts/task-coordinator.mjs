@@ -101,6 +101,63 @@ switch (action) {
     break;
   }
 
+  case 'checkpoint': {
+    const taskId = param1;
+    const progress = parseInt(param2, 10) || 50;
+    const note = process.argv[5] || 'Token limit reached or intermediate save';
+    if (!taskId) {
+      console.error('Error: task_id is required');
+      process.exit(1);
+    }
+    const pool = readJson(POOL_PATH);
+    const task = pool.active_tasks.find((t) => t.task_id === taskId);
+    if (!task) {
+      console.error(`Error: Task ${taskId} not found`);
+      process.exit(1);
+    }
+
+    const checkpointFile = path.resolve(__dirname, `../coordination/checkpoints/${taskId}.json`);
+    const checkpointData = {
+      task_id: taskId,
+      saved_at: new Date().toISOString(),
+      progress_percentage: progress,
+      assigned_agent: task.assigned_agent,
+      note,
+      modified_files: task.allowed_files.filter((f) => fs.existsSync(path.resolve(__dirname, '../../', f))),
+    };
+    fs.writeFileSync(checkpointFile, JSON.stringify(checkpointData, null, 2) + '\n', 'utf8');
+
+    task.progress_percentage = progress;
+    task.checkpoint_saved_at = checkpointData.saved_at;
+    pool.updated_at = new Date().toISOString();
+    writeJson(POOL_PATH, pool);
+
+    console.log(JSON.stringify({ success: true, message: 'CHECKPOINT_SAVED', checkpoint: checkpointData }, null, 2));
+    break;
+  }
+
+  case 'release': {
+    const taskId = param1;
+    if (!taskId) {
+      console.error('Error: task_id is required');
+      process.exit(1);
+    }
+    const pool = readJson(POOL_PATH);
+    const task = pool.active_tasks.find((t) => t.task_id === taskId);
+    if (!task) {
+      console.error(`Error: Task ${taskId} not found`);
+      process.exit(1);
+    }
+    task.status = 'AVAILABLE';
+    task.assigned_agent = null;
+    task.locked_at = null;
+    pool.updated_at = new Date().toISOString();
+    writeJson(POOL_PATH, pool);
+
+    console.log(JSON.stringify({ success: true, message: 'TASK_RELEASED_FOR_NEXT_AGENT', task_id: taskId }));
+    break;
+  }
+
   case 'list': {
     const pool = readJson(POOL_PATH);
     console.table(pool.active_tasks.map((t) => ({
