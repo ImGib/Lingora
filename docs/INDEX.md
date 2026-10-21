@@ -9,11 +9,9 @@
 
 | Tôi muốn xem... | Mở file này | Trạng thái |
 |---|---|---|
-| **Kế hoạch Triển Khai Toàn Diện Website (Fullsite Master Plan)** | [`09-implementation/active-plans/fullsite-master-plan.md`](09-implementation/active-plans/fullsite-master-plan.md) | 🟡 **ĐANG TRIỂN KHAI** |
+| ⭐ **KẾ HOẠCH TỔNG THỂ DUY NHẤT (Single Source of Truth cho Mọi Agent)** | [`09-implementation/active-plans/UNIFIED-MASTER-PLAN.md`](09-implementation/active-plans/UNIFIED-MASTER-PLAN.md) | 🟢 **TIẾN ĐỘ THỜI GIAN THỰC** |
 | **Đặc Tả Chi Tiết Từng Mốc Học & Đề Test Đến IELTS 6.5 (Test Specs)** | [`09-implementation/active-plans/ielts-milestones-and-test-specs.md`](09-implementation/active-plans/ielts-milestones-and-test-specs.md) | 🟢 **ĐẶC TẢ CHI TIẾT 100%** |
-| **Lộ Trình Chi Tiết Từ Mất Gốc Đến IELTS 6.5 (IELTS 6.5 Blueprint)** | [`09-implementation/active-plans/ielts-6-5-roadmap.md`](09-implementation/active-plans/ielts-6-5-roadmap.md) | 🟢 **CHI TIẾT 100% ĐẾN 6.5** |
 | **Tiêu Chuẩn Nghiệm Thu Hoàn Thiện Đa Agent (Completion Criteria)** | [`09-implementation/active-plans/completion-criteria.md`](09-implementation/active-plans/completion-criteria.md) | 🟢 **QUY CHUẨN ĐÓNG BĂNG** |
-| **Kế hoạch Coding UI/UX (Chuẩn Prototype 100%)** | [`09-implementation/active-plans/uiux-coding-master-plan.md`](09-implementation/active-plans/uiux-coding-master-plan.md) | 🟢 **ĐÃ HOÀN TẤT CORE** |
 | **Bảng Điều Phối & Giám Sát Đa AI (Task & Token Tracker)** | [`../.agents/coordination/README.md`](../.agents/coordination/README.md) | 🟢 **REAL-TIME TRACKING** |
 | **Ma trận Phân chia Task Song Song (Cho Multi-AI / Codex)** | [`09-implementation/active-plans/parallel-tasks-codex-matrix.md`](09-implementation/active-plans/parallel-tasks-codex-matrix.md) | 🟢 **SẴN SÀNG PHÂN CHIA** |
 | **Bức tranh tổng thể M1 (Lộ trình 4 Tuần - 28 Ngày)** | [`09-implementation/m1-four-week-learning/overview.md`](09-implementation/m1-four-week-learning/overview.md) | 🟡 **ĐANG TRIỂN KHAI** |
