@@ -7,12 +7,16 @@ import { IdentityModule } from '../identity/identity.module.js';
 import { LessonsController } from './lessons.controller.js';
 import { LessonExposureService } from './lesson-exposure.service.js';
 
+import { QuarantineController } from './quarantine.controller.js';
+import { QuarantineService } from './quarantine.service.js';
+
 @Module({
   imports: [IdentityModule],
-  controllers: [LessonsController],
+  controllers: [LessonsController, QuarantineController],
   providers: [
     GetPublishedLesson,
     LessonExposureService,
+    QuarantineService,
     AuthGuard,
     { provide: CURRICULUM_REPOSITORY, useClass: PostgresCurriculumRepository },
   ],

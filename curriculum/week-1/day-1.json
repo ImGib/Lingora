@@ -1,0 +1,619 @@
+{
+  "day": 1,
+  "lessonCode": "LESSON.M1.W1.D1",
+  "unitCode": "UNIT.M1.INTRODUCTIONS",
+  "title": "Gặp gỡ Lời Giới thiệu Bản thân Đầu tiên (Meet a Simple Introduction)",
+  "summary": "Tiếp xúc tự nhiên với đoạn giới thiệu bản thân đời thường, bóc tách 4 trụ cột thông tin, luyện phát âm chuẩn âm đuôi và nắm vững vốn từ vựng nền tảng.",
+  "position": 1,
+  "competencies": [
+    {
+      "code": "M1.PERSONAL.READ_DETAILS",
+      "title": "Đọc hiểu chi tiết thông tin cá nhân",
+      "description": "Nhận diện và nắm bắt thông tin rõ ràng về tên, quê quán, nghề nghiệp trong một đoạn giới thiệu ngắn.",
+      "role": "TARGET",
+      "targetModality": "WRITTEN_RECOGNITION"
+    }
+  ],
+  "packageCode": "PACKAGE.M1.W1.D1",
+  "activities": [
+    {
+      "code": "ACT.M1.W1.D1.MEET_LINH_DIALOGUE",
+      "activityType": "INSTRUCTION",
+      "title": "Gặp gỡ Linh ở Cố đô Huế & Hội thoại Làm quen Đời thường",
+      "position": 1,
+      "content": {
+        "body": "Chào mừng bạn đến với ngày đầu tiên trên hành trình học tiếng Anh cùng Lingora! Hãy cùng lắng nghe và quan sát một cuộc gặp gỡ thân thiện tại quán cà phê ven sông Hương ở Cố đô Huế giữa bạn Linh (sinh viên đại học kiêm barista) và David (du khách đến từ nước Úc).",
+        "storyContext": "Một buổi sáng mùa thu tại quán cà phê Perfume River. David bước vào và Linh nở nụ cười chào đón.",
+        "dialogue": [
+          {
+            "speaker": "Linh",
+            "role": "Sinh viên & Barista",
+            "avatar": "👩‍🎓",
+            "en": "Good morning! Welcome to Perfume River Cafe. My name is Linh.",
+            "vi": "Chào buổi sáng! Chào mừng bạn đến với Quán cà phê Sông Hương. Mình tên là Linh.",
+            "ipa": "/ɡʊd ˈmɔː.nɪŋ! ˈwel.kəm tuː ˈpɜː.fjuːm ˈrɪv.ər kæˈfeɪ. maɪ neɪm ɪz lɪnh/",
+            "vnGuide": "Gút MO-nình! WEL-kầm tu PƠ-phium RI-vờ ka-PHÂY. Mai nêim i-zờ Linh.",
+            "wordBreakdown": [
+              { "w": "Good morning", "ipa": "/ɡʊd ˈmɔː.nɪŋ/", "how": "gút + MO-nình (nhấn âm MO)" },
+              { "w": "Welcome", "ipa": "/ˈwel.kəm/", "how": "WEL-kầm (uốn lưỡi L, khép môi M)" },
+              { "w": "My name is", "ipa": "/maɪ neɪm ɪz/", "how": "mai + nêim + i-zờ (nối âm m sang i)" }
+            ]
+          },
+          {
+            "speaker": "David",
+            "role": "Du khách từ Úc",
+            "avatar": "🧑‍🦱",
+            "en": "Good morning! Nice to meet you, Linh. I'm David, a traveler from Australia.",
+            "vi": "Chào buổi sáng! Rất vui được gặp bạn, Linh. Tôi là David, một du khách đến từ nước Úc.",
+            "ipa": "/ɡʊd ˈmɔː.nɪŋ! naɪs tuː miːt juː, lɪnh. aɪm ˈdeɪ.vɪd, ə ˈtræv.əl.ər frɒm ɒsˈtreɪ.li.ə/",
+            "vnGuide": "Gút MO-nình! Nai-sờ tu mi...t diu, Linh. Aim ĐÂY-vịt, ơ TRA-vơ-lờ phrom o-STRÂY-li-ờ.",
+            "wordBreakdown": [
+              { "w": "Nice to meet you", "ipa": "/naɪs tuː miːt juː/", "how": "nai(s) + tu + mi...(t) + diu" },
+              { "w": "I'm David", "ipa": "/aɪm ˈdeɪ.vɪd/", "how": "ai-m (khép môi) + ĐÂY-vịt" },
+              { "w": "Australia", "ipa": "/ɒsˈtreɪ.li.ə/", "how": "o-s + TRÂY (nhấn mạnh) + li-ờ" }
+            ]
+          },
+          {
+            "speaker": "Linh",
+            "role": "Sinh viên & Barista",
+            "avatar": "👩‍🎓",
+            "en": "Nice to meet you too, David! Are you on vacation in Hue?",
+            "vi": "Rất vui được gặp bạn, David! Bạn đang đi du lịch ở Huế phải không?",
+            "ipa": "/naɪs tuː miːt juː tuː, ˈdeɪ.vɪd! ɑːr juː ɒn vəˈkeɪ.ʃən ɪn hweɪ?/",
+            "vnGuide": "Nai-sờ tu mi...t diu tu, ĐÂY-vịt! A(r) diu on vờ-KÂY-shần in Huê ↗?",
+            "wordBreakdown": [
+              { "w": "too", "ipa": "/tuː/", "how": "bật nhẹ đầu lưỡi t + u kéo dài = tu..." },
+              { "w": "Are you", "ipa": "/ɑːr juː/", "how": "a(r) + diu (lên giọng ở cuối câu hỏi)" },
+              { "w": "vacation", "ipa": "/vəˈkeɪ.ʃən/", "how": "vờ + KÂY (nhấn mạnh) + shần" }
+            ]
+          },
+          {
+            "speaker": "David",
+            "role": "Du khách từ Úc",
+            "avatar": "🧑‍🦱",
+            "en": "Yes, I am. Your city is beautiful and peaceful. I love it here!",
+            "vi": "Đúng vậy. Thành phố của bạn thật đẹp và thanh bình. Tôi rất thích nơi này!",
+            "ipa": "/jes, aɪ æm. jɔːr ˈsɪt.i ɪz ˈbjuː.tɪ.fəl ænd ˈpiːs.fəl. aɪ lʌv ɪt hɪər!/",
+            "vnGuide": "Diét-s, ai am. Do(r) SI-ti i-zờ BIU-ti-phồ en PI...S-phồ. Ai lơ-v ịt hi-ờ!",
+            "wordBreakdown": [
+              { "w": "city", "ipa": "/ˈsɪt.i/", "how": "SI-ti (nhấn âm 1 SI)" },
+              { "w": "beautiful", "ipa": "/ˈbjuː.tɪ.fəl/", "how": "BIU (nhấn mạnh) + ti + phồ" },
+              { "w": "peaceful", "ipa": "/ˈpiːs.fəl/", "how": "PI...S (i dài + xì s) + phồ" }
+            ]
+          }
+        ],
+        "culturalNote": "Ở môi trường quốc tế, câu 'Nice to meet you' luôn được nói kèm theo nụ cười ấm áp và giao tiếp bằng ánh mắt (eye contact). Khi người khác nói 'Nice to meet you', câu đáp lại chuẩn mực và lịch thiệp nhất là 'Nice to meet you too!'.",
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    },
+    {
+      "code": "ACT.M1.W1.D1.PILLARS_FRAMEWORK",
+      "activityType": "INSTRUCTION",
+      "title": "Bóc tách 4 Trụ cột Thông tin Cá nhân (The 4 Pillars Framework)",
+      "position": 2,
+      "content": {
+        "body": "Bất kỳ lời giới thiệu bản thân nào trong tiếng Anh — từ cuộc gặp gỡ bạn bè đến phỏng vấn hay giao lưu quốc tế — đều được xây dựng dựa trên 4 trụ cột cốt lõi sau:",
+        "pillars": [
+          {
+            "number": 1,
+            "type": "Lời chào (Greeting)",
+            "formal": "Hello / Good morning / Good afternoon",
+            "casual": "Hi / Hi there / Hey",
+            "tip": "Mở đầu lịch thiệp tạo thiện cảm ngay từ giây đầu tiên."
+          },
+          {
+            "number": 2,
+            "type": "Tên & Danh tính (Name)",
+            "formal": "My name is Linh.",
+            "casual": "I'm Linh.",
+            "tip": "Trong giao tiếp quốc tế, nói rõ tên mình và lắng nghe tên người đối diện."
+          },
+          {
+            "number": 3,
+            "type": "Quê quán & Xuất xứ (Hometown / Origin)",
+            "formal": "I am from Hue, Vietnam.",
+            "casual": "I come from Hue.",
+            "tip": "Cung cấp thành phố hoặc quốc gia giúp mở ra chủ đề trò chuyện thú vị."
+          },
+          {
+            "number": 4,
+            "type": "Nghề nghiệp & Vai trò (Role / Occupation)",
+            "formal": "I am a university student.",
+            "casual": "I work in IT / I'm an engineer.",
+            "tip": "Nhớ dùng mạo từ 'a' hoặc 'an' trước danh từ số ít chỉ nghề nghiệp."
+          }
+        ],
+        "contrastSection": {
+          "title": "So sánh 2 phong cách giới thiệu",
+          "linhExample": "Linh (Trang trọng, lịch thiệp): 'Hello! My name is Linh. I am from Hue. I am a student.'",
+          "anExample": "An (Thân mật, bạn bè): 'Hi there! I'm An. I'm from Da Nang. I'm an IT engineer.'"
+        },
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    },
+    {
+      "code": "ACT.M1.W1.D1.VOCAB_MASTERCLASS",
+      "activityType": "INSTRUCTION",
+      "title": "Kho Từ vựng & Ngữ âm Cốt lõi (Vocabulary Bank with IPA)",
+      "position": 3,
+      "content": {
+        "body": "10 từ vựng và cụm từ căn bản nhất cho ngày đầu tiên. Mỗi từ đều có phiên âm quốc tế (IPA), công thức đánh vần từng bước (giống ghép vần tiếng Việt), chia âm tiết và câu ví dụ thực tế:",
+        "blendingRules": [
+          { "step": "Bước 1: Đọc Nguyên âm chuẩn", "desc": "Nhìn ký hiệu nguyên âm ở giữa (ví dụ /iː/ là 'i' kéo dài, /eɪ/ là 'ây')." },
+          { "step": "Bước 2: Ghép Phụ âm đầu + Nguyên âm", "desc": "Ví dụ /m/ + /iː/ -> đọc liền thành 'mi...' (giống ghép chữ M + I trong tiếng Việt)." },
+          { "step": "Bước 3: Đóng nhẹ Âm đuôi (Ending Sound)", "desc": "Thêm phụ âm cuối (/t/, /m/, /z/) ngay sau nguyên âm: /m/ + /iː/ + /t/ = /miːt/ (meet)." }
+        ],
+        "phonemes": [
+          {
+            "ipa": "/iː/",
+            "name": "Nguyên âm dài /iː/ (Long e)",
+            "vnApprox": "Đọc như 'i...' ngân dài (2 nhịp)",
+            "mouth": "Khóe miệng kéo căng sang hai bên như đang cười tươi, âm ngân dài.",
+            "blendFormula": "/m/ (m) + /iː/ (i dài) + /t/ (bật nhẹ t) = /miːt/",
+            "blendParts": [
+              { "sym": "/m/", "label": "môi khép m", "audio": "m" },
+              { "sym": "/iː/", "label": "ngân dài i...", "audio": "ee" },
+              { "sym": "/t/", "label": "bật đầu lưỡi t", "audio": "t" }
+            ],
+            "example": "meet /miːt/ (gặp gỡ)",
+            "contrast": "mit /mɪt/ (găng tay)",
+            "audioWord": "meet"
+          },
+          {
+            "ipa": "/eɪ/",
+            "name": "Nguyên âm đôi /eɪ/ (Diphthong)",
+            "vnApprox": "Trượt mượt từ 'ê' sang 'i' (gần giống 'ây')",
+            "mouth": "Mở miệng phát âm /e/ rồi trượt mượt mà khép dần về /ɪ/.",
+            "blendFormula": "/n/ (n) + /eɪ/ (ê-i) + /m/ (khép môi m) = /neɪm/",
+            "blendParts": [
+              { "sym": "/n/", "label": "đầu lưỡi n", "audio": "n" },
+              { "sym": "/eɪ/", "label": "trượt ê -> i", "audio": "ay" },
+              { "sym": "/m/", "label": "ngậm môi m", "audio": "m" }
+            ],
+            "example": "name /neɪm/ (tên)",
+            "contrast": "tiếng Việt 'nem'",
+            "audioWord": "name"
+          },
+          {
+            "ipa": "/z/",
+            "name": "Phụ âm rung /z/ (Voiced s)",
+            "vnApprox": "Kêu 'dờ/giờ' nhẹ trong cổ họng kèm luồng hơi qua kẽ răng",
+            "mouth": "Hai hàm răng khép hờ, đầu lưỡi gần chân răng trên, làm rung dây thanh quản.",
+            "blendFormula": "/ɪ/ (i-ê ngắn) + /z/ (rung cổ z) = /ɪz/",
+            "blendParts": [
+              { "sym": "/ɪ/", "label": "ngắn gọn i-ê", "audio": "ih" },
+              { "sym": "/z/", "label": "rung cổ zzz", "audio": "z" }
+            ],
+            "example": "is /ɪz/ (là)",
+            "contrast": "it /ɪt/ (bật nhẹ t)",
+            "audioWord": "is"
+          }
+        ],
+        "vocabulary": [
+          {
+            "en": "hello",
+            "ipa": "/həˈləʊ/",
+            "spellSteps": "hờ + ơ (nhẹ) + l + âu (nhấn mạnh) = hơ-LÂU",
+            "syllables": "hel · LO",
+            "stressNote": "Nhấn âm 2 (LO)",
+            "pos": "interjection",
+            "vi": "xin chào (lịch sự, phổ biến nhất)",
+            "example": "Hello! Welcome to our team.",
+            "collocation": "Hello everyone / Hello there"
+          },
+          {
+            "en": "hi",
+            "ipa": "/haɪ/",
+            "spellSteps": "h (hơi thở) + ai (a trượt sang i) = hai",
+            "syllables": "HI (1 âm tiết)",
+            "stressNote": "Âm đơn",
+            "pos": "interjection",
+            "vi": "chào (thân mật, gần gũi)",
+            "example": "Hi, An! How are you?",
+            "collocation": "Hi there"
+          },
+          {
+            "en": "name",
+            "ipa": "/neɪm/",
+            "spellSteps": "n + ê-i (ây) + m (ngậm môi cuối) = nêim",
+            "syllables": "NAME (1 âm tiết)",
+            "stressNote": "Khép môi /m/ cuối",
+            "pos": "noun",
+            "vi": "tên, danh tính",
+            "example": "My name is Linh.",
+            "collocation": "first name / full name"
+          },
+          {
+            "en": "from",
+            "ipa": "/frɒm/",
+            "spellSteps": "ph-r (liền nhau) + o (ngắn) + m (khép môi) = phrom",
+            "syllables": "FROM (1 âm tiết)",
+            "stressNote": "Khép môi /m/ cuối",
+            "pos": "preposition",
+            "vi": "đến từ (nguồn gốc, quê quán)",
+            "example": "I am from Hue, Vietnam.",
+            "collocation": "be from / come from"
+          },
+          {
+            "en": "student",
+            "ipa": "/ˈstjuː.dənt/",
+            "spellSteps": "Âm 1: s-t-diu (nhấn mạnh STIU) + Âm 2: đần-t (bật nhẹ t) = STIU-đần(t)",
+            "syllables": "STU · dent",
+            "stressNote": "Nhấn âm 1 (STU)",
+            "pos": "noun",
+            "vi": "học sinh, sinh viên (nhấn âm 1)",
+            "example": "Linh is a university student.",
+            "collocation": "university student / college student"
+          },
+          {
+            "en": "teacher",
+            "ipa": "/ˈtiː.tʃər/",
+            "spellSteps": "Âm 1: t + i dài (nhấn mạnh TI...) + Âm 2: ch + ơ (cong lưỡi r) = TI-chờ(r)",
+            "syllables": "TEA · cher",
+            "stressNote": "Nhấn âm 1 (TEA)",
+            "pos": "noun",
+            "vi": "giáo viên (nhấn âm 1)",
+            "example": "He is an English teacher.",
+            "collocation": "high school teacher"
+          },
+          {
+            "en": "nurse",
+            "ipa": "/nɜːs/",
+            "spellSteps": "n + ơ dài (cong lưỡi) + s (xì hơi nhẹ qua kẽ răng) = nơ...s",
+            "syllables": "NURSE (1 âm tiết)",
+            "stressNote": "Kéo dài /ɜː/ + xì /s/",
+            "pos": "noun",
+            "vi": "y tá, điều dưỡng (âm dài /ɜː/)",
+            "example": "Mai is a nurse at the hospital.",
+            "collocation": "hospital nurse"
+          },
+          {
+            "en": "engineer",
+            "ipa": "/ˌen.dʒɪˈnɪər/",
+            "spellSteps": "Âm 1: en + Âm 2: dờ-i (gi) + Âm 3 (NHẤN MẠNH): n + i-ơ = en-gi-NIƠ",
+            "syllables": "en · gi · NEER",
+            "stressNote": "Nhấn âm 3 (NEER)",
+            "pos": "noun",
+            "vi": "kỹ sư (nhấn âm 3: -neer)",
+            "example": "An is an IT engineer.",
+            "collocation": "software engineer / civil engineer"
+          },
+          {
+            "en": "meet",
+            "ipa": "/miːt/",
+            "spellSteps": "m + i... (cười căng miệng kéo dài) + t (bật nhẹ đầu lưỡi) = mi...t",
+            "syllables": "MEET (1 âm tiết)",
+            "stressNote": "Ngân dài /iː/ + bật /t/",
+            "pos": "verb",
+            "vi": "gặp gỡ, làm quen (âm /iː/ kéo dài)",
+            "example": "Nice to meet you, David.",
+            "collocation": "meet someone for the first time"
+          },
+          {
+            "en": "welcome",
+            "ipa": "/ˈwel.kəm/",
+            "spellSteps": "Âm 1: gu-eo (uốn lưỡi chữ l -> WEL) + Âm 2: k + ầm (khép môi m) = WEL-kầm",
+            "syllables": "WEL · come",
+            "stressNote": "Nhấn âm 1 (WEL)",
+            "pos": "verb / interjection",
+            "vi": "chào đón, hoan nghênh (nhấn âm 1)",
+            "example": "Welcome to Vietnam!",
+            "collocation": "warm welcome / welcome to"
+          }
+        ],
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    },
+    {
+      "code": "ACT.M1.W1.D1.PRONUNCIATION_TRAPS",
+      "activityType": "INSTRUCTION",
+      "title": "Bí quyết Ngữ âm & Cảnh báo Bẫy Tiếng Mẹ Đẻ (Pronunciation & L1 Traps)",
+      "position": 4,
+      "content": {
+        "body": "Người học tiếng Anh tại Việt Nam thường gặp 3 rào cản ngữ âm và thói quen ngôn ngữ kinh điển. Hiểu rõ những điều này sẽ giúp bạn nói tự tin và chuẩn xác hơn rất nhiều:",
+        "traps": [
+          {
+            "title": "Bẫy 1: Quên mạo từ 'a / an' trước danh từ nghề nghiệp số ít",
+            "viIssue": "Tiếng Việt nói: 'Tôi là sinh viên' (không có mạo từ). Do đó, người học thường nói nhầm: 'I am student' ❌.",
+            "fix": "Trong tiếng Anh, danh từ đếm được số ít chỉ nghề nghiệp BẮT BUỘC phải có mạo từ: 'I am a student' ✅ hoặc 'I am an engineer' ✅ (dùng 'an' khi từ bắt đầu bằng nguyên âm E, U, I, O, A).",
+            "status": "CRITICAL"
+          },
+          {
+            "title": "Bẫy 2: 'Nuốt âm đuôi' (Dropping Ending Sounds)",
+            "viIssue": "Tiếng Việt là ngôn ngữ đơn âm tiết, từ kết thúc bằng nguyên âm hoặc phụ âm khép. Người Việt thường quên phát âm âm gió hoặc âm bật ở cuối từ tiếng Anh.",
+            "fix": "Hãy chú ý phát âm rõ ràng: 'name' /neɪm/ (khép môi âm /m/), 'is' /ɪz/ (rung nhẹ âm /z/), 'meet' /miːt/ (bật nhẹ đầu lưỡi âm /t/).",
+            "status": "PHONETIC"
+          },
+          {
+            "title": "Bẫy 3: Đọc sai trọng âm từ (Word Stress)",
+            "viIssue": "Đọc đều đều các âm tiết như tiếng Việt khiến người bản xứ khó nhận diện từ.",
+            "fix": "Ghi nhớ quy tắc đòn bẩy: Âm có trọng âm đọc to hơn, cao hơn và dài hơn một chút: 'STU-dent' (nhấn âm 1), 'TEA-cher' (nhấn âm 1), nhưng 'engi-NEER' (nhấn mạnh vào âm 3: -neer).",
+            "status": "RHYTHM"
+          }
+        ],
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    },
+    {
+      "code": "ACT.M1.W1.D1.IPA_DECODING_QUIZ",
+      "activityType": "CONTROLLED_PRACTICE",
+      "title": "Bài Test IPA Thực chiến: Giải mã Khẩu hình, Ghép vần & Trọng âm (IPA Decoding Quiz)",
+      "position": 5,
+      "content": {
+        "instruction": "Kiểm tra kỹ năng đọc ký hiệu phiên âm IPA, nhận diện khẩu hình môi — lưỡi, phân biệt nguyên âm dài/ngắn và gõ từ tiếng Anh từ phiên âm IPA (có gợi ý, không chấm phạt):",
+        "opportunityType": "GUIDED_PRACTICE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D1.CHECK_IPA_MOUTH_LONG_E",
+          "familyCode": "FAMILY.M1.W1.D1.CHECK_IPA",
+          "familyConstruct": "Guided decoding of IPA phonemes, mouth articulation, and stress markers",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Câu 1 (Nhận diện Khẩu hình): Khẩu hình 'khóe miệng kéo căng ngang như đang cười tươi, mặt lưỡi nâng cao và ngân dài 2 nhịp (ký hiệu ː)' là của âm IPA nào?",
+            "options": [
+              "/iː/ — Nguyên âm i dài (như trong từ 'meet' /miːt/)",
+              "/ɪ/ — Nguyên âm i ngắn thả lỏng (như trong từ 'is' /ɪz/)",
+              "/eɪ/ — Nguyên âm đôi trượt (như trong từ 'name' /neɪm/)",
+              "/ɜː/ — Nguyên âm ơ dài cong lưỡi (như trong từ 'nurse' /nɜːs/)"
+            ]
+          },
+          "answerDefinition": {
+            "accepted": ["/iː/ — Nguyên âm i dài (như trong từ 'meet' /miːt/)"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Chính xác! Dấu hai chấm (ː) báo hiệu ngân dài 2 nhịp, và âm /iː/ đòi hỏi kéo căng khóe miệng sang hai bên như đang mỉm cười ('meet' /miːt/)."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Chú ý ký hiệu chữ i thường đi kèm dấu hai chấm (ː) kéo dài."
+          },
+          "claim": "GUIDED_IPA_DECODING",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D1.CHECK_IPA_BLENDING_NAME",
+          "familyCode": "FAMILY.M1.W1.D1.CHECK_IPA",
+          "familyConstruct": "Guided decoding of IPA phonemes, mouth articulation, and stress markers",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Câu 2 (Công thức Ghép vần 3 Bước): Khi ghép Phụ âm đầu /n/ + Nguyên âm đôi trượt /eɪ/ (ê->i) + Phụ âm cuối khép môi /m/, ta tạo thành từ nào?",
+            "options": [
+              "name /neɪm/ (tên gọi)",
+              "meet /miːt/ (gặp gỡ)",
+              "nice /naɪs/ (vui vẻ, tốt đẹp)",
+              "nurse /nɜːs/ (y tá)"
+            ]
+          },
+          "answerDefinition": {
+            "accepted": ["name /neɪm/ (tên gọi)"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Tuyệt vời! /n/ + /eɪ/ ('nây') + khép hai môi giữ âm /m/ ở cuối tạo thành từ 'name' (/neɪm/)."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Từ bắt đầu bằng /n/ và kết thúc bằng phụ âm khép môi /m/."
+          },
+          "claim": "GUIDED_IPA_DECODING",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D1.CHECK_IPA_STRESS_ENGINEER",
+          "familyCode": "FAMILY.M1.W1.D1.CHECK_IPA",
+          "familyConstruct": "Guided decoding of IPA phonemes, mouth articulation, and stress markers",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Câu 3 (Đọc Ký hiệu Trọng âm ˈ): Nhìn phiên âm từ 'engineer' là /ˌen.dʒɪˈnɪər/. Dấu phẩy trên (ˈ) cho biết bạn phải đọc NHẤN MẠNH vào âm tiết nào?",
+            "options": [
+              "Âm tiết thứ 3: -NEER (/ˈnɪər/) — đứng ngay sau dấu phẩy trên ˈ",
+              "Âm tiết thứ 1: en- (/ˌen/) — đứng sau dấu phẩy dưới ˌ",
+              "Âm tiết thứ 2: -gi- (/dʒɪ/) — âm ở giữa",
+              "Đọc ngang bằng cả 3 âm tiết như tiếng Việt"
+            ]
+          },
+          "answerDefinition": {
+            "accepted": ["Âm tiết thứ 3: -NEER (/ˈnɪər/) — đứng ngay sau dấu phẩy trên ˈ"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Rất chuẩn! Quy tắc vàng của IPA: Dấu phẩy trên (ˈ) đứng ngay TRƯỚC âm tiết nào thì âm tiết đó nhận trọng âm chính: en-gi-NEER (/ˌen.dʒɪˈnɪər/)."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Tìm vị trí dấu phẩy trên (ˈ) trong chuỗi /ˌen.dʒɪˈnɪər/."
+          },
+          "claim": "GUIDED_IPA_DECODING",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D1.CHECK_IPA_DECODE_MEET",
+          "familyCode": "FAMILY.M1.W1.D1.CHECK_IPA",
+          "familyConstruct": "Guided decoding of IPA phonemes, mouth articulation, and stress markers",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Câu 4 (Giải mã Phiên âm -> Từ Tiếng Anh): Ghép vần /m/ + /iː/ (i dài cười) + /t/ (bật nhẹ t) = /miːt/. Hãy gõ từ tiếng Anh tương ứng (nghĩa là 'gặp gỡ'): ___"
+          },
+          "answerDefinition": {
+            "accepted": ["meet"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Xuất sắc! Phiên âm /miːt/ chính là động từ 'meet' (trong câu 'Nice to meet you')."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Từ gồm 4 chữ cái bắt đầu bằng 'm': Nice to ___ you."
+          },
+          "claim": "GUIDED_IPA_DECODING",
+          "modality": "WRITTEN_PRODUCTION"
+        },
+        {
+          "code": "ITEM.M1.W1.D1.CHECK_IPA_DECODE_STUDENT",
+          "familyCode": "FAMILY.M1.W1.D1.CHECK_IPA",
+          "familyConstruct": "Guided decoding of IPA phonemes, mouth articulation, and stress markers",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Câu 5 (Giải mã Phiên âm -> Từ Tiếng Anh): Đọc trọng âm âm 1 /ˈstjuː.dənt/ (STIU-đần-t). Hãy gõ danh từ tiếng Anh tương ứng (nghĩa là 'sinh viên / học sinh'): ___"
+          },
+          "answerDefinition": {
+            "accepted": ["student"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Chính xác! Phiên âm /ˈstjuː.dənt/ chính là danh từ 'student'."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Danh từ bắt đầu bằng 'st...' chỉ người đi học."
+          },
+          "claim": "GUIDED_IPA_DECODING",
+          "modality": "WRITTEN_PRODUCTION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D1.CHECK_UNDERSTANDING",
+      "activityType": "CONTROLLED_PRACTICE",
+      "title": "Kiểm tra Nhanh Sự Thấu hiểu Ngữ cảnh & Ngữ pháp (Comprehension Check)",
+      "position": 6,
+      "content": {
+        "instruction": "Hãy trả lời 3 câu hỏi kiểm tra nhanh dưới đây để củng cố kiến thức đã học. Bài kiểm tra có gợi ý và không chấm điểm phạt.",
+        "opportunityType": "GUIDED_PRACTICE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D1.CHECK_HOMETOWN",
+          "familyCode": "FAMILY.M1.W1.D1.CHECK_PILLARS",
+          "familyConstruct": "Guided identification of personal facts from dialogue exposure",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Trong đoạn hội thoại mở đầu, Linh đến từ thành phố nào của Việt Nam?",
+            "options": [
+              "Hue (Thừa Thiên Huế)",
+              "Da Nang (Đà Nẵng)",
+              "Hanoi (Hà Nội)",
+              "Ho Chi Minh City (TP. Hồ Chí Minh)"
+            ]
+          },
+          "answerDefinition": {
+            "accepted": ["Hue (Thừa Thiên Huế)"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Chính xác! Linh sống và làm việc tại quán cà phê gần sông Hương ở Cố đô Huế: 'I am from Hue, Vietnam.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Quán cà phê nằm cạnh sông Hương (Perfume River)."
+          },
+          "claim": "GUIDED_PILLARS_IDENTIFICATION",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D1.CHECK_MISSING_PILLAR",
+          "familyCode": "FAMILY.M1.W1.D1.CHECK_PILLARS",
+          "familyConstruct": "Guided identification of personal facts from dialogue exposure",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Quan sát câu giới thiệu sau: 'Hello! I am Linh. I am a student.' Trong 4 trụ cột thông tin cá nhân, trụ cột nào đang bị thiếu?",
+            "options": [
+              "Quê quán / Xuất xứ (Hometown / Origin)",
+              "Lời chào (Greeting)",
+              "Tên gọi (Name)",
+              "Nghề nghiệp / Vai trò (Role)"
+            ]
+          },
+          "answerDefinition": {
+            "accepted": ["Quê quán / Xuất xứ (Hometown / Origin)"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Rất chuẩn! Câu trên đã có Lời chào ('Hello'), Tên ('I am Linh') và Nghề nghiệp ('I am a student'), nhưng chưa nói nơi đến (ví dụ 'I am from Hue')."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Câu giới thiệu này chưa nhắc tới quê quán hay thành phố nơi Linh sinh sống."
+          },
+          "claim": "GUIDED_PILLARS_IDENTIFICATION",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D1.CHECK_ARTICLE_TRAP",
+          "familyCode": "FAMILY.M1.W1.D1.CHECK_PILLARS",
+          "familyConstruct": "Guided identification of personal facts from dialogue exposure",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Chọn câu giới thiệu nghề nghiệp đúng ngữ pháp và không mắc bẫy tiếng mẹ đẻ:",
+            "options": [
+              "I am a university student.",
+              "I am university student.",
+              "I a student.",
+              "I is student."
+            ]
+          },
+          "answerDefinition": {
+            "accepted": ["I am a university student."],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Tuyệt vời! Danh từ số ít chỉ nghề nghiệp 'university student' bắt buộc phải có mạo từ 'a' đi trước, và chủ ngữ 'I' đi với động từ to be 'am'."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Tiếng Anh luôn cần mạo từ 'a' hoặc 'an' trước danh từ số ít chỉ nghề nghiệp."
+          },
+          "claim": "GUIDED_PILLARS_IDENTIFICATION",
+          "modality": "WRITTEN_RECOGNITION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D1.REFLECTION_SUMMARY",
+      "activityType": "REFLECTION",
+      "title": "Suy ngẫm & Sẵn sàng cho Ngày 2 (Learner Reflection)",
+      "position": 7,
+      "content": {
+        "body": "Chúc mừng bạn đã hoàn thành ngày học đầu tiên! Hôm nay, bạn đã tiếp xúc với câu chuyện của Linh, hiểu rõ 4 trụ cột giới thiệu, học 10 từ vựng cốt lõi và nắm được 3 bẫy phát âm thường gặp. Hãy thử tự nhẩm trong đầu 4 thông tin của chính mình. Ngày mai (Ngày 2), chúng ta sẽ cùng ghép từng mảnh ngữ pháp 'To Be' để bạn có thể tự tin tự viết và nói những câu này một cách chuẩn xác!",
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    }
+  ]
+}

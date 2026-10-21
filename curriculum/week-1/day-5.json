@@ -1,0 +1,137 @@
+{
+  "day": 5,
+  "lessonCode": "LESSON.M1.W1.D5",
+  "unitCode": "UNIT.M1.INTRODUCTIONS",
+  "title": "Tự Giới thiệu Bản thân: Viết và Ghi âm (Introduce Yourself)",
+  "summary": "Cột mốc độc lập đầu tiên: Tự viết 3-5 câu giới thiệu bản thân hoàn chỉnh và ghi âm 20-30 giây giọng nói tự tin của chính bạn.",
+  "position": 5,
+  "competencies": [
+    {
+      "code": "M1.PERSONAL.WRITE_INTRO",
+      "title": "Tự viết 3-5 câu giới thiệu bản thân",
+      "description": "Tự sáng tác và viết một đoạn giới thiệu bản thân rõ ràng, mạch lạc gồm lời chào, tên, nơi đến, công việc và sở thích.",
+      "role": "TARGET",
+      "targetModality": "WRITTEN_PRODUCTION"
+    },
+    {
+      "code": "M1.PERSONAL.SPEAK_INTRO",
+      "title": "Nói 20-30 giây giới thiệu bản thân",
+      "description": "Tự tin ghi âm một đoạn giới thiệu ngắn 20-30 giây với phát âm rõ ràng, người nghe hiểu được thông tin chính.",
+      "role": "TARGET",
+      "targetModality": "SPOKEN_PRODUCTION"
+    }
+  ],
+  "packageCode": "PACKAGE.M1.W1.D5",
+  "activities": [
+    {
+      "code": "ACT.M1.W1.D5.STUDIO_GUIDE",
+      "activityType": "INSTRUCTION",
+      "title": "Khung Gợi ý Bài Giới thiệu Chuẩn mực (Structured Introduction Blueprint)",
+      "position": 1,
+      "content": {
+        "body": "Hôm nay bạn sẽ tự tạo ra sản phẩm ngôn ngữ của riêng mình! Hãy tham khảo khung cấu trúc 5 bước tự nhiên dưới đây:",
+        "blueprint": [
+          { "step": "1. Lời chào & Tên", "pattern": "Hello everyone! My name is [Tên của bạn]. / I'm [Tên của bạn]." },
+          { "step": "2. Xuất xứ & Nơi sống", "pattern": "I am from [Quê hương], but now I live in [Thành phố hiện tại]." },
+          { "step": "3. Nghề nghiệp / Vai trò", "pattern": "I am a [student / teacher / nurse / engineer / developer / designer]." },
+          { "step": "4. Sở thích cá nhân", "pattern": "In my free time, I really enjoy [reading books / listening to music / cooking / running]." },
+          { "step": "5. Lời kết lịch thiệp", "pattern": "Nice to meet you all! / It's great to be here." }
+        ],
+        "authoringTip": "Đừng cố dùng từ ngữ quá phức tạp. Hãy dùng những từ đơn giản, chính xác mà bạn phát âm tự tin nhất.",
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    },
+    {
+      "code": "ACT.M1.W1.D5.WRITE_WORKSPACE",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Không gian Viết: 3-5 Câu về Chính Bạn (Writing Studio)",
+      "position": 2,
+      "content": {
+        "instruction": "Tự viết ít nhất 3-5 câu giới thiệu bản thân vào ô bên dưới. Hãy đọc kỹ checklist tự soát trước khi nộp.",
+        "selfChecklist": [
+          "Có lời chào mở đầu và tên của tôi",
+          "Có quê hương hoặc nơi tôi đang sống",
+          "Dùng đúng động từ to be (am / is / are) và mạo từ a/an",
+          "Có ít nhất 3 câu do chính tôi tự viết",
+          "Dấu chấm câu và viết hoa đầu câu chuẩn xác"
+        ],
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "WRITTEN_PRODUCTION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D5.WRITE_SELF_ARTIFACT",
+          "familyCode": "FAMILY.M1.W1.WRITE_INTRO_STUDIO",
+          "familyConstruct": "Independent written production of a personalized introduction artifact",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Tự viết 3-5 câu giới thiệu bản thân bằng tiếng Anh vào ô bên dưới:",
+            "instruction": "Tự viết 3-5 câu giới thiệu bản thân.",
+            "placeholder": "Hello! My name is... I am from... I am a...",
+            "minSentences": 3,
+            "maxSentences": 6
+          },
+          "answerDefinition": {
+            "accepted": ["ARTIFACT_WRITING_SUBMISSION"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Bài viết của bạn được lưu trữ an toàn trong kho bằng chứng học tập định tính."
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "WRITE_INTRO_INDEPENDENT",
+          "modality": "WRITTEN_PRODUCTION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D5.SPEAKING_STUDIO",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Phòng Ghi âm Giọng nói: 20-30 Giây Tự tin (Speaking Studio)",
+      "position": 3,
+      "content": {
+        "instruction": "Hít một hơi thật sâu, mỉm cười và nhấn nút ghi âm để nói lời giới thiệu vừa viết. Nếu micro bị chặn hoặc gặp lỗi mạng, bạn có thể chọn bỏ qua mà không bị tính lỗi.",
+        "pacingTip": "Tốc độ nói lý tưởng là từ tốn, khoảng 1 từ mỗi giây. Nói rõ âm cuối (ending sounds: /z/, /t/, /m/).",
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "SPOKEN_PRODUCTION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D5.SPEAK_SELF_ARTIFACT",
+          "familyCode": "FAMILY.M1.W1.SPEAK_INTRO_STUDIO",
+          "familyConstruct": "Independent spoken delivery of personal introduction audio artifact",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Ghi âm 20-30 giây lời giới thiệu của bạn:",
+            "instruction": "Ghi âm 20-30 giây lời giới thiệu của bạn.",
+            "targetDurationSeconds": 25,
+            "fallbackAvailable": true
+          },
+          "answerDefinition": {
+            "accepted": ["ARTIFACT_AUDIO_SUBMISSION"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "File ghi âm giọng nói của bạn được bảo mật trong tài khoản để bạn tự so sánh tiến bộ sau mỗi tuần."
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "SPEAK_INTRO_INDEPENDENT",
+          "modality": "SPOKEN_PRODUCTION"
+        }
+      ]
+    }
+  ]
+}

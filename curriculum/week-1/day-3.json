@@ -1,0 +1,235 @@
+{
+  "day": 3,
+  "lessonCode": "LESSON.M1.W1.D3",
+  "unitCode": "UNIT.M1.INTRODUCTIONS",
+  "title": "Tên và Chi tiết Chính trong Nghe & Đọc (Name and Key Details)",
+  "summary": "Phát triển năng lực nghe nhận diện chi tiết lần đầu, đánh vần tên riêng theo chuẩn IPA, làm chủ trọng âm từ và đọc quét thông tin từ thẻ hồ sơ cá nhân thực tế.",
+  "position": 3,
+  "competencies": [
+    {
+      "code": "M1.PERSONAL.LISTEN_DETAILS",
+      "title": "Nghe hiểu chi tiết thông tin cá nhân",
+      "description": "Nắm bắt chính xác tên, quê quán, nghề nghiệp trong một đoạn độc thoại hoặc hội thoại giới thiệu tự nhiên.",
+      "role": "TARGET",
+      "targetModality": "AURAL_RECOGNITION"
+    },
+    {
+      "code": "M1.PERSONAL.READ_DETAILS",
+      "title": "Đọc hiểu chi tiết thông tin cá nhân",
+      "description": "Đọc quét nhanh và xác định đúng tên, quốc gia, nghề nghiệp trên thẻ hồ sơ cá nhân định dạng thực tế.",
+      "role": "SUPPORTING",
+      "targetModality": "WRITTEN_RECOGNITION"
+    }
+  ],
+  "packageCode": "PACKAGE.M1.W1.D3",
+  "activities": [
+    {
+      "code": "ACT.M1.W1.D3.SPELLING_ACOUSTIC",
+      "activityType": "CONTROLLED_PRACTICE",
+      "title": "Bảng Ngữ Âm Chữ Cái IPA & Luyện Nghe Đánh Vần Tên (Acoustic Spelling & Stress)",
+      "position": 1,
+      "content": {
+        "instruction": "Nghe phát thanh viên đánh vần từng chữ cái trong tên riêng và gõ lại. Luyện tập có gợi ý.",
+        "alphabetTip": "Các chữ cái hay bị nhầm lẫn trong phát âm: A /eɪ/ khác E /iː/; G /dʒiː/ khác J /dʒeɪ/; H phát âm là /eɪtʃ/.",
+        "pronunciationTip": "Trọng âm từ đóng vai trò quyết định để người bản xứ nhận ra từ: STU-dent (nhấn âm 1), TEA-cher (nhấn âm 1), nhưng engi-NEER (nhấn âm 3).",
+        "opportunityType": "GUIDED_PRACTICE",
+        "modality": "AURAL_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D3.SPELL_TRAN",
+          "familyCode": "FAMILY.M1.W1.SPELL_GUIDED",
+          "familyConstruct": "Supported letter recognition and spelling of short names",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Nghe và gõ lại tên: ___",
+            "question": "Nghe và gõ lại tên: ___",
+            "audio": "My name is Tran. T, R, A, N. Tran."
+          },
+          "answerDefinition": {
+            "accepted": ["tran", "Tran"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Bốn chữ cái được đánh vần rõ ràng: T - R - A - N -> Tran."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Gồm 4 chữ cái, bắt đầu bằng chữ T."
+          },
+          "claim": "LISTEN_SPELLING_GUIDED",
+          "modality": "AURAL_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D3.STRESS_STUDENT",
+          "familyCode": "FAMILY.M1.W1.SPELL_GUIDED",
+          "familyConstruct": "Supported word stress recognition",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Từ 'student' có trọng âm rơi vào âm tiết nào?",
+            "question": "Từ 'student' có trọng âm rơi vào âm tiết nào?",
+            "options": ["Âm tiết thứ nhất: STU-dent", "Âm tiết thứ hai: stu-DENT"],
+            "audio": "student. student."
+          },
+          "answerDefinition": {
+            "accepted": ["Âm tiết thứ nhất: STU-dent"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Trong tiếng Anh, danh từ 2 âm tiết thường nhấn âm đầu: STU-dent (/ˈstjuː.dənt/)."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Âm đầu được phát âm to và cao hơn âm sau."
+          },
+          "claim": "LISTEN_SPELLING_GUIDED",
+          "modality": "AURAL_RECOGNITION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D3.LISTEN_MAI",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Nghe Lời Giới thiệu của Mai ở Hải Phòng (First-Pass Listening)",
+      "position": 2,
+      "content": {
+        "instruction": "Hãy thử nghe lần đầu trước khi chọn đáp án. Nghe lại bao nhiêu lần tùy thích — hệ thống chỉ ghi nhận trung thực xem bạn có cần dùng hỗ trợ hay không.",
+        "audioTranscript": "Good morning everyone! My name is Mai. I am twenty-five years old and I come from Hai Phong, a dynamic coastal city in northern Vietnam. I work as a nurse at the children's hospital. Nice to meet all of you!",
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "AURAL_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D3.MAI_FROM",
+          "familyCode": "FAMILY.M1.W1.LISTEN_INDEPENDENT",
+          "familyConstruct": "Independent identification of hometown/origin from spoken introduction",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Mai đến từ thành phố nào?",
+            "question": "Mai đến từ thành phố nào?",
+            "options": ["Huế", "Hải Phòng", "Đà Nẵng"],
+            "audio": "Good morning everyone! My name is Mai. I come from Hai Phong."
+          },
+          "answerDefinition": {
+            "accepted": ["Hải Phòng"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Mai nói rõ: 'I come from Hai Phong, a dynamic coastal city...'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "LISTEN_HOMETOWN_INDEPENDENT",
+          "modality": "AURAL_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D3.MAI_JOB",
+          "familyCode": "FAMILY.M1.W1.LISTEN_INDEPENDENT",
+          "familyConstruct": "Independent identification of occupation from spoken introduction",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Nghề nghiệp của Mai là gì?",
+            "question": "Nghề nghiệp của Mai là gì?",
+            "options": ["Y tá (Nurse)", "Sinh viên (Student)", "Giáo viên (Teacher)"],
+            "audio": "I work as a nurse at the children's hospital."
+          },
+          "answerDefinition": {
+            "accepted": ["Y tá (Nurse)"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Mai chia sẻ: 'I work as a nurse at the children's hospital' (nurse = y tá)."
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "LISTEN_JOB_INDEPENDENT",
+          "modality": "AURAL_RECOGNITION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D3.READ_TOM",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Đọc Thẻ Hồ sơ Nghề nghiệp Quốc tế (Profile Card Reading)",
+      "position": 3,
+      "content": {
+        "instruction": "Đọc quét nhanh tấm thẻ đeo định danh quốc tế dưới đây và trả lời 2 câu hỏi.",
+        "cardData": {
+          "fullName": "Tom Baker",
+          "country": "Australia",
+          "occupation": "Chef (Head Chef)",
+          "organization": "Sydney Harbour Restaurant"
+        },
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D3.TOM_JOB",
+          "familyCode": "FAMILY.M1.W1.READ_PROFILE_INDEPENDENT",
+          "familyConstruct": "Independent reading comprehension of formatted professional profile card",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Nghề nghiệp của Tom Baker là gì?",
+            "question": "Nghề nghiệp của Tom Baker là gì?",
+            "options": ["Đầu bếp (Chef)", "Kỹ sư phần mềm (Engineer)", "Y tá (Nurse)"],
+            "context": "Name: Tom Baker | Country: Australia | Role: Head Chef | Place: Sydney Harbour Restaurant"
+          },
+          "answerDefinition": {
+            "accepted": ["Đầu bếp (Chef)"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Dòng Role/Occupation ghi: Head Chef (Bếp trưởng)."
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "READ_PROFILE_JOB",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D3.TOM_COUNTRY",
+          "familyCode": "FAMILY.M1.W1.READ_PROFILE_INDEPENDENT",
+          "familyConstruct": "Independent reading comprehension of formatted professional profile card",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Tom Baker đến từ quốc gia nào?",
+            "question": "Tom Baker đến từ quốc gia nào?",
+            "options": ["Australia (Nước Úc)", "United States (Nước Mỹ)", "United Kingdom (Nước Anh)"],
+            "context": "Name: Tom Baker | Country: Australia | Role: Head Chef | Place: Sydney Harbour Restaurant"
+          },
+          "answerDefinition": {
+            "accepted": ["Australia (Nước Úc)"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Dòng Country ghi: Australia (Nước Úc)."
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "READ_PROFILE_COUNTRY",
+          "modality": "WRITTEN_RECOGNITION"
+        }
+      ]
+    }
+  ]
+}

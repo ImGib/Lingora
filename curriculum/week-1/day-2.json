@@ -1,0 +1,346 @@
+{
+  "day": 2,
+  "lessonCode": "LESSON.M1.W1.D2",
+  "unitCode": "UNIT.M1.INTRODUCTIONS",
+  "title": "Xây dựng Câu Giới thiệu với Mảnh ghép To Be (Build a Simple Introduction)",
+  "summary": "Nắm vững quy tắc phối hợp Chủ ngữ và To Be (am, are, is) qua mô hình mảnh ghép Grammar Pieces, dạng viết tắt contractions, thể phủ định và phản biện lỗi sai ngữ pháp thường gặp.",
+  "position": 2,
+  "competencies": [
+    {
+      "code": "M1.PERSONAL.USE_BE",
+      "title": "Dùng to be cho thông tin cá nhân",
+      "description": "Lựa chọn và điền chính xác am, are, is với các đại từ nhân xưng I, you, he, she trong các câu thông tin cá nhân đời thường.",
+      "role": "TARGET",
+      "targetModality": "WRITTEN_PRODUCTION"
+    }
+  ],
+  "packageCode": "PACKAGE.M1.W1.D2",
+  "activities": [
+    {
+      "code": "ACT.M1.W1.D2.GRAMMAR_PIECES",
+      "activityType": "INSTRUCTION",
+      "title": "Chuyên đề Ngữ pháp Trọng tâm: Đại từ Nhân xưng (Subject Pronouns) & Động từ To Be",
+      "position": 1,
+      "content": {
+        "body": "Một câu giới thiệu tiếng Anh chuẩn mực được tạo thành từ 3 khối ghép cơ bản: [Chủ ngữ] + [To Be] + [Bổ ngữ thông tin]. Cùng phân tích toàn diện từ Trọng tâm, Chức năng, Cấu trúc 3 thể (+/-/?) đến Cách nhận biết và Ví dụ giảng giải:",
+        "coreConcept": {
+          "summary": "Trong tiếng Việt, ta có thể nói tắt không cần động từ nối (VD: 'Tôi từ Huế', 'Cô ấy vui'). Nhưng trong tiếng Anh, MỌI CÂU KỂ đều bắt buộc phải có Động từ. Khi câu không chỉ hành động (như chạy, ăn, làm việc) mà dùng để Định danh (Tên, Nghề nghiệp), Chỉ xuất xứ (Quê quán, Vị trí) hoặc Miêu tả tính chất, ta BẮT BUỘC dùng Động từ nối TO BE (am / is / are).",
+          "goldenRule": "Đại từ Chủ ngữ (Subject Pronoun) đứng đầu câu quyết định 100% hình thái của To Be đi sau nó: I ➔ am · He/She/It/Danh từ số ít ➔ is · You/We/They/Danh từ số nhiều ➔ are."
+        },
+        "functions": [
+          {
+            "title": "1. Định danh Tên gọi & Nghề nghiệp (Identity & Role)",
+            "formula": "S + am / is / are + Tên riêng / a(an) + Nghề nghiệp",
+            "desc": "Giới thiệu mình hoặc người khác là ai, làm nghề gì. Lưu ý: Danh từ nghề nghiệp số ít bắt buộc có mạo từ 'a' hoặc 'an' đứng trước.",
+            "examples": [
+              { "en": "I am Linh. I am a student.", "vi": "Tôi là Linh. Tôi là một sinh viên." },
+              { "en": "He is an engineer.", "vi": "Anh ấy là một kỹ sư (dùng 'an' trước nguyên âm e)." }
+            ]
+          },
+          {
+            "title": "2. Chỉ Quê quán, Xuất xứ & Vị trí (Origin & Location)",
+            "formula": "S + am / is / are + from [Nơi chốn] / in [Thành phố]",
+            "desc": "Kết hợp với giới từ 'from' để nói quê quán/xuất xứ, hoặc 'in / at' để chỉ vị trí hiện tại.",
+            "examples": [
+              { "en": "You are from Hue.", "vi": "Bạn đến từ Huế." },
+              { "en": "She is in Da Nang now.", "vi": "Hiện tại cô ấy đang ở Đà Nẵng." }
+            ]
+          },
+          {
+            "title": "3. Miêu tả Đặc điểm, Tuổi tác & Trạng thái (Quality & Age)",
+            "formula": "S + am / is / are + Tính từ (Adj) / Số tuổi",
+            "desc": "Nối chủ ngữ với tính từ (vui vẻ, thân thiện, sẵn sàng) hoặc số tuổi (tiếng Anh dùng To Be để nói tuổi, không dùng 'have').",
+            "examples": [
+              { "en": "She is twenty-five years old.", "vi": "Cô ấy 25 tuổi." },
+              { "en": "They are very friendly.", "vi": "Họ rất thân thiện." }
+            ]
+          }
+        ],
+        "pieces": [
+          { "subject": "I (Tôi)", "be": "am (viết tắt: 'm)", "complement": "Linh / a student / from Hue", "example": "I am Linh. (I'm Linh.)" },
+          { "subject": "You (Bạn)", "be": "are (viết tắt: 're)", "complement": "my friend / from Da Nang", "example": "You are my friend. (You're my friend.)" },
+          { "subject": "He / She (Anh ấy / Cô ấy)", "be": "is (viết tắt: 's)", "complement": "An / a nurse / a teacher", "example": "She is a nurse. (She's a nurse.)" },
+          { "subject": "We / They (Chúng tôi / Họ)", "be": "are (viết tắt: 're)", "complement": "from Vietnam / engineers", "example": "They are engineers. (They're engineers.)" }
+        ],
+        "polarityMatrix": [
+          {
+            "polarity": "affirmative",
+            "badge": "+ THỂ KHẲNG ĐỊNH",
+            "title": "Câu Khẳng Định (Affirmative)",
+            "formula": "S + am / is / are + Bổ ngữ (Complement)",
+            "contractionRule": "Khi nói chuyện tự nhiên, người bản xứ thường rút gọn: I am ➔ I'm (/aɪm/) · You are ➔ You're (/jʊər/) · He is ➔ He's (/hiːz/) · She is ➔ She's (/ʃiːz/).",
+            "examples": [
+              { "full": "I am a student.", "short": "I'm a student.", "vi": "Tôi là một sinh viên." },
+              { "full": "She is from Hue.", "short": "She's from Hue.", "vi": "Cô ấy đến từ Huế." }
+            ]
+          },
+          {
+            "polarity": "negative",
+            "badge": "- THỂ PHỦ ĐỊNH",
+            "title": "Câu Phủ Định (Negative — 'Không phải là')",
+            "formula": "S + am / is / are + NOT + Bổ ngữ",
+            "contractionRule": "Đặt 'not' ngay sau To Be. Rút gọn: is not ➔ isn't (/ˈɪz.ənt/) · are not ➔ aren't (/ɑːnt/). ĐẶC BIỆT: 'am not' KHÔNG có từ rút gọn riêng, chỉ viết là \"I'm not\".",
+            "examples": [
+              { "full": "I am not a doctor.", "short": "I'm not a doctor.", "vi": "Tôi không phải là bác sĩ." },
+              { "full": "He is not from Hanoi.", "short": "He isn't from Hanoi.", "vi": "Anh ấy không phải đến từ Hà Nội." }
+            ]
+          },
+          {
+            "polarity": "interrogative",
+            "badge": "? THỂ NGHI VẤN",
+            "title": "Câu Nghi Vấn / Câu Hỏi Đảo (Yes/No Question)",
+            "formula": "Am / Is / Are + S + Bổ ngữ? (Lên giọng cuối câu ↗)",
+            "contractionRule": "Đảo trực tiếp To Be (Am/Is/Are) nhảy lên ĐẦU CÂU đứng trước Chủ ngữ S. Trả lời ngắn: Yes, S + be (Cấm viết tắt ở câu Yes!) / No, S + be + not.",
+            "examples": [
+              { "full": "Are you from Da Nang? ↗", "short": "Yes, I am. / No, I'm not.", "vi": "Bạn đến từ Đà Nẵng phải không?" },
+              { "full": "Is she a nurse? ↗", "short": "Yes, she is. / No, she isn't.", "vi": "Cô ấy có phải là y tá không?" }
+            ]
+          }
+        ],
+        "recognitionTips": [
+          {
+            "step": "Bước 1",
+            "title": "Xác định Ngôi và Số lượng của Chủ ngữ (S) đứng trước ô trống",
+            "detail": "Nhìn từ đứng ngay trước động từ: Nếu là 'I' ➔ chọn ngay 'am'. Nếu là 1 người/1 vật (He, She, It, Lan, My name, The teacher) ➔ quy về ngôi thứ 3 số ít và chọn 'is'. Nếu là người nghe (You) hoặc từ 2 người trở lên (We, They, Lan and Mai) ➔ chọn 'are'."
+          },
+          {
+            "step": "Bước 2",
+            "title": "Quan sát Dấu câu (? / .) và Từ chỉ định phủ định (not)",
+            "detail": "Nếu cuối câu có dấu hỏi chấm '?' và ô trống nằm ở ĐẦU CÂU trước chủ ngữ ➔ đó là câu nghi vấn đảo (Điền Am / Is / Are viết hoa). Nếu có chữ 'not' ➔ thể phủ định (am not / isn't / aren't)."
+          },
+          {
+            "step": "Bước 3",
+            "title": "Kiểm tra Danh từ Nghề nghiệp phía sau để tránh quên 'a / an'",
+            "detail": "Với chủ ngữ số ít (I, He, She), nếu phía sau To Be là một nghề nghiệp đếm được (student, teacher, nurse, engineer), bắt buộc phải có mạo từ 'a' (trước phụ âm) hoặc 'an' (trước nguyên âm u, e, o, a, i)."
+          }
+        ],
+        "annotatedExamples": [
+          {
+            "sentence": "Mai is a caring nurse from Hai Phong.",
+            "ipa": "/maɪ ɪz ə ˈkeə.rɪŋ nɜːs frɒm haɪ fɒŋ/",
+            "meaning": "Mai là một nữ y tá tận tâm đến từ Hải Phòng.",
+            "tokens": [
+              { "text": "Mai", "role": "Chủ ngữ số ít (= She)" },
+              { "text": "is", "role": "Động từ To Be (ngôi 3 số ít)" },
+              { "text": "a caring nurse", "role": "Mạo từ 'a' + Cụm danh từ nghề nghiệp" },
+              { "text": "from Hai Phong", "role": "Cụm giới từ chỉ quê quán" }
+            ],
+            "analysis": "Chủ ngữ 'Mai' chỉ 1 người nên tương đương đại từ 'She' ➔ chia To Be là 'is'. Vì 'nurse' là danh từ nghề nghiệp đếm được số ít và 'caring' bắt đầu bằng phụ âm /k/ nên dùng mạo từ 'a'."
+          },
+          {
+            "sentence": "Are you an IT engineer? — No, I'm not.",
+            "ipa": "/ɑːr juː ən ˌaɪˈtiː ˌen.dʒɪˈnɪər/ — /nəʊ aɪm nɒt/",
+            "meaning": "Bạn có phải là kỹ sư CNTT không? — Không, không phải.",
+            "tokens": [
+              { "text": "Are", "role": "To Be đảo lên đầu câu hỏi" },
+              { "text": "you", "role": "Chủ ngữ ngôi thứ 2" },
+              { "text": "an IT engineer?", "role": "'an' (vì IT đọc là /aɪ/ nguyên âm) + nghề" },
+              { "text": "No, I'm not.", "role": "Trả lời phủ định ngắn (đổi You ➔ I)" }
+            ],
+            "analysis": "Câu hỏi xác nhận Yes/No nên đảo 'Are' lên trước 'you'. Khi người đối diện hỏi 'you' (bạn), câu trả lời phải đổi chủ ngữ thành 'I' (tôi) + 'am not' (rút gọn thành I'm not)."
+          }
+        ],
+        "contractions": [
+          { "full": "I am", "short": "I'm", "ipa": "/aɪm/", "example": "I'm Linh." },
+          { "full": "You are", "short": "You're", "ipa": "/jʊər/", "example": "You're from Hue." },
+          { "full": "He is", "short": "He's", "ipa": "/hiːz/", "example": "He's an engineer." },
+          { "full": "She is", "short": "She's", "ipa": "/ʃiːz/", "example": "She's a nurse." }
+        ],
+        "negatives": [
+          { "rule": "Thêm 'not' ngay sau to be: [Subject] + [Be] + not + [Complement]", "example": "I am not a student. I am a teacher." },
+          { "rule": "Dạng phủ định rút gọn: isn't (= is not), aren't (= are not)", "example": "He isn't from Hanoi. They aren't late." }
+        ],
+        "grammarTip": "Hãy ghi nhớ mẹo nhẩm nhanh: I đi với am; He/She/Tên một người đi với is; You/We/They/Nhiều người đi với are.",
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    },
+    {
+      "code": "ACT.M1.W1.D2.GUIDED_PRACTICE",
+      "activityType": "CONTROLLED_PRACTICE",
+      "title": "Luyện tập Có Hướng dẫn (Guided Form Practice)",
+      "position": 2,
+      "content": {
+        "instruction": "Điền dạng đúng của to be (am, are hoặc is). Bạn có thể bấm xem gợi ý nếu chưa chắc chắn. Đây là bài luyện tập tạo cảm giác ngôn ngữ, không chấm điểm phạt.",
+        "opportunityType": "GUIDED_PRACTICE",
+        "modality": "WRITTEN_PRODUCTION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.BE.GUIDED.I_LINH",
+          "familyCode": "FAMILY.M1.BE.GUIDED_PERSONAL",
+          "familyConstruct": "Supported selection of be forms in familiar personal facts",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Hello! I ___ Linh and I ___ a university student."
+          },
+          "answerDefinition": {
+            "accepted": ["am"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Chủ ngữ là đại từ ngôi thứ nhất 'I', luôn đi với 'am': 'I am Linh and I am a university student.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Đại từ 'I' (tôi) luôn kết hợp với 'am'."
+          },
+          "claim": "GUIDED_BE_PERSONAL_FACT",
+          "modality": "WRITTEN_PRODUCTION"
+        },
+        {
+          "code": "ITEM.M1.BE.GUIDED.YOU_FRIEND",
+          "familyCode": "FAMILY.M1.BE.GUIDED_PERSONAL",
+          "familyConstruct": "Supported selection of be forms in familiar personal facts",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "You ___ from Hue, right?"
+          },
+          "answerDefinition": {
+            "accepted": ["are"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Chủ ngữ 'You' luôn kết hợp với động từ to be 'are': 'You are from Hue, right?'"
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Đại từ 'You' luôn đi cùng 'are'."
+          },
+          "claim": "GUIDED_BE_PERSONAL_FACT",
+          "modality": "WRITTEN_PRODUCTION"
+        },
+        {
+          "code": "ITEM.M1.BE.GUIDED.SHE_NURSE",
+          "familyCode": "FAMILY.M1.BE.GUIDED_PERSONAL",
+          "familyConstruct": "Supported selection of be forms in familiar personal facts",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Mai ___ a kind nurse at the city hospital."
+          },
+          "answerDefinition": {
+            "accepted": ["is"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "'Mai' là danh từ riêng số ít chỉ một người (tương đương she), đi với 'is': 'Mai is a kind nurse.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Tên riêng số ít của một người tương đương với he/she, đi với 'is'."
+          },
+          "claim": "GUIDED_BE_PERSONAL_FACT",
+          "modality": "WRITTEN_PRODUCTION"
+        },
+        {
+          "code": "ITEM.M1.BE.GUIDED.HE_ENGINEER",
+          "familyCode": "FAMILY.M1.BE.GUIDED_PERSONAL",
+          "familyConstruct": "Supported selection of be forms in familiar personal facts",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "An ___ an IT engineer in Da Nang."
+          },
+          "answerDefinition": {
+            "accepted": ["is"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "'An' là danh từ riêng một người (tương đương he), đi với 'is': 'An is an IT engineer.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "An là ngôi thứ ba số ít, đi với 'is'."
+          },
+          "claim": "GUIDED_BE_PERSONAL_FACT",
+          "modality": "WRITTEN_PRODUCTION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D2.SPOT_ERROR",
+      "activityType": "CONTROLLED_PRACTICE",
+      "title": "Thử thách Phản biện Bắt Lỗi Sai (Spot the Error Challenge)",
+      "position": 3,
+      "content": {
+        "instruction": "Đóng vai người phản biện: Tìm và chọn phương án sửa lỗi chính xác cho câu sai.",
+        "opportunityType": "GUIDED_PRACTICE",
+        "modality": "WRITTEN_PRODUCTION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.BE.GUIDED.ERROR_HE_ARE",
+          "familyCode": "FAMILY.M1.BE.GUIDED_PERSONAL",
+          "familyConstruct": "Supported selection of be forms in familiar personal facts",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Câu sai: 'He are from Hanoi.' -> Viết lại dạng đúng của từ 'are':"
+          },
+          "answerDefinition": {
+            "accepted": ["is"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Chủ ngữ 'He' là ngôi thứ 3 số ít, không thể dùng 'are'. Dạng đúng là: 'He is from Hanoi.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Chuyển 'are' thành dạng to be đi với 'He'."
+          },
+          "claim": "GUIDED_BE_PERSONAL_FACT",
+          "modality": "WRITTEN_PRODUCTION"
+        },
+        {
+          "code": "ITEM.M1.BE.GUIDED.ERROR_I_IS",
+          "familyCode": "FAMILY.M1.BE.GUIDED_PERSONAL",
+          "familyConstruct": "Supported selection of be forms in familiar personal facts",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Câu sai: 'I is a university student.' -> Viết lại dạng đúng của từ 'is':"
+          },
+          "answerDefinition": {
+            "accepted": ["am"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Đại từ 'I' luôn kết hợp với 'am'. Dạng đúng: 'I am a university student.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Chủ ngữ I luôn đi với am."
+          },
+          "claim": "GUIDED_BE_PERSONAL_FACT",
+          "modality": "WRITTEN_PRODUCTION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D2.PHONETICS_NOTE",
+      "activityType": "REFLECTION",
+      "title": "Ngữ âm IPA & Hiện tượng Nối âm Tự nhiên (Pronunciation & Linking)",
+      "position": 4,
+      "content": {
+        "body": "Đọc to 3 câu hoàn chỉnh: 1. I am Linh (/aɪ æm lɪŋ/) -> I'm Linh (/aɪm lɪŋ/). 2. You are my friend (/juː ɑːr maɪ frend/) -> You're my friend (/jʊər maɪ frend/). 3. She is a nurse (/ʃiː ɪz ə nɜːs/) -> Nối âm: /ʃiː ɪ-zə nɜːs/. Chú ý âm cuối /z/ trong từ 'is' rung nhẹ ở cổ họng và nối mượt sang mạo từ 'a'.",
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    }
+  ]
+}

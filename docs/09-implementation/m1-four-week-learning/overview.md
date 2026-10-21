@@ -22,3 +22,5 @@ Each week follows Acquire → Practice → Expand → Apply → Transfer → Con
 **LATER:** universal SRS, full IPA course, generative tutoring, automated writing/speaking scores, IELTS prediction.
 
 Implementation begins with the concrete [Entry and Week 1 vertical slice](slices/01-entry-and-week-1.md) only after M0/01F closure. Later M1 slices are not pre-generated; their boundaries respond to measured coverage and learner-flow results.
+
+Current risks and the reordered Slice 01 sequence are recorded in the [2026-10-20 plan review](plan-review-2026-10-20.md).

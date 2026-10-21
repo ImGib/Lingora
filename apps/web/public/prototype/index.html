@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lingora — Prototype Tuần 1: Me &amp; My English</title>
+  <meta name="description" content="Prototype bấm thử của Lingora: kiểm tra đầu vào tuỳ chọn, kế hoạch hằng ngày, 7 ngày học đầu tiên và trang tiến độ dựa trên bằng chứng." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito+Sans:opsz,wght@6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#app">Bỏ qua tới nội dung chính</a>
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-mesh-grid"></div>
+    <canvas id="bg-interactive-canvas" class="bg-interactive-canvas"></canvas>
+    <div class="bg-orbs">
+      <span class="orb-1"></span>
+      <span class="orb-2"></span>
+      <span class="orb-3"></span>
+      <span class="orb-4"></span>
+      <span class="orb-5"></span>
+    </div>
+    <svg class="bg-topo-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+      <defs>
+        <linearGradient id="bgWaveGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#8b7cf6" stop-opacity="0.32" />
+          <stop offset="50%" stop-color="#f3a8c4" stop-opacity="0.26" />
+          <stop offset="100%" stop-color="#34d399" stop-opacity="0.32" />
+        </linearGradient>
+        <linearGradient id="bgWaveGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#6d5ce8" stop-opacity="0.24" />
+          <stop offset="100%" stop-color="#f6c89f" stop-opacity="0.28" />
+        </linearGradient>
+      </defs>
+      <!-- Animated Acoustic Soundwave & Botanical Ribbon Curves -->
+      <path class="bg-wave-dash w1" d="M-120 180 C 260 40, 560 340, 960 160 C 1220 50, 1380 220, 1580 120" stroke="url(#bgWaveGrad1)" stroke-width="2.2" stroke-dasharray="10 10" />
+      <path class="bg-wave-flow w2" d="M-100 320 C 320 190, 680 490, 1080 280 C 1300 160, 1440 340, 1600 260" stroke="url(#bgWaveGrad2)" stroke-width="1.8" />
+      <path class="bg-wave-flow w3" d="M-140 680 C 280 520, 640 820, 1040 620 C 1280 500, 1420 710, 1600 610" stroke="url(#bgWaveGrad1)" stroke-width="2.2" />
+      <path class="bg-wave-dash w4" d="M-80 810 C 380 670, 740 920, 1140 740 C 1340 650, 1460 800, 1620 730" stroke="url(#bgWaveGrad2)" stroke-width="1.6" stroke-dasharray="6 8" />
+      <!-- Animated Concentric Phonetic Ripples -->
+      <g class="bg-ripple-group r-top">
+        <circle class="ripple-ring r1" cx="1280" cy="180" r="110" stroke="url(#bgWaveGrad1)" stroke-width="1.4" />
+        <circle class="ripple-ring r2" cx="1280" cy="180" r="175" stroke="url(#bgWaveGrad1)" stroke-width="1.2" stroke-dasharray="5 7" />
+        <circle class="ripple-ring r3" cx="1280" cy="180" r="245" stroke="url(#bgWaveGrad2)" stroke-width="1" />
+      </g>
+      <g class="bg-ripple-group r-bottom">
+        <circle class="ripple-ring r1" cx="140" cy="720" r="130" stroke="url(#bgWaveGrad2)" stroke-width="1.4" />
+        <circle class="ripple-ring r2" cx="140" cy="720" r="210" stroke="url(#bgWaveGrad1)" stroke-width="1.2" stroke-dasharray="7 7" />
+      </g>
+    </svg>
+    <div class="bg-floating-tokens">
+      <span class="bg-token t1">/iː/</span>
+      <span class="bg-token t2">/eɪ/</span>
+      <span class="bg-token t3">am · is · are</span>
+      <span class="bg-token t4">/ʃiːz/</span>
+      <span class="bg-token t5">S + Be + C</span>
+      <span class="bg-token t6">/aɪ/</span>
+      <span class="bg-token t7">↗ Yes / No</span>
+      <span class="bg-token t8">🌿</span>
+      <span class="bg-token t9">✨</span>
+      <span class="bg-token t10">/ˈstjuː.dənt/</span>
+    </div>
+  </div>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#/today" id="brand-link">
+      <span class="brand-mark" aria-hidden="true">L</span>
+      <span class="brand-title-wrap">
+        <span class="brand-name">Lingora</span>
+        <span class="brand-sub">Soft Study Companion</span>
+      </span>
+      <span class="proto-tag">Interactive Prototype</span>
+    </a>
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a href="#/today" id="nav-today" data-nav="today">
+        <span class="nav-ico" aria-hidden="true">☀️</span>
+        <span>Hôm nay</span>
+      </a>
+      <a href="#/roadmap" id="nav-roadmap" data-nav="roadmap">
+        <span class="nav-ico" aria-hidden="true">🗺️</span>
+        <span>Lộ trình 3 Chặng</span>
+      </a>
+      <a href="#/progress" id="nav-progress" data-nav="progress">
+        <span class="nav-ico" aria-hidden="true">🌱</span>
+        <span>Tiến độ &amp; Tín hiệu</span>
+      </a>
+    </nav>
+    <div class="topbar-right">
+      <div class="sim-day" id="sim-day" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <aside class="proto-panel" id="proto-panel" aria-label="Bảng điều khiển prototype">
+    <button class="proto-toggle" id="proto-toggle" aria-expanded="false" aria-controls="proto-body">⚙ Giả lập</button>
+    <div class="proto-body" id="proto-body" hidden>
+      <p class="proto-title">Bảng giả lập (chỉ có trong prototype)</p>
+      <div class="proto-grid">
+        <button id="sim-next-day" data-sim="nextDay">Sang ngày mới</button>
+        <button id="sim-absent" data-sim="absent">Vắng 3 ngày</button>
+      </div>
+      <label class="proto-check"><input type="checkbox" id="flag-mic" data-flag="micDenied" /> Micro bị từ chối</label>
+      <label class="proto-check"><input type="checkbox" id="flag-upload" data-flag="uploadFail" /> Tải bản ghi lên thất bại</label>
+      <label class="proto-check"><input type="checkbox" id="flag-audio" data-flag="noAudio" /> Âm thanh bài nghe lỗi</label>
+      <button class="proto-reset" id="sim-reset" data-sim="reset">Xoá dữ liệu &amp; bắt đầu lại</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

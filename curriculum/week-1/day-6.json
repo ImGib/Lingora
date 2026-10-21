@@ -1,0 +1,200 @@
+{
+  "day": 6,
+  "lessonCode": "LESSON.M1.W1.D6",
+  "unitCode": "UNIT.M1.INTRODUCTIONS",
+  "title": "Chuyển giao sang Tình huống Mới (Transfer to New Situations)",
+  "summary": "Thử thách năng lực trong bối cảnh hoàn toàn mới: Tin nhắn trò chuyện thực tế của Carlos, nghe bài phát biểu của Yuki và tự giới thiệu một người bạn bằng ngôi thứ ba.",
+  "position": 6,
+  "competencies": [
+    {
+      "code": "M1.PERSONAL.TRANSFER",
+      "title": "Chuyển giao năng lực giới thiệu sang bối cảnh mới",
+      "description": "Hiểu và sử dụng linh hoạt các cấu trúc giới thiệu bản thân trong tin nhắn công việc, hội thảo và khi nói về người khác (he/she).",
+      "role": "TARGET",
+      "targetModality": "WRITTEN_PRODUCTION"
+    }
+  ],
+  "packageCode": "PACKAGE.M1.W1.D6",
+  "activities": [
+    {
+      "code": "ACT.M1.W1.D6.READ_CARLOS",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Đọc Tin nhắn Làm quen trong Nhóm Dự án (Team Chat Transfer)",
+      "position": 1,
+      "content": {
+        "instruction": "Đọc tin nhắn chào mừng thành viên mới từ Carlos trong nhóm chat công việc và trả lời câu hỏi.",
+        "chatContext": {
+          "sender": "Carlos Mendoza",
+          "avatar": "engineer",
+          "time": "09:15 AM",
+          "channel": "#general-introductions"
+        },
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D6.CARLOS_LIVE",
+          "familyCode": "FAMILY.M1.W1.READ_TRANSFER",
+          "familyConstruct": "Transfer reading comprehension to informal chat format",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "TRANSFER",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Hiện tại Carlos đang sinh sống và làm việc ở đâu?",
+            "question": "Hiện tại Carlos đang sinh sống và làm việc ở đâu?",
+            "options": ["Hà Nội, Việt Nam", "Guadalajara, Mexico", "Tokyo, Nhật Bản"],
+            "passage": "Carlos Mendoza: 'Hey everyone! I am Carlos. I am originally from Guadalajara, Mexico, but currently I live and work in Hanoi on the new metro project. I am a civil engineer. Really excited to be here!'"
+          },
+          "answerDefinition": {
+            "accepted": ["Hà Nội, Việt Nam"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Carlos đến từ Mexico, nhưng hiện tại sống và làm việc ở Hà Nội: '...currently I live and work in Hanoi...'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "READ_TRANSFER_INDEPENDENT",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D6.CARLOS_JOB",
+          "familyCode": "FAMILY.M1.W1.READ_TRANSFER",
+          "familyConstruct": "Transfer reading comprehension to informal chat format",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "TRANSFER",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Chuyên môn nghề nghiệp của Carlos là gì?",
+            "question": "Chuyên môn nghề nghiệp của Carlos là gì?",
+            "options": ["Kỹ sư xây dựng (Civil engineer)", "Kiến trúc sư phần mềm (Software architect)", "Bếp trưởng (Chef)"],
+            "passage": "Carlos Mendoza: '...I live and work in Hanoi on the new metro project. I am a civil engineer. Really excited to be here!'"
+          },
+          "answerDefinition": {
+            "accepted": ["Kỹ sư xây dựng (Civil engineer)"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "'I am a civil engineer' có nghĩa là kỹ sư xây dựng."
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "READ_TRANSFER_INDEPENDENT",
+          "modality": "WRITTEN_RECOGNITION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D6.LISTEN_YUKI",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Nghe Lời Chào tại Hội thảo Quốc tế (Conference Speech Transfer)",
+      "position": 2,
+      "content": {
+        "instruction": "Lắng nghe bài giới thiệu mở đầu của Yuki tại hội thảo giao lưu giáo dục.",
+        "audioTranscript": "Good morning distinguished colleagues! My name is Yuki Tanaka. I am from Osaka, Japan. I am a high school Japanese teacher and currently an exchange instructor in Da Nang. It is a genuine honor to meet all of you.",
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "AURAL_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D6.YUKI_JOB",
+          "familyCode": "FAMILY.M1.W1.LISTEN_TRANSFER",
+          "familyConstruct": "Transfer listening comprehension to novel voice and facts",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "TRANSFER",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Nghề nghiệp và vai trò hiện tại của Yuki là gì?",
+            "question": "Nghề nghiệp và vai trò hiện tại của Yuki là gì?",
+            "options": ["Giáo viên tiếng Nhật (Japanese teacher)", "Bác sĩ khoa nhi (Pediatrician)", "Nhiếp ảnh gia (Photographer)"],
+            "audio": "My name is Yuki Tanaka. I am from Osaka, Japan. I am a high school Japanese teacher..."
+          },
+          "answerDefinition": {
+            "accepted": ["Giáo viên tiếng Nhật (Japanese teacher)"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Yuki nói: 'I am a high school Japanese teacher' -> Giáo viên tiếng Nhật."
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "LISTEN_TRANSFER_INDEPENDENT",
+          "modality": "AURAL_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D6.YUKI_CITY",
+          "familyCode": "FAMILY.M1.W1.LISTEN_TRANSFER",
+          "familyConstruct": "Transfer listening comprehension to novel voice and facts",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "TRANSFER",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Yuki đến từ thành phố nào ở Nhật Bản?",
+            "question": "Yuki đến từ thành phố nào ở Nhật Bản?",
+            "options": ["Osaka", "Tokyo", "Kyoto"],
+            "audio": "My name is Yuki Tanaka. I am from Osaka, Japan."
+          },
+          "answerDefinition": {
+            "accepted": ["Osaka"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Yuki nói rõ: 'I am from Osaka, Japan.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "LISTEN_TRANSFER_INDEPENDENT",
+          "modality": "AURAL_RECOGNITION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D6.WRITE_FRIEND",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Chuyển giao Viết: Giới thiệu một Người bạn bằng Ngôi thứ Ba (Third-Person Intro)",
+      "position": 3,
+      "content": {
+        "instruction": "Viết 3 câu giới thiệu một người bạn, đồng nghiệp hoặc người thân. Sử dụng ngôi thứ ba 'He is...' hoặc 'She is...'.",
+        "frame": "This is my friend, [Tên]. He/She is from [Quê quán]. He/She is a [Nghề nghiệp].",
+        "thirdPersonNote": "Chú ý: Khi chuyển từ bản thân sang người khác, 'I am' chuyển thành 'He is' hoặc 'She is'.",
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "WRITTEN_PRODUCTION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D6.FRIEND_INTRO_ARTIFACT",
+          "familyCode": "FAMILY.M1.W1.WRITE_TRANSFER",
+          "familyConstruct": "Transfer written production to third person he/she",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "TRANSFER",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Viết 3 câu giới thiệu một người bạn bằng He is hoặc She is:",
+            "instruction": "Viết 3 câu giới thiệu một người bạn bằng He is hoặc She is.",
+            "minSentences": 3
+          },
+          "answerDefinition": {
+            "accepted": ["ARTIFACT_FRIEND_INTRO_SUBMISSION"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Bài viết chuyển giao ngôi thứ ba của bạn được ghi nhận vào hồ sơ năng lực."
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "WRITE_TRANSFER_INDEPENDENT",
+          "modality": "WRITTEN_PRODUCTION"
+        }
+      ]
+    }
+  ]
+}

@@ -111,7 +111,7 @@ export const dashboardSchema = z.object({
   session: z.object({ id: z.uuid(), status: z.enum(['IN_PROGRESS','PAUSED']) }).nullable(),
   plan: z.object({
     id: z.uuid(), localDate: z.string(), timezone: z.string(), policyVersion: z.string(), goalId: z.uuid(),
-    blocks: z.array(z.object({ id: z.uuid(), position: z.number(), type: z.enum(['LESSON','PRACTICE','BREAK']),
+    blocks: z.array(z.object({ id: z.uuid(), position: z.number(), type: z.enum(['LESSON','PRACTICE','BREAK','REVIEW','VERIFY','TRANSFER']), dueAt: z.coerce.date().nullable().optional(), estimatedMinutes: z.number().int().optional(),
       lessonId: z.uuid().nullable(), status: z.enum(['PENDING','COMPLETED','SKIPPED','DEFERRED']) })),
   }).nullable(),
   competency: z.object({ label: z.string(), confidence: z.string() }),
@@ -143,3 +143,54 @@ export const placementSchema = z.object({
 });
 
 export type PlacementDto = z.infer<typeof placementSchema>;
+
+export const createArtifactSchema = z.object({
+  packageVersionId: z.uuid(),
+  activityId: z.uuid(),
+  itemVersionId: z.uuid().optional(),
+  artifactType: z.enum(['TEXT', 'AUDIO']),
+  textContent: z.string().max(5000).optional(),
+  audioStoragePath: z.string().optional(),
+  durationMs: z.number().int().nonnegative().optional(),
+  mimeType: z.string().max(50).optional(),
+  status: z.enum(['FINALIZED', 'TECHNICAL_FALLBACK', 'DELETED']).default('FINALIZED'),
+  fallbackReason: z.enum(['MICROPHONE_DENIED', 'UPLOAD_FAILED', 'CODEC_UNSUPPORTED', 'LEARNER_BYPASS']).optional(),
+});
+
+export const learnerArtifactSchema = z.object({
+  id: z.uuid(),
+  learnerId: z.uuid(),
+  packageVersionId: z.uuid(),
+  activityId: z.uuid(),
+  itemVersionId: z.uuid().nullable(),
+  artifactType: z.enum(['TEXT', 'AUDIO']),
+  textContent: z.string().nullable(),
+  audioStoragePath: z.string().nullable(),
+  durationMs: z.number().int().nullable(),
+  mimeType: z.string().nullable(),
+  status: z.enum(['FINALIZED', 'TECHNICAL_FALLBACK', 'DELETED']),
+  fallbackReason: z.string().nullable(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+
+export type CreateArtifactDto = z.infer<typeof createArtifactSchema>;
+export type LearnerArtifactDto = z.infer<typeof learnerArtifactSchema>;
+
+export const quarantineCommandSchema = z.object({
+  targetType: z.enum(['PACKAGE_VERSION', 'ITEM_VERSION']),
+  targetId: z.uuid(),
+  reason: z.enum(['CONFUSING_INSTRUCTION', 'BROKEN_AUDIO', 'INCORRECT_ANSWER_KEY', 'ACCESSIBILITY_VIOLATION', 'LEARNER_REPORTED']),
+  details: z.string().max(2000).optional(),
+});
+
+export const learnerContentReportSchema = z.object({
+  packageVersionId: z.uuid(),
+  activityId: z.uuid().optional(),
+  itemVersionId: z.uuid().optional(),
+  issueCategory: z.enum(['AUDIO_UNPLAYABLE', 'TYPO_ERROR', 'CONFUSING_INSTRUCTION', 'ACCESSIBILITY_BARRIER', 'OTHER']),
+  comment: z.string().max(1000).optional(),
+});
+
+export type QuarantineCommandDto = z.infer<typeof quarantineCommandSchema>;
+export type LearnerContentReportDto = z.infer<typeof learnerContentReportSchema>;

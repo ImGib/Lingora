@@ -1,0 +1,151 @@
+{
+  "day": 7,
+  "lessonCode": "LESSON.M1.W1.D7",
+  "unitCode": "UNIT.M1.INTRODUCTIONS",
+  "title": "Khu Vườn Tiến Bộ: Củng cố Ngắt quãng & Quyền Nghỉ ngơi (Growth Garden & Rest)",
+  "summary": "Ngày dừng chân không áp lực: Nhìn lại các hạt mầm năng lực đã nảy chồi sau Tuần 1, thử thách củng cố trí nhớ ngắt quãng và lựa chọn nghỉ ngơi trọn vẹn mà không bị phán xét.",
+  "position": 7,
+  "competencies": [
+    {
+      "code": "M1.PERSONAL.READ_DETAILS",
+      "title": "Đọc hiểu chi tiết thông tin cá nhân",
+      "description": "Củng cố và duy trì khả năng nhận diện các chi tiết thông tin cá nhân cơ bản.",
+      "role": "SUPPORTING",
+      "targetModality": "WRITTEN_RECOGNITION"
+    }
+  ],
+  "packageCode": "PACKAGE.M1.W1.D7",
+  "activities": [
+    {
+      "code": "ACT.M1.W1.D7.MILESTONE_GARDEN",
+      "activityType": "REFLECTION",
+      "title": "Khu Vườn Tiến Bộ: 6 Giai Đoạn Phát Triển Của Cây (Growth Tree Stages)",
+      "position": 1,
+      "content": {
+        "body": "Chúc mừng bạn đã đồng hành trọn vẹn Tuần 1! Theo mô hình Cây Tiến Độ, bạn đã từng bước gieo mầm và nuôi dưỡng cây ngôn ngữ của chính mình:",
+        "stages": [
+          { "stage": "01. Hạt giống", "desc": "Gieo mầm ngày đầu: Tiếp xúc với Linh và 4 trụ cột thông tin cá nhân." },
+          { "stage": "02. Nảy mầm", "desc": "Nắm vững mảnh ghép Grammar Pieces to be (am / are / is) và dạng rút gọn." },
+          { "stage": "03. Thân cành", "desc": "Lắng nghe Mai đánh vần tên và đọc quét thẻ hồ sơ quốc tế của Tom Baker." },
+          { "stage": "04. Phân nhánh", "desc": "Làm chủ 3 câu hỏi kinh điển Wh- và câu hỏi đảo Yes/No với ngữ điệu chuẩn." },
+          { "stage": "05. Ra lá", "desc": "Tự tay viết 3-5 câu và thu âm giọng nói tiếng Anh đầu tiên làm kỷ niệm." },
+          { "stage": "06. Kết trái", "desc": "Chuyển giao thành công sang tin nhắn của Carlos và giới thiệu đồng nghiệp." }
+        ],
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    },
+    {
+      "code": "ACT.M1.W1.D7.SPACED_RETRIEVAL",
+      "activityType": "CONTROLLED_PRACTICE",
+      "title": "Thử Thách Nhớ Lâu Nhẹ Nhàng (Spaced Retrieval Check)",
+      "position": 2,
+      "content": {
+        "instruction": "3 câu hỏi trắc nghiệm nhẹ nhàng giúp củng cố kiến thức vào trí nhớ dài hạn. Không chấm điểm phạt.",
+        "opportunityType": "GUIDED_PRACTICE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D7.RECAP_BE",
+          "familyCode": "FAMILY.M1.W1.RECAP_CHECK",
+          "familyConstruct": "Spaced retrieval of subject-verb agreement",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Đại từ 'I' (tôi) luôn kết hợp với dạng to be nào ở thì hiện tại?",
+            "question": "Đại từ 'I' (tôi) luôn kết hợp với dạng to be nào ở thì hiện tại?",
+            "options": ["am", "are", "is"]
+          },
+          "answerDefinition": {
+            "accepted": ["am"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Chính xác! Đại từ 'I' luôn đi với 'am': 'I am Linh.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "I luôn đi cùng am."
+          },
+          "claim": "RECAP_BE_SELECTION",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D7.RECAP_ARTICLE",
+          "familyCode": "FAMILY.M1.W1.RECAP_CHECK",
+          "familyConstruct": "Spaced retrieval of indefinite article selection",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Trong câu: 'An is ___ IT engineer in Da Nang', từ còn thiếu là:",
+            "question": "Trong câu: 'An is ___ IT engineer in Da Nang', từ còn thiếu là:",
+            "options": ["an", "a", "the"]
+          },
+          "answerDefinition": {
+            "accepted": ["an"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Từ 'IT engineer' bắt đầu bằng nguyên âm, do đó bắt buộc dùng mạo từ 'an'."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Từ bắt đầu bằng nguyên âm (I, E, O, A, U) dùng 'an'."
+          },
+          "claim": "RECAP_ARTICLE_SELECTION",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D7.RECAP_STRESS",
+          "familyCode": "FAMILY.M1.W1.RECAP_CHECK",
+          "familyConstruct": "Spaced retrieval of word stress rule",
+          "purpose": "PRACTICE",
+          "evidenceEligibility": "NONE",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "Từ 'teacher' (giáo viên) có trọng âm rơi vào âm tiết nào?",
+            "question": "Từ 'teacher' (giáo viên) có trọng âm rơi vào âm tiết nào?",
+            "options": ["Âm tiết 1: TEA-cher", "Âm tiết 2: tea-CHER"]
+          },
+          "answerDefinition": {
+            "accepted": ["Âm tiết 1: TEA-cher"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Danh từ 2 âm tiết trong tiếng Anh đa số nhấn vào âm đầu: TEA-cher (/ˈtiː.tʃər/)."
+          },
+          "supportPolicy": {
+            "hintAllowed": true,
+            "hint": "Âm đầu đọc to và cao hơn âm sau."
+          },
+          "claim": "RECAP_STRESS_SELECTION",
+          "modality": "WRITTEN_RECOGNITION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D7.REST_OPTIONS",
+      "activityType": "REFLECTION",
+      "title": "Quyền Nghỉ ngơi Không Phạt: Hôm nay Bạn Muốn Làm gì?",
+      "position": 3,
+      "content": {
+        "body": "Tại Lingora, nghỉ ngơi là một phần thiết yếu của quá trình củng cố trí nhớ dài hạn (memory consolidation). Bạn có 3 lựa chọn hoàn toàn bình đẳng:",
+        "options": [
+          { "title": "1. Nghỉ ngơi hoàn toàn (Full Rest)", "desc": "Tạm gác bài học sang một bên, tận hưởng một ngày nghỉ thư thái cùng gia đình và bạn bè. Chuỗi học tập và điểm số của bạn không bị trừ bất kỳ điểm nào (Skipped != Failed)." },
+          { "title": "2. Nghe lại thư giãn (Relaxed Listening)", "desc": "Mở lại các đoạn ghi âm giọng đọc của Linh, Mai hoặc Carlos để tai làm quen thụ động như nghe nhạc." },
+          { "title": "3. Xem trước Tuần 2 (Sneak Peek Week 2)", "desc": "Chuẩn bị tâm thế khám phá chủ đề 'Nhịp điệu Một Ngày của Bạn' (Daily Routines, Habits, and Time)." }
+        ],
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    }
+  ]
+}

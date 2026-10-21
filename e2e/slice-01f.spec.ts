@@ -115,7 +115,8 @@ test('real Clerk sessions preserve retry idempotency and isolate two learners', 
   await page.goto('/');
   await clerk.signIn({ page, emailAddress: emails[0] });
   await page.goto('/dashboard');
-  await expect(page.getByRole('heading', { name: 'A clear next step' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Make this plan yours.' })).toBeVisible();
+  if (process.env.DASHBOARD_VISUAL_QA) await page.screenshot({ path: 'test-results/dashboard-onboarding-desktop.png', fullPage: true });
 
   const meA = await api(page, '/v1/me');
   expect(meA.response.status).toBe(200);
@@ -124,6 +125,20 @@ test('real Clerk sessions preserve retry idempotency and isolate two learners', 
     method: 'POST', body: JSON.stringify({ purpose: 'IELTS_ACADEMIC', studyMinutesPerDay: 20 }),
   })).response.status).toBe(201);
   expect((await api(page, '/v1/plans/today/generate', { method: 'POST', body: '{}' })).response.status).toBe(201);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Your plan, step by step.' })).toBeVisible();
+  await expect(page.getByRole('listitem').filter({ hasText: 'Learn something new' })).toBeVisible();
+  const planA11y = await new AxeBuilder({ page })
+    .include('main')
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .analyze();
+  expect(planA11y.violations.map((violation) => ({ id: violation.id, nodes: violation.nodes.map((node) => ({ target: node.target, summary: node.failureSummary })) }))).toEqual([]);
+  if (process.env.DASHBOARD_VISUAL_QA) {
+    await page.screenshot({ path: 'test-results/dashboard-plan-desktop.png', fullPage: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.screenshot({ path: 'test-results/dashboard-plan-mobile.png', fullPage: true });
+    await page.setViewportSize({ width: 1280, height: 720 });
+  }
   const started = await api(page, '/v1/attempts', { method: 'POST', body: JSON.stringify({ lessonId }) });
   expect(started.response.status).toBe(201);
   const attempt = started.body.data;

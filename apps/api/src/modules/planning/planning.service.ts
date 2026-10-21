@@ -7,7 +7,7 @@ const POLICY_VERSION = 'PLAN_01_V1';
 
 type GoalRow = { id: string; version: number; purpose: string; target_band: string | null; deadline: string | null; study_minutes_per_day: number; status: string };
 type PlanRow = { id: string; local_date: string; timezone: string; policy_version: string; goal_id: string };
-type BlockRow = { id: string; position: number; block_type: 'LESSON' | 'PRACTICE' | 'BREAK'; lesson_id: string | null; status: 'PENDING' | 'COMPLETED' | 'SKIPPED' | 'DEFERRED' };
+type BlockRow = { id: string; position: number; block_type: 'LESSON' | 'PRACTICE' | 'BREAK' | 'REVIEW' | 'VERIFY' | 'TRANSFER'; lesson_id: string | null; status: 'PENDING' | 'COMPLETED' | 'SKIPPED' | 'DEFERRED'; due_at?: Date | null; estimated_minutes?: number };
 type AttemptRow = { id: string; status: string; lesson_id: string };
 type ActiveSessionRow = { id: string; status: 'IN_PROGRESS' | 'PAUSED' };
 
@@ -61,11 +61,29 @@ export class PlanningService {
         [learnerId,goal.id,localDate,timezone,POLICY_VERSION],
       );
       if (created.rows[0]) {
-        await client.query(
-          `INSERT INTO plan_blocks (plan_id,position,block_type,lesson_id,status) VALUES
-           ($1,1,'LESSON',$2,'PENDING'),($1,2,'PRACTICE',$2,'PENDING'),($1,3,'BREAK',NULL,'PENDING')`,
-          [created.rows[0].id,LESSON_ID],
+        const nextLesson = await client.query<{ id: string }>(
+          `SELECT id FROM lessons WHERE status IN ('PUBLISHED','DRAFT')
+           AND id NOT IN (
+             SELECT lesson_id FROM lesson_exposures WHERE learner_id = $1 AND status = 'COMPLETED'
+           )
+           ORDER BY position ASC LIMIT 1`,
+          [learnerId],
         );
+        const targetLessonId = nextLesson.rows[0]?.id ?? LESSON_ID;
+        const isMinViable = goal.studyMinutesPerDay <= 15;
+        if (isMinViable) {
+          await client.query(
+            `INSERT INTO plan_blocks (plan_id,position,block_type,lesson_id,status,estimated_minutes) VALUES
+             ($1,1,'LESSON',$2,'PENDING',10),($1,2,'BREAK',NULL,'PENDING',5)`,
+            [created.rows[0].id, targetLessonId],
+          );
+        } else {
+          await client.query(
+            `INSERT INTO plan_blocks (plan_id,position,block_type,lesson_id,status,estimated_minutes) VALUES
+             ($1,1,'LESSON',$2,'PENDING',15),($1,2,'PRACTICE',$2,'PENDING',15),($1,3,'BREAK',NULL,'PENDING',5)`,
+            [created.rows[0].id, targetLessonId],
+          );
+        }
       }
       await client.query('COMMIT');
       return this.getToday(learnerId);
@@ -83,12 +101,12 @@ export class PlanningService {
     const plan = result.rows[0];
     if (!plan) return null;
     const blocks = await this.pool.query<BlockRow>(
-      'SELECT id,position,block_type,lesson_id,status FROM plan_blocks WHERE plan_id = $1 ORDER BY position', [plan.id],
+      'SELECT id,position,block_type,lesson_id,status,due_at,estimated_minutes FROM plan_blocks WHERE plan_id = $1 ORDER BY position', [plan.id],
     );
     return { id: plan.id, localDate: plan.local_date, timezone: plan.timezone,
       policyVersion: plan.policy_version, goalId: plan.goal_id,
       blocks: blocks.rows.map((block) => ({ id: block.id, position: block.position, type: block.block_type,
-        lessonId: block.lesson_id, status: block.status })) };
+        lessonId: block.lesson_id, status: block.status, dueAt: block.due_at ?? null, estimatedMinutes: block.estimated_minutes ?? 15 })) };
   }
 
   async overrideBlock(learnerId: string, blockId: string, action: 'skip' | 'defer' | 'replace' | 'explore') {
@@ -158,9 +176,20 @@ export class PlanningService {
     else if (!plan) { type = 'OPEN_TODAY_PLAN'; reasonCode = 'PLAN_NOT_GENERATED'; }
     else if (pending?.type === 'BREAK') { type = 'TAKE_BREAK'; reasonCode = 'BREAK_SCHEDULED'; }
     else if (pending) {
-      type = pending.type === 'PRACTICE' ? 'START_ACTIVITY' : 'OPEN_LESSON';
+      if (pending.type === 'PRACTICE') {
+        type = 'START_ACTIVITY';
+        reasonCode = 'MORE_EVIDENCE_NEEDED';
+      } else if (pending.type === 'REVIEW') {
+        type = 'START_ACTIVITY';
+        reasonCode = 'REVIEW_DUE_SPACED';
+      } else if (pending.type === 'VERIFY') {
+        type = 'START_ACTIVITY';
+        reasonCode = 'RECOVERY_VERIFY';
+      } else {
+        type = 'OPEN_LESSON';
+        reasonCode = goal.studyMinutesPerDay <= 15 ? 'MINIMUM_VIABLE_DAY_15M' : 'LESSON_AVAILABLE';
+      }
       target = { lessonId: pending.lessonId ?? LESSON_ID };
-      reasonCode = pending.type === 'PRACTICE' ? 'MORE_EVIDENCE_NEEDED' : 'LESSON_AVAILABLE';
     } else if (latest.rows[0]) { type = 'VIEW_FEEDBACK'; target = { attemptId: latest.rows[0].id }; reasonCode = 'FEEDBACK_READY'; }
     if (type === 'FINISH_DAY' && session.rows[0]) target = { sessionId: session.rows[0].id };
     return { goal, plan, session: session.rows[0] ?? null,

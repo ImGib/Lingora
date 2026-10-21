@@ -6,6 +6,21 @@ import { AttemptsService } from './attempts.service.js';
 import { PlanningModule } from '../planning/planning.module.js';
 import { SessionsController } from './sessions.controller.js';
 import { SessionsService } from './sessions.service.js';
+import { ArtifactsController } from './artifacts.controller.js';
+import { ArtifactsService } from './artifacts.service.js';
+import { STORAGE_PORT } from '../../application/storage/storage.port.js';
+import { LocalStorageService } from '../../infrastructure/storage/local-storage.service.js';
 
-@Module({ imports: [IdentityModule, PlanningModule], controllers: [AttemptsController, SessionsController], providers: [AuthGuard, AttemptsService, SessionsService] })
+@Module({
+  imports: [IdentityModule, PlanningModule],
+  controllers: [AttemptsController, SessionsController, ArtifactsController],
+  providers: [
+    AuthGuard,
+    AttemptsService,
+    SessionsService,
+    ArtifactsService,
+    { provide: STORAGE_PORT, useClass: LocalStorageService },
+  ],
+})
 export class LearningModule {}
+

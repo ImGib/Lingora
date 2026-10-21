@@ -47,3 +47,44 @@ describe('M1 exposure progress migration security', () => {
     expect(sql).not.toMatch(/INSERT INTO (observations|evidence|competency_states)/i);
   });
 });
+
+describe('M1 learner artifacts migration security', () => {
+  it('keeps artifacts private from public roles and isolates technical fallback', () => {
+    const path = fileURLToPath(new URL('../supabase/migrations/20261021000005_m1_learner_artifacts.sql', import.meta.url));
+    const sql = readFileSync(path, 'utf8');
+    expect(sql).toContain('CREATE TABLE IF NOT EXISTS learner_artifacts');
+    expect(sql).toContain('ALTER TABLE learner_artifacts ENABLE ROW LEVEL SECURITY');
+    expect(sql).toContain('REVOKE ALL ON TABLE learner_artifacts FROM anon, authenticated');
+    expect(sql).toContain("status VARCHAR(30) NOT NULL DEFAULT 'FINALIZED'");
+    expect(sql).toContain("'TECHNICAL_FALLBACK'");
+    expect(sql).toContain("'MICROPHONE_DENIED'");
+    expect(sql).not.toMatch(/INSERT INTO (observations|evidence|competency_states)/i);
+  });
+});
+
+describe('M1 planner due and block types migration', () => {
+  it('extends plan_blocks with due_at, estimated_minutes and candidate types', () => {
+    const path = fileURLToPath(new URL('../supabase/migrations/20261021000006_m1_planner_due_and_block_types.sql', import.meta.url));
+    const sql = readFileSync(path, 'utf8');
+    expect(sql).toContain('ALTER TABLE plan_blocks');
+    expect(sql).toContain('ADD COLUMN IF NOT EXISTS due_at TIMESTAMPTZ');
+    expect(sql).toContain('ADD COLUMN IF NOT EXISTS estimated_minutes INT');
+    expect(sql).toContain("'REVIEW'");
+    expect(sql).toContain("'VERIFY'");
+    expect(sql).toContain("'TRANSFER'");
+  });
+});
+
+describe('M1 quarantine audit migration security', () => {
+  it('secures quarantine records and learner issue reports with RLS', () => {
+    const path = fileURLToPath(new URL('../supabase/migrations/20261021000007_m1_quarantine_audit.sql', import.meta.url));
+    const sql = readFileSync(path, 'utf8');
+    expect(sql).toContain('CREATE TABLE IF NOT EXISTS content_quarantine_records');
+    expect(sql).toContain('CREATE TABLE IF NOT EXISTS learner_content_reports');
+    expect(sql).toContain('ALTER TABLE content_quarantine_records ENABLE ROW LEVEL SECURITY');
+    expect(sql).toContain('REVOKE ALL ON TABLE content_quarantine_records FROM anon, authenticated');
+    expect(sql).toContain('ALTER TABLE learner_content_reports ENABLE ROW LEVEL SECURITY');
+    expect(sql).toContain('REVOKE ALL ON TABLE learner_content_reports FROM anon, authenticated');
+  });
+});
+

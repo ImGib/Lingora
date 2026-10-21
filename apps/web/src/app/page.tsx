@@ -7,6 +7,9 @@ export default function HomePage() {
       <nav className="nav" aria-label="Primary navigation">
         <span className="brand">Lingora</span>
         <div className="nav-actions">
+          <a className="button secondary" href="/prototype/index.html">
+            Xem Bản Prototype 7 Ngày
+          </a>
           <Show when="signed-out">
             <SignInButton><button className="button secondary">Sign in</button></SignInButton>
             <SignUpButton><button className="button primary">Get started</button></SignUpButton>
@@ -23,12 +26,17 @@ export default function HomePage() {
         <p className="lede">
           Lingora keeps your learning identity stable and your profile private while you move from foundations toward IELTS and study-abroad readiness.
         </p>
-        <Show when="signed-out">
-          <SignUpButton><button className="button primary large">Start gently</button></SignUpButton>
-        </Show>
-        <Show when="signed-in">
-          <Link className="button primary large" href="/dashboard">Continue</Link>
-        </Show>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <Show when="signed-out">
+            <SignUpButton><button className="button primary large">Start gently</button></SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            <Link className="button primary large" href="/dashboard">Continue</Link>
+          </Show>
+          <a className="button secondary large" href="/prototype/index.html">
+            🚀 Trải nghiệm ngay Prototype (Không cần đăng nhập)
+          </a>
+        </div>
       </section>
     </main>
   );

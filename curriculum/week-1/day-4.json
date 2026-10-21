@@ -1,0 +1,211 @@
+{
+  "day": 4,
+  "lessonCode": "LESSON.M1.W1.D4",
+  "unitCode": "UNIT.M1.INTRODUCTIONS",
+  "title": "Hỏi và Đáp Thông tin Cá nhân (Ask and Answer Questions)",
+  "summary": "Làm chủ 3 câu hỏi làm quen kinh điển với ngữ điệu chuẩn xác, quy tắc đảo ngữ với to be và cách phản hồi tự nhiên trong giao tiếp quốc tế.",
+  "position": 4,
+  "competencies": [
+    {
+      "code": "M1.PERSONAL.QA",
+      "title": "Hỏi và đáp thông tin cá nhân",
+      "description": "Chủ động đặt và trả lời các câu hỏi làm quen về tên tuổi, quê quán, nghề nghiệp và dạng câu hỏi Yes/No với to be.",
+      "role": "TARGET",
+      "targetModality": "WRITTEN_PRODUCTION"
+    }
+  ],
+  "packageCode": "PACKAGE.M1.W1.D4",
+  "activities": [
+    {
+      "code": "ACT.M1.W1.D4.PATTERNS_EXPLORE",
+      "activityType": "INSTRUCTION",
+      "title": "Ba Cặp Hỏi - Đáp Kinh điển & Ngữ điệu Wh- / Yes-No (Core Q&A Pairs)",
+      "position": 1,
+      "content": {
+        "body": "Khi mới gặp gỡ một người bạn quốc tế, đây là 3 câu hỏi mở đầu giúp bạn bắt chuyện tự nhiên nhất:",
+        "pairs": [
+          { "question": "What's your name? ↘", "answer": "I'm Linh. / My name is Linh.", "note": "What's = What is. Câu hỏi Wh- hạ giọng nhẹ ở cuối câu (Falling intonation)." },
+          { "question": "Where are you from? ↘", "answer": "I'm from Hue, Vietnam.", "note": "Where hỏi về địa điểm, quê quán xuất xứ." },
+          { "question": "What do you do? ↘", "answer": "I'm an engineer. / I'm a student.", "note": "Cách hỏi nghề nghiệp lịch thiệp, phổ biến nhất của người bản xứ." }
+        ],
+        "inversionRule": "Quy tắc đảo ngữ: Câu trần thuật nói 'You are a student', nhưng câu hỏi đảo to be lên trước: 'Are you a student? ↗' (ngữ điệu lên giọng ở cuối câu).",
+        "opportunityType": "EXPOSURE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": []
+    },
+    {
+      "code": "ACT.M1.W1.D4.QA_MATCH",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Ghép Nối Câu Trả lời Phù hợp trong Bối cảnh (Situational Matching)",
+      "position": 2,
+      "content": {
+        "instruction": "Chọn câu phản hồi phù hợp và lịch sự nhất cho từng câu hỏi giao tiếp đời thường.",
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "WRITTEN_RECOGNITION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D4.WHERE_FROM",
+          "familyCode": "FAMILY.M1.W1.QA_MATCH",
+          "familyConstruct": "Pairing origin question with place response",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "A: 'Excuse me, where are you from?' -> B phản hồi thế nào?",
+            "question": "A: 'Excuse me, where are you from?' -> B phản hồi thế nào?",
+            "options": ["I'm from Can Tho, Vietnam.", "I'm a primary teacher.", "I am twenty years old."]
+          },
+          "answerDefinition": {
+            "accepted": ["I'm from Can Tho, Vietnam."],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "Câu hỏi 'Where are you from?' hỏi về nơi chốn/quê quán, phản hồi đúng là 'I'm from Can Tho, Vietnam.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "QA_ORIGIN_INDEPENDENT",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D4.WHAT_DO",
+          "familyCode": "FAMILY.M1.W1.QA_MATCH",
+          "familyConstruct": "Pairing occupation question with job response",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "A: 'And what do you do, Linh?' -> B phản hồi thế nào?",
+            "question": "A: 'And what do you do, Linh?' -> B phản hồi thế nào?",
+            "options": ["I'm a university student.", "I'm fine, thank you.", "I live in Hue."]
+          },
+          "answerDefinition": {
+            "accepted": ["I'm a university student."],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "'What do you do?' là câu hỏi chuẩn về nghề nghiệp, phản hồi là 'I'm a university student.'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "QA_JOB_INDEPENDENT",
+          "modality": "WRITTEN_RECOGNITION"
+        },
+        {
+          "code": "ITEM.M1.W1.D4.WHATS_NAME",
+          "familyCode": "FAMILY.M1.W1.QA_MATCH",
+          "familyConstruct": "Pairing name question with identity response",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SINGLE_CHOICE",
+          "prompt": {
+            "text": "A: 'Hi, what's your name?' -> B phản hồi thế nào?",
+            "question": "A: 'Hi, what's your name?' -> B phản hồi thế nào?",
+            "options": ["I'm Nam. Nice to meet you!", "Yes, I am a doctor.", "I am very good."]
+          },
+          "answerDefinition": {
+            "accepted": ["I'm Nam. Nice to meet you!"],
+            "matchMode": "EXACT"
+          },
+          "feedbackDefinition": {
+            "explanation": "'What's your name?' hỏi về tên, câu trả lời tự nhiên và lịch thiệp là 'I'm Nam. Nice to meet you!'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "QA_NAME_INDEPENDENT",
+          "modality": "WRITTEN_RECOGNITION"
+        }
+      ]
+    },
+    {
+      "code": "ACT.M1.W1.D4.QUESTIONS_FILL",
+      "activityType": "INDEPENDENT_CHECK",
+      "title": "Tự Điền Động từ To Be trong Câu Hỏi & Phủ định (Inversions & Negatives)",
+      "position": 3,
+      "content": {
+        "instruction": "Tự điền dạng đúng của to be không có gợi ý. Hãy chú ý vị trí đứng đầu câu trong câu hỏi và từ 'not' trong câu phủ định.",
+        "opportunityType": "INDEPENDENT_EVIDENCE",
+        "modality": "WRITTEN_PRODUCTION",
+        "reviewStatus": "DRAFT"
+      },
+      "items": [
+        {
+          "code": "ITEM.M1.W1.D4.ARE_YOU_STUDENT",
+          "familyCode": "FAMILY.M1.W1.BE_QUESTION_FILL",
+          "familyConstruct": "Inverted be question with you",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "___ you a student at this university?"
+          },
+          "answerDefinition": {
+            "accepted": ["are", "Are"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Câu hỏi Yes/No với chủ ngữ 'you' đảo 'Are' lên đầu câu: 'Are you a student...?'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "BE_QUESTION_INDEPENDENT",
+          "modality": "WRITTEN_PRODUCTION"
+        },
+        {
+          "code": "ITEM.M1.W1.D4.WHERE_IS_SHE",
+          "familyCode": "FAMILY.M1.W1.BE_QUESTION_FILL",
+          "familyConstruct": "Wh- question with third person she",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "Where ___ she from originally?"
+          },
+          "answerDefinition": {
+            "accepted": ["is", "Is"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Với chủ ngữ ngôi thứ 3 số ít 'she', to be tương ứng là 'is': 'Where is she from...?'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "BE_QUESTION_INDEPENDENT",
+          "modality": "WRITTEN_PRODUCTION"
+        },
+        {
+          "code": "ITEM.M1.W1.D4.I_AM_NOT",
+          "familyCode": "FAMILY.M1.W1.BE_QUESTION_FILL",
+          "familyConstruct": "Negative be sentence with first person",
+          "purpose": "EVALUATION",
+          "evidenceEligibility": "INDEPENDENT",
+          "responseType": "SHORT_TEXT",
+          "prompt": {
+            "text": "I ___ not a tourist; I live and work here."
+          },
+          "answerDefinition": {
+            "accepted": ["am", "Am"],
+            "matchMode": "CASE_INSENSITIVE"
+          },
+          "feedbackDefinition": {
+            "explanation": "Câu phủ định với chủ ngữ 'I' dùng 'am not': 'I am not a tourist...'"
+          },
+          "supportPolicy": {
+            "hintAllowed": false
+          },
+          "claim": "BE_QUESTION_INDEPENDENT",
+          "modality": "WRITTEN_PRODUCTION"
+        }
+      ]
+    }
+  ]
+}

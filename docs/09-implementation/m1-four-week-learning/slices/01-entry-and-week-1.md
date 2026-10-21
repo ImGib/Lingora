@@ -77,7 +77,7 @@ Commands that can be retried—starting/resuming a check, artifact finalization,
 
 Passing this slice proves Week 1, not the 28-day M1 outcome. Week 2 should open only after the slice report identifies actual coverage and usability gaps.
 
-## Implementation status — 2026-10-20
+## Implementation status — 2026-10-21
 
 Completed so far:
 
@@ -86,12 +86,17 @@ Completed so far:
 - idempotent start, one active check per learner and cross-learner ownership enforcement;
 - deterministic per-claim output limited to `ALREADY_DEMONSTRATED` and `NEED_MORE_EVIDENCE`;
 - skip and incomplete completion recommend Day 1 without creating weakness or competency evidence;
-- RLS enabled and all `anon`/`authenticated` table privileges revoked.
+- RLS enabled and all `anon`/`authenticated` table privileges revoked across all tables.
 - learner-facing optional check, including skip, saved-answer resume, question progress and per-item results;
-- latest-check API for resume across devices, and serialized answer save/complete operations.
+- latest-check API for resume across devices, and serialized answer save/complete operations;
+- **Content Compiler & Validator (`@lingora/content-compiler`):** Zod schemas and CLI validator producing DRAFT SQL migrations from declarative JSON manifests;
+- **Curriculum Authoring (Days 1–7):** Authored, validated, and compiled all 7 day manifests for Week 1 (`curriculum/week-1/day-1.json` through `day-7.json`);
+- **Learner Artifacts v0:** Backend (`ArtifactsController`, `ArtifactsService`, migration `000005`) and frontend (`ArtifactWorkspace`) supporting text writing studio, audio recording studio, and graceful `MICROPHONE_DENIED` fallback without negative learning evidence;
+- **Planner v1 Increment:** Backend (`PlanningService`, migration `000006`) supporting due-time persistence, minimum viable day (<=15 min -> 2 blocks vs normal 3 blocks), and new block types (`REVIEW`, `VERIFY`, `TRANSFER`);
+- **Content Quarantine & Learner Issue Reporting:** Backend (`QuarantineController`, `QuarantineService`, migration `000007`) and frontend (`ContentReportModal` on `LessonView` and `AttemptView`);
+- **Growth Tree ("Cây tiến độ") Overhaul:** Botanical living bonsai SVG visualization with responsive 2-column milestone inspector in React (`apps/web`) and sandbox prototype (`prototype/`);
+- **Automated Verification:** 10/10 test suites (29/29 tests) passing in `apps/api/test/`, full monorepo typechecks passing, Next.js 16 production build passing.
 
-Remaining: Week 1 Days 1–7 content/artifacts, delayed review/recovery, content quarantine, accessibility/privacy/degraded-mode and real-beginner gates. The slice remains **IN PROGRESS**. The Starting Point migration and HTTP flow still require verification against a disposable PostgreSQL database before release.
+Remaining before release: disposable PostgreSQL end-to-end run, authentic audio recording files for Days 1/3, and real-beginner usability gates. The slice remains **IN PROGRESS**.
 
-Day 1 now has an unpublished [content draft](../curriculum/day-01-draft.md). It is an authoring checkpoint; audio, practice, learner navigation and publication gates remain open.
-The exposure progress API and lesson UI path are implemented for future published, item-free content; they do not make this draft learner-visible.
-Day 2 now has an unpublished [guided-practice draft](../curriculum/day-02-draft.md) with `evidence_eligibility = NONE`.
+The order of remaining work is set by the [2026-10-20 plan review](../plan-review-2026-10-20.md). Exit gates are unchanged.

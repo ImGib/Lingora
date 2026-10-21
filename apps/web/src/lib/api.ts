@@ -1,6 +1,12 @@
 import { lessonExposureSchema, lessonResponseSchema, meResponseSchema, type LessonDto, type LessonExposureDto, type MeResponseDto, type UpdateProfileDto } from '@lingora/contracts';
 import { attemptSchema, dashboardSchema, goalSchema, type AttemptDto, type DashboardDto, type GoalDto, type GoalInputDto } from '@lingora/contracts';
 import { placementSchema, type PlacementDto } from '@lingora/contracts';
+import {
+  learnerArtifactSchema,
+  type CreateArtifactDto,
+  type LearnerArtifactDto,
+  type LearnerContentReportDto,
+} from '@lingora/contracts';
 
 function apiUrl(): string {
   const value = process.env.NEXT_PUBLIC_API_URL;
@@ -110,4 +116,21 @@ export async function savePlacementResponse(token: string, placementId: string, 
 }
 export async function completePlacement(token: string, placementId: string): Promise<PlacementDto> {
   return placementSchema.parse(await apiData(token, `/v1/placements/${placementId}/complete`, { method: 'POST' }));
+}
+
+export async function createArtifact(token: string, dto: CreateArtifactDto): Promise<LearnerArtifactDto> {
+  return learnerArtifactSchema.parse(await apiData(token, '/v1/artifacts', { method: 'POST', body: JSON.stringify(dto) }));
+}
+
+export async function getLatestArtifactForActivity(token: string, activityId: string): Promise<LearnerArtifactDto | null> {
+  const data = await apiData(token, `/v1/artifacts/${activityId}`);
+  return data ? learnerArtifactSchema.parse(data) : null;
+}
+
+export async function deleteArtifact(token: string, artifactId: string): Promise<void> {
+  await apiData(token, `/v1/artifacts/${artifactId}`, { method: 'DELETE' });
+}
+
+export async function reportContentIssue(token: string, dto: LearnerContentReportDto): Promise<{ reported: boolean; id: string }> {
+  return (await apiData(token, '/v1/curriculum/reports', { method: 'POST', body: JSON.stringify(dto) })) as { reported: boolean; id: string };
 }
