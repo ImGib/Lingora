@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lingora — Cổng Điều Hướng Đa Stakeholder (BA · UI/UX · Giáo Vụ · QA/QC · Dev)</title>
+  <meta name="description" content="Cổng thông tin tập trung của dự án Lingora dành cho BA, Product Owner, UI/UX Designer, Giáo vụ, QA/QC và Developer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito+Sans:opsz,wght@6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .hub-shell { max-width: 1400px; margin: 0 auto; padding: 24px clamp(16px, 3vw, 36px) 100px; }
+    .hub-hero {
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,243,255,0.92) 55%, rgba(236,253,245,0.92) 100%);
+      border: 1.5px solid #c4b5fd;
+      border-radius: 24px;
+      padding: 28px 32px;
+      box-shadow: 0 16px 40px rgba(109, 40, 217, 0.08);
+      margin-bottom: 24px;
+    }
+    .hub-role-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .hub-role-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1.5px solid #e2d9f3;
+      background: rgba(255, 255, 255, 0.92);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+      box-shadow: 0 4px 14px rgba(30, 27, 75, 0.04);
+    }
+    .hub-role-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      background: #ffffff;
+    }
+    .hub-role-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 10px 24px rgba(109, 92, 232, 0.32);
+    }
+    .hub-role-ico {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #f5f3ff;
+      display: grid;
+      place-items: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+    .hub-role-btn.active .hub-role-ico {
+      background: rgba(255, 255, 255, 0.22);
+    }
+    .hub-role-btn strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 0.98rem;
+    }
+    .hub-role-btn span {
+      font-size: 0.76rem;
+      opacity: 0.85;
+    }
+    .hub-panel { display: none; animation: rise 0.3s ease; }
+    .hub-panel.active { display: block; }
+    .hub-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px; margin-bottom: 20px; }
+    .hub-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .hub-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .hub-table th, .hub-table td { padding: 12px 14px; border-bottom: 1px solid #ece7ef; text-align: left; vertical-align: top; }
+    .hub-table th { background: #f8f6ff; color: #4c1d95; font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .hub-table tr:hover td { background: #faf9fe; }
+    .path-code {
+      display: inline-block;
+      background: #f3e8ff;
+      color: #5b21b6;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: monospace;
+    }
+    .uat-status-select {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      font-weight: 700;
+      font-size: 0.82rem;
+      background: #fff;
+    }
+    .uat-status-select.pass { background: #ecfdf5; border-color: #34d399; color: #065f46; }
+    .uat-status-select.fail { background: #fef2f2; border-color: #f87171; color: #991b1b; }
+    @media (max-width: 760px) {
+      .hub-grid-2, .hub-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-mesh-grid"></div>
+    <div class="bg-orbs">
+      <span class="orb-1"></span>
+      <span class="orb-2"></span>
+      <span class="orb-3"></span>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">L</span>
+      <span class="brand-title-wrap">
+        <span class="brand-name">Lingora</span>
+        <span class="brand-sub">5-Zone Stakeholder Portal</span>
+      </span>
+      <span class="proto-tag">Project Map &amp; UAT Hub</span>
+    </a>
+    <nav class="nav" aria-label="Điều hướng">
+      <a href="stakeholder-hub.html" aria-current="page">🧭 Cổng Stakeholder (5 Vai trò)</a>
+      <a href="index.html">🚀 Mở Prototype Học Viên</a>
+      <a href="index.html#/roadmap">🗺️ Lộ trình 3 Chặng</a>
+    </nav>
+  </header>
+
+  <main class="hub-shell">
+    <section class="hub-hero">
+      <div class="row" style="justify-content:space-between;align-items:flex-start;gap:16px">
+        <div>
+          <span class="hero-pill-badge" style="margin-bottom:8px">🧭 QUY TẮC 3 GIÂY · 1 VAI TRÒ = 1 NGĂN THƯ MỤC</span>
+          <h1 style="margin:0 0 8px;font-size:clamp(1.6rem, 2.8vw, 2.2rem)">Bản Đồ Dự Án &amp; Cổng Nghiệm Thu Đa Stakeholder</h1>
+          <p class="muted" style="margin:0;max-width:75ch">
+            Chọn đúng vai trò của bạn bên dưới để xem ngay **vị trí thư mục tương ứng trong kho code**, **kế hoạch triển khai**, **yêu cầu nghiệp vụ (BA)**, **quy chuẩn UI/UX**, **học liệu** và **bảng chấm nghiệm thu QA/QC**.
+          </p>
+        </div>
+        <a class="btn primary lg" href="index.html">🚀 Trải nghiệm Prototype Ngay →</a>
+      </div>
+    </section>
+
+    <!-- 5 Role Tabs -->
+    <div class="hub-role-tabs" role="tablist" aria-label="Chọn vai trò Stakeholder">
+      <button type="button" class="hub-role-btn active" data-tab="overview" role="tab" aria-selected="true">
+        <span class="hub-role-ico">🗺️</span>
+        <div>
+          <strong>0. Bảng Nhớ Nhanh</strong>
+          <span>5 Ngăn thư mục cốt lõi</span>
+        </div>
+      </button>
+      <button type="button" class="hub-role-btn" data-tab="ba" role="tab" aria-selected="false">
+        <span class="hub-role-ico">👔</span>
+        <div>
+          <strong>1. BA &amp; Product</strong>
+          <span>📁 Thư mục: docs/</span>
+        </div>
+      </button>
+      <button type="button" class="hub-role-btn" data-tab="uiux" role="tab" aria-selected="false">
+        <span class="hub-role-ico">🎨</span>
+        <div>
+          <strong>2. UI/UX &amp; Customer</strong>
+          <span>📁 Thư mục: prototype/</span>
+        </div>
+      </button>
+      <button type="button" class="hub-role-btn" data-tab="curriculum" role="tab" aria-selected="false">
+        <span class="hub-role-ico">📚</span>
+        <div>
+          <strong>3. Giáo Vụ (Content)</strong>
+          <span>📁 Thư mục: curriculum/</span>
+        </div>
+      </button>
+      <button type="button" class="hub-role-btn" data-tab="qa" role="tab" aria-selected="false">
+        <span class="hub-role-ico">🧪</span>
+        <div>
+          <strong>4. QA / QC &amp; UAT</strong>
+          <span>📁 Thư mục: qa/</span>
+        </div>
+      </button>
+      <button type="button" class="hub-role-btn" data-tab="dev" role="tab" aria-selected="false">
+        <span class="hub-role-ico">💻</span>
+        <div>
+          <strong>5. Developer (FE/BE)</strong>
+          <span>📁 Thư mục: apps/ &amp; packages/</span>
+        </div>
+      </button>
+    </div>
+
+    <!-- PANEL 0: OVERVIEW 5-ZONE MAP -->
+    <section class="hub-panel active" id="panel-overview">
+      <div class="card" style="margin-bottom:20px">
+        <div class="kicker">BẢNG GHI NHỚ TỨC THÌ (CHỈ 5 NGĂN THƯ MỤC)</div>
+        <h2>Khi mở dự án `D:\Lingora`, ai vào thư mục nào?</h2>
+        <p class="muted small">Toàn bộ cấu trúc cũ được giữ nguyên 100% tính đúng đắn, bổ sung các file `INDEX.md` và `GUIDE.md` làm biển chỉ đường tại từng ngăn:</p>
+        <div style="overflow-x:auto">
+          <table class="hub-table">
+            <thead>
+              <tr>
+                <th>Vai trò (Stakeholder)</th>
+                <th>Ngăn thư mục cần nhớ</th>
+                <th>File mở đầu tiên</th>
+                <th>Nội dung bên trong</th>
+                <th>Thao tác nhanh</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>👔 1. BA &amp; Product Owner</strong></td>
+                <td><code class="path-code">📁 docs/</code></td>
+                <td><code>docs/INDEX.md</code></td>
+                <td>Kế hoạch dự án (Plan), Yêu cầu nghiệp vụ (PRD/BRD), 8 Bất biến học tập, Tiến độ các Slice</td>
+                <td><button class="btn soft sm" data-goto-tab="ba">Xem cổng BA →</button></td>
+              </tr>
+              <tr>
+                <td><strong>🎨 2. UI/UX &amp; Khách hàng</strong></td>
+                <td><code class="path-code">📁 prototype/</code></td>
+                <td><code>prototype/index.html</code></td>
+                <td>Bản mẫu tương tác 7 ngày, Phòng Lab Khẩu hình IPA, Ngữ pháp 6 phần, Nền động 60fps</td>
+                <td><a class="btn primary sm" href="index.html">Mở Prototype →</a></td>
+              </tr>
+              <tr>
+                <td><strong>📚 3. Giáo vụ (Curriculum)</strong></td>
+                <td><code class="path-code">📁 curriculum/</code></td>
+                <td><code>curriculum/GUIDE.md</code></td>
+                <td>Quy chuẩn 3 Chặng học, Từ vựng 100% IPA, Chuyên đề Ngữ pháp 6 phần (`week-1/*.json`)</td>
+                <td><button class="btn soft sm" data-goto-tab="curriculum">Xem chuẩn Giáo vụ →</button></td>
+              </tr>
+              <tr>
+                <td><strong>🧪 4. QA / QC (Tester)</strong></td>
+                <td><code class="path-code">📁 qa/</code></td>
+                <td><code>qa/INDEX.md</code></td>
+                <td>5 Cổng chất lượng, 12 Test Cases nghiệm thu UAT (`test-cases-uat.md`), 4 Kịch bản giả lập lỗi (`fault-scenarios.md`)</td>
+                <td><button class="btn soft sm" data-goto-tab="qa">Mở Checklist UAT →</button></td>
+              </tr>
+              <tr>
+                <td><strong>💻 5. Developer (FE/BE)</strong></td>
+                <td><code class="path-code">📁 apps/</code> &amp; <code class="path-code">📁 packages/</code></td>
+                <td><code>README.md</code></td>
+                <td>Next.js (`apps/web`), NestJS + Supabase (`apps/api`), Shared DTOs (`packages/contracts`), Compiler</td>
+                <td><button class="btn soft sm" data-goto-tab="dev">Xem lộ trình Code →</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 1: BA & PRODUCT -->
+    <section class="hub-panel" id="panel-ba">
+      <div class="hub-grid-2">
+        <div class="card">
+          <div class="kicker">📁 THƯ MỤC: docs/INDEX.md</div>
+          <h2>1. Bản đồ Tài liệu dành cho BA &amp; PM</h2>
+          <table class="hub-table">
+            <thead>
+              <tr><th>Tài liệu cần tìm</th><th>Đường dẫn file trong repo</th><th>Trạng thái</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tổng quan Kế hoạch M1 (4 Tuần - 28 Ngày)</strong></td>
+                <td><code>docs/09-implementation/m1-four-week-learning/overview.md</code></td>
+                <td><span class="chip learning">IN PROGRESS</span></td>
+              </tr>
+              <tr>
+                <td><strong>Kế hoạch chi tiết Slice 01 (Check + Tuần 1)</strong></td>
+                <td><code>docs/09-implementation/m1-four-week-learning/slices/01-entry-and-week-1.md</code></td>
+                <td><span class="chip learning">IN PROGRESS</span></td>
+              </tr>
+              <tr>
+                <td><strong>Điều kiện Hoàn thành Nghiệm thu (DoD)</strong></td>
+                <td><code>docs/09-implementation/m1-four-week-learning/definition-of-done.md</code></td>
+                <td><span class="chip ok">VALIDATED</span></td>
+              </tr>
+              <tr>
+                <td><strong>Hiến pháp 8 Bất biến Học tập (Invariants)</strong></td>
+                <td><code>docs/02-learning-architecture/learning-constitution-v1.md</code></td>
+                <td><span class="chip review">FROZEN</span></td>
+              </tr>
+              <tr>
+                <td><strong>Quy tắc Lập Kế hoạch Hôm nay &amp; Ôn tập</strong></td>
+                <td><code>docs/04-domain/decision-rules.md</code></td>
+                <td><span class="chip review">FROZEN</span></td>
+              </tr>
+              <tr>
+                <td><strong>Báo cáo Kiểm toán M0 Kernel (01A–01F)</strong></td>
+                <td><code>docs/09-implementation/m0-kernel/slice-01/README.md</code></td>
+                <td><span class="chip ok">DONE 100%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="kicker">HIẾN PHÁP NGHIỆP VỤ (BUSINESS RULES)</div>
+          <h2>2. Tám Quy tắc Bất biến BA &amp; PO cần nắm</h2>
+          <ul class="ev-list" style="font-size:0.88rem;gap:10px">
+            <li><span>🛡️ <strong>Skipped != Failed:</strong> Học viên chọn "Bỏ qua", "Để sau" hoặc "Nghỉ hôm nay" là quyền điều phối thời gian hợp lệ, không bị trừ điểm.</span></li>
+            <li><span>🛡️ <strong>Technical Failure != Learner Failure:</strong> Micro bị từ chối, mất mạng hoặc lỗi âm thanh không bao giờ bị tính là học viên làm sai.</span></li>
+            <li><span>🛡️ <strong>Exposure != Practice != Evidence:</strong> Đọc lý thuyết và làm bài có bấm Gợi ý (Hint) chỉ là luyện tập, không tính vào Bằng chứng độc lập.</span></li>
+            <li><span>🛡️ <strong>Evidence != Mastery:</strong> Làm đúng 1 lần chỉ là "Bắt đầu có tín hiệu". Cần kiểm tra lại sau vài ngày (Delayed) và ở ngữ cảnh mới (Transfer).</span></li>
+            <li><span>🛡️ <strong>No Fake Percentages:</strong> Không dùng thanh % thành thạo ảo hay dự đoán điểm IELTS giả tạo khi học viên mới học nền tảng.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 2: UI/UX & CUSTOMER -->
+    <section class="hub-panel" id="panel-uiux">
+      <div class="card" style="margin-bottom:20px">
+        <div class="kicker">📁 THƯ MỤC: prototype/ &amp; docs/07-ui/</div>
+        <h2>Điểm Nhấn UI/UX Đã Hoàn Thiện Trên Bản Prototype (Customer Demo)</h2>
+        <p class="muted small">Bấm vào từng nút bên dưới để mở thẳng đúng màn hình tính năng tương ứng trên Prototype:</p>
+        <div class="hub-grid-3" style="margin-top:14px">
+          <div class="gm-fn-card">
+            <div class="gm-fn-title">1. Phòng Lab Khẩu hình IPA (1 Âm/Viewport)</div>
+            <p class="gm-fn-desc">Mỗi viewport chỉ hiển thị 1 âm IPA duy nhất qua thanh Tab. Hình vẽ khẩu hình (Nhìn thẳng &amp; Mặt cắt ngang) cỡ lớn, tiêu đề nằm ngoài SVG tuyệt đối không tràn viền.</p>
+            <a class="btn primary sm" href="index.html#/run/lesson/1">👄 Xem ngay ở Ngày 1 →</a>
+          </div>
+          <div class="gm-fn-card">
+            <div class="gm-fn-title">2. Chuyên đề Ngữ pháp 6 Phần (ForumFlash Style)</div>
+            <p class="gm-fn-desc">Trình bày cực kỳ bài bản: (1) Trọng tâm &amp; Quy tắc vàng, (2) Chức năng &amp; Ví dụ, (3) Mảnh ghép &amp; Chia ngôi, (4) Bảng 3 thể (+/-/&#63;), (5) Mẹo nhận biết, (6) Mổ xẻ câu.</p>
+            <a class="btn primary sm" href="index.html#/run/lesson/2">🧩 Xem ngay ở Ngày 2 →</a>
+          </div>
+          <div class="gm-fn-card">
+            <div class="gm-fn-title">3. Lộ trình Chia Rõ 3 Chặng Học</div>
+            <p class="gm-fn-desc">Phân nhóm 7 ngày thành 3 Chặng năng lực rõ ràng (Chặng 1: IPA &amp; To Be · Chặng 2: Đánh vần &amp; Hỏi Đáp · Chặng 3: Viết, Nói &amp; Chuyển giao).</p>
+            <a class="btn primary sm" href="index.html#/roadmap">🗺️ Xem Lộ trình 3 Chặng →</a>
+          </div>
+          <div class="gm-fn-card">
+            <div class="gm-fn-title">4. Máy Đánh Vần Tên Riêng A–Z Tương Tác</div>
+            <p class="gm-fn-desc">Cho phép học viên gõ bất kỳ tên tiếng Việt nào (Linh, Minh, Huong...) để tách từng chữ cái sang IPA và nghe phát âm chậm 0.55x.</p>
+            <a class="btn soft sm" href="index.html#/run/lesson/3">🔤 Xem ở Ngày 3 →</a>
+          </div>
+          <div class="gm-fn-card">
+            <div class="gm-fn-title">5. Cây Tiến Độ 6 Cột Mốc &amp; Nền Động 60fps</div>
+            <p class="gm-fn-desc">Cây học tập lớn dần theo 6 giai đoạn (Hạt giống -> Kết trái) kết hợp nền Canvas hạt ánh sáng &amp; sóng âm tương tác chuột.</p>
+            <a class="btn soft sm" href="index.html#/today">🌱 Xem ở Trang Hôm nay →</a>
+          </div>
+          <div class="gm-fn-card">
+            <div class="gm-fn-title">6. Xưởng Viết &amp; Phòng Thu Nói An Toàn</div>
+            <p class="gm-fn-desc">Tự động lưu nháp trên thiết bị, tự đánh giá qua Checklist và có luồng cứu hộ khi Micro bị từ chối.</p>
+            <a class="btn soft sm" href="index.html#/run/lesson/5">🎙️ Xem ở Ngày 5 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 3: CURRICULUM -->
+    <section class="hub-panel" id="panel-curriculum">
+      <div class="card">
+        <div class="kicker">📁 THƯ MỤC: curriculum/GUIDE.md &amp; curriculum/week-1/</div>
+        <h2>Cấu trúc 3 Chặng &amp; 7 Ngày Học Tuần 1 (`Me &amp; My English`)</h2>
+        <table class="hub-table">
+          <thead>
+            <tr><th>Chặng</th><th>Ngày</th><th>Chủ đề Bài học</th><th>Trọng tâm IPA &amp; Ngữ pháp</th><th>File JSON Nguồn</th><th>Xem Demo</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2"><strong>Chặng 1</strong><br/><span class="small muted">Nền tảng IPA &amp; To Be</span></td>
+              <td><strong>Ngày 1</strong></td>
+              <td>Làm quen với Linh (4 Trụ cột)</td>
+              <td>5 âm `/iː/, /ɪ/, /eɪ/, /aɪ/, /z/` · Máy đánh vần tên · Bẫy âm cuối</td>
+              <td><code>curriculum/week-1/day-1.json</code></td>
+              <td><a class="btn soft sm" href="index.html#/run/lesson/1">Mở Ngày 1</a></td>
+            </tr>
+            <tr>
+              <td><strong>Ngày 2</strong></td>
+              <td>Đại từ Nhân xưng &amp; Động từ To Be</td>
+              <td>Ngữ pháp 6 phần `I/You/He/She + am/are/is` · 3 thể (+/-/&#63;) · Nối âm `/aɪm/, /ʃiːz/`</td>
+              <td><code>curriculum/week-1/day-2.json</code></td>
+              <td><a class="btn soft sm" href="index.html#/run/lesson/2">Mở Ngày 2</a></td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>Chặng 2</strong><br/><span class="small muted">Đánh vần &amp; Hỏi Đáp</span></td>
+              <td><strong>Ngày 3</strong></td>
+              <td>Tên &amp; Chi tiết Chính (Nghe/Đọc)</td>
+              <td>Bảng chữ cái A–Z IPA · Bẫy `E/I`, `G/J` · Trọng âm từ nhiều âm tiết</td>
+              <td><code>curriculum/week-1/day-3.json</code></td>
+              <td><a class="btn soft sm" href="index.html#/run/lesson/3">Mở Ngày 3</a></td>
+            </tr>
+            <tr>
+              <td><strong>Ngày 4</strong></td>
+              <td>Hỏi &amp; Đáp Thông tin Cá nhân</td>
+              <td>3 câu hỏi Wh- (`↘`) · Ngữ pháp 6 phần Câu hỏi Đảo Yes/No (`↗`)</td>
+              <td><code>curriculum/week-1/day-4.json</code></td>
+              <td><a class="btn soft sm" href="index.html#/run/lesson/4">Mở Ngày 4</a></td>
+            </tr>
+            <tr>
+              <td rowspan="3"><strong>Chặng 3</strong><br/><span class="small muted">Sản sinh &amp; Chuyển giao</span></td>
+              <td><strong>Ngày 5</strong></td>
+              <td>Xưởng Viết &amp; Ghi Âm Bản Thân</td>
+              <td>Khung 5 câu chuẩn · Viết đoạn giới thiệu · Ghi âm 20–30 giây</td>
+              <td><code>curriculum/week-1/day-5.json</code></td>
+              <td><a class="btn soft sm" href="index.html#/run/lesson/5">Mở Ngày 5</a></td>
+            </tr>
+            <tr>
+              <td><strong>Ngày 6</strong></td>
+              <td>Thử thách Chuyển giao Thực tế</td>
+              <td>Đọc tin nhắn Slack (Carlos) · Thẻ hội nghị (Yuki) · Viết ngôi He/She</td>
+              <td><code>curriculum/week-1/day-6.json</code></td>
+              <td><a class="btn soft sm" href="index.html#/run/lesson/6">Mở Ngày 6</a></td>
+            </tr>
+            <tr>
+              <td><strong>Ngày 7</strong></td>
+              <td>Khu Vườn Tiến Bộ &amp; Tuần Hoàn</td>
+              <td>Ôn tập ngắt quãng (Spaced Retrieval) · Bù bài hoặc Nghỉ ngơi</td>
+              <td><code>curriculum/week-1/day-7.json</code></td>
+              <td><a class="btn soft sm" href="index.html#/run/lesson/7">Mở Ngày 7</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PANEL 4: QA / QC & INTERACTIVE UAT -->
+    <section class="hub-panel" id="panel-qa">
+      <div class="card" style="margin-bottom:20px">
+        <div class="row" style="justify-content:space-between;align-items:center">
+          <div>
+            <div class="kicker">📁 THƯ MỤC: qa/INDEX.md · qa/test-cases-uat.md · qa/fault-scenarios.md</div>
+            <h2 style="margin:0">Bảng Chấm Nghiệm Thu UAT Tương Tác Dành Cho QA / QC</h2>
+            <p class="muted small" style="margin:4px 0 0">QA/QC có thể bấm <strong>"▶ Mở màn hình test"</strong>, kiểm tra rồi chọn trạng thái <strong>PASS / FAIL</strong> ngay bên dưới (tự động lưu trên trình duyệt):</p>
+          </div>
+          <button type="button" class="btn soft sm" id="reset-uat-btn">🔄 Đặt lại trạng thái UAT</button>
+        </div>
+
+        <div style="overflow-x:auto;margin-top:14px">
+          <table class="hub-table">
+            <thead>
+              <tr>
+                <th>Mã TC</th>
+                <th>Hạng mục Kiểm thử (Test Case)</th>
+                <th>Tiêu chí Đạt (Acceptance Criteria)</th>
+                <th>Màn hình Test</th>
+                <th>Kết quả QC</th>
+              </tr>
+            </thead>
+            <tbody id="uat-tbody">
+              <tr data-tc="TC-01">
+                <td><strong>TC-01</strong></td>
+                <td>Màn hình Chào mừng &amp; Nền động 60fps</td>
+                <td>Hạt sáng &amp; sóng âm chuyển động mượt, di chuột có quầng sáng, nút bắt đầu Ngày 1 hoạt động.</td>
+                <td><a class="btn ghost sm" href="index.html#/welcome">▶ Mở `#/welcome`</a></td>
+                <td><select class="uat-status-select" data-tc-select="TC-01"><option value="pending">⏳ Chờ test</option><option value="pass">✅ PASS</option><option value="fail">❌ FAIL</option></select></td>
+              </tr>
+              <tr data-tc="TC-02">
+                <td><strong>TC-02</strong></td>
+                <td>Lộ trình Chia rõ 3 Chặng Học</td>
+                <td>Hiển thị rõ Chặng 1 (Ngày 1–2), Chặng 2 (Ngày 3–4), Chặng 3 (Ngày 5–7) kèm chip trọng tâm.</td>
+                <td><a class="btn ghost sm" href="index.html#/roadmap">▶ Mở `#/roadmap`</a></td>
+                <td><select class="uat-status-select" data-tc-select="TC-02"><option value="pending">⏳ Chờ test</option><option value="pass">✅ PASS</option><option value="fail">❌ FAIL</option></select></td>
+              </tr>
+              <tr data-tc="TC-03">
+                <td><strong>TC-03</strong></td>
+                <td>Phòng Lab IPA: 1 Âm / 1 Viewport &amp; Khẩu hình lớn</td>
+                <td>Chỉ hiện 1 âm IPA trên màn hình (chuyển bằng Tab), hình Nhìn thẳng &amp; Mặt cắt ngang không tràn viền.</td>
+                <td><a class="btn ghost sm" href="index.html#/run/lesson/1">▶ Mở Ngày 1</a></td>
+                <td><select class="uat-status-select" data-tc-select="TC-03"><option value="pending">⏳ Chờ test</option><option value="pass">✅ PASS</option><option value="fail">❌ FAIL</option></select></td>
+              </tr>
+              <tr data-tc="TC-04">
+                <td><strong>TC-04</strong></td>
+                <td>Chuyên đề Ngữ pháp 6 Phần (`To Be &amp; Subject Pronouns`)</td>
+                <td>Ngày 2 hiển thị đủ 6 mục: Trọng tâm, Chức năng, Mảnh ghép, Bảng 3 thể (+/-/&#63;), Mẹo nhận biết, Mổ xẻ câu.</td>
+                <td><a class="btn ghost sm" href="index.html#/run/lesson/2">▶ Mở Ngày 2</a></td>
+                <td><select class="uat-status-select" data-tc-select="TC-04"><option value="pending">⏳ Chờ test</option><option value="pass">✅ PASS</option><option value="fail">❌ FAIL</option></select></td>
+              </tr>
+              <tr data-tc="TC-05">
+                <td><strong>TC-05</strong></td>
+                <td>Máy Đánh Vần Tên A–Z &amp; Bẫy Chữ Cái E/I, G/J</td>
+                <td>Gõ tên bất kỳ tự động tách chữ cái sang IPA và phát âm chậm từng chữ.</td>
+                <td><a class="btn ghost sm" href="index.html#/run/lesson/3">▶ Mở Ngày 3</a></td>
+                <td><select class="uat-status-select" data-tc-select="TC-05"><option value="pending">⏳ Chờ test</option><option value="pass">✅ PASS</option><option value="fail">❌ FAIL</option></select></td>
+              </tr>
+              <tr data-tc="TC-06">
+                <td><strong>TC-06</strong></td>
+                <td>Giả lập Sự cố: Từ chối Micro &amp; Lỗi Audio (`Fault Injection`)</td>
+                <td>Bật công tắc trong `⚙ Giả lập`, hệ thống báo lỗi kỹ thuật thân thiện và mở luồng thay thế, không phạt học viên.</td>
+                <td><a class="btn ghost sm" href="index.html#/run/lesson/5">▶ Mở Ngày 5</a></td>
+                <td><select class="uat-status-select" data-tc-select="TC-06"><option value="pending">⏳ Chờ test</option><option value="pass">✅ PASS</option><option value="fail">❌ FAIL</option></select></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 5: DEVELOPER & CODING PLAN -->
+    <section class="hub-panel" id="panel-dev">
+      <div class="card">
+        <div class="kicker">📁 THƯ MỤC: apps/web · apps/api · packages/</div>
+        <h2>Kế Hoạch Triển Khai Coding Tiếp Theo (`Coding Roadmap`)</h2>
+        <div class="gm-tips-list" style="margin-top:14px">
+          <div class="gm-tip-card">
+            <span class="gm-tip-step">Giai đoạn 1 (DONE)</span>
+            <div>
+              <strong>Chuẩn hóa 5 Ngăn Thư mục Đa Stakeholder &amp; Cổng Web `stakeholder-hub.html`</strong>
+              <p>Giữ nguyên 100% đường dẫn code cũ, bổ sung `README.md`, `docs/INDEX.md`, `curriculum/GUIDE.md`, `qa/INDEX.md`, `qa/test-cases-uat.md`, `qa/fault-scenarios.md`.</p>
+            </div>
+          </div>
+          <div class="gm-tip-card">
+            <span class="gm-tip-step">Giai đoạn 2 (NEXT)</span>
+            <div>
+              <strong>Đồng bộ 100% Cải tiến UI/UX &amp; Học liệu từ Prototype sang Ứng dụng Next.js (`apps/web`)</strong>
+              <p>Đưa Nền động 60fps, Lộ trình 3 Chặng, Phòng Lab IPA 1 âm/viewport và Ngữ pháp 6 phần vào `apps/web/src/features/` và biên dịch SQL seed mới từ `curriculum/week-1/`.</p>
+            </div>
+          </div>
+          <div class="gm-tip-card">
+            <span class="gm-tip-step">Giai đoạn 3</span>
+            <div>
+              <strong>Khép kín Kiểm thử Tự động E2E Tuần 1 &amp; Mở rộng Tuần 2–4</strong>
+              <p>Chạy kiểm증 toàn diện `pnpm typecheck && pnpm lint && pnpm test && pnpm e2e` trên Supabase thực tế.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const btns = document.querySelectorAll('.hub-role-btn');
+      const panels = document.querySelectorAll('.hub-panel');
+      function activateTab(tabId) {
+        btns.forEach((b) => {
+          const isAct = b.dataset.tab === tabId;
+          b.classList.toggle('active', isAct);
+          b.setAttribute('aria-selected', String(isAct));
+        });
+        panels.forEach((p) => p.classList.toggle('active', p.id === 'panel-' + tabId));
+      }
+      btns.forEach((b) => b.addEventListener('click', () => {
+        activateTab(b.dataset.tab);
+        history.replaceState(null, '', '#' + b.dataset.tab);
+      }));
+      document.querySelectorAll('[data-goto-tab]').forEach((el) => {
+        el.addEventListener('click', () => activateTab(el.dataset.gotoTab));
+      });
+      const hash = location.hash.replace('#', '');
+      if (['overview', 'ba', 'uiux', 'curriculum', 'qa', 'dev'].includes(hash)) {
+        activateTab(hash);
+      }
+
+      // Persist UAT status in localStorage
+      const KEY = 'lingora_uat_status_v1';
+      let uat = {};
+      try { uat = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch {}
+      const selects = document.querySelectorAll('[data-tc-select]');
+      function syncSelectStyle(sel) {
+        sel.classList.remove('pass', 'fail');
+        if (sel.value === 'pass') sel.classList.add('pass');
+        if (sel.value === 'fail') sel.classList.add('fail');
+      }
+      selects.forEach((sel) => {
+        const tc = sel.dataset.tcSelect;
+        if (uat[tc]) sel.value = uat[tc];
+        syncSelectStyle(sel);
+        sel.addEventListener('change', () => {
+          uat[tc] = sel.value;
+          syncSelectStyle(sel);
+          localStorage.setItem(KEY, JSON.stringify(uat));
+        });
+      });
+      document.getElementById('reset-uat-btn')?.addEventListener('click', () => {
+        uat = {};
+        localStorage.removeItem(KEY);
+        selects.forEach((sel) => { sel.value = 'pending'; syncSelectStyle(sel); });
+      });
+    })();
+  </script>
+</body>
+</html>

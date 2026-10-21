@@ -4,6 +4,29 @@
 **Status:** CONCEPTUALLY FROZEN; M0 SLICE 01 DONE; M1 SLICE 01 IN PROGRESS
 **Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
 
+---
+
+## 🧭 Bảng Chỉ Đường Nhanh Theo Vai Trò (`5-Zone Stakeholder Map`)
+
+Để bạn và bất kỳ thành viên nào trong dự án luôn nhớ ngay vị trí tài liệu chỉ trong **3 giây**, toàn bộ kho dự án được chia làm **5 ngăn chính tương ứng với 5 vai trò**:
+
+| Vai trò | Bạn cần xem gì? | Thư mục / File trong máy (`Local`) | Xem trực tiếp trên Web (`Live Portal`) |
+|---|---|---|---|
+| 👔 **1. BA & Product Owner** | Kế hoạch (Plan), Yêu cầu nghiệp vụ (PRD/BRD), Tiến độ các Slice | 📁 **[`docs/INDEX.md`](docs/INDEX.md)** *(Mục lục 1 trang cho BA)* | 🌐 [Stakeholder Hub — Tab BA & Plan](https://lingora-prototype.vercel.app/stakeholder-hub.html#ba) |
+| 🎨 **2. UI/UX & Khách hàng** | Bản mẫu bấm thử (Prototype), Bảng màu, Khẩu hình IPA, Layout | 📁 **[`prototype/`](prototype/index.html)** & **[`docs/07-ui/`](docs/07-ui/design-system-v1.md)** | 🌐 [Interactive Prototype Demo](https://lingora-prototype.vercel.app) |
+| 📚 **3. Giáo vụ (Curriculum)** | Nội dung 7 ngày, Từ vựng 100% IPA, Chuyên đề Ngữ pháp 6 phần | 📁 **[`curriculum/GUIDE.md`](curriculum/GUIDE.md)** & **[`curriculum/week-1/`](curriculum/week-1/)** | 🌐 [Stakeholder Hub — Tab Curriculum](https://lingora-prototype.vercel.app/stakeholder-hub.html#curriculum) |
+| 🧪 **4. QA / QC (Tester)** | Test Plan, Test Cases nghiệm thu (UAT), Giả lập lỗi, E2E | 📁 **[`qa/INDEX.md`](qa/INDEX.md)** & **[`e2e/`](e2e/)** | 🌐 [Stakeholder Hub — Tab QA/QC Center](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa) |
+| 💻 **5. Developer (FE / BE)** | Code Next.js (`apps/web`), API NestJS (`apps/api`), Database, DTOs | 📁 **[`apps/`](apps/)** & **[`packages/`](packages/)** | 🌐 [Stakeholder Hub — Tab Tech & Architecture](https://lingora-prototype.vercel.app/stakeholder-hub.html#dev) |
+
+> 💡 **Mẹo dễ nhớ nhất:**
+> - Cần **Tài liệu & Plan (BA)** $\rightarrow$ vào **`docs/INDEX.md`**
+> - Cần **Giao diện & Demo (UI/UX, Customer)** $\rightarrow$ vào **`prototype/`**
+> - Cần **Bài học & Từ vựng (Giáo vụ)** $\rightarrow$ vào **`curriculum/`**
+> - Cần **Test Cases & Nghiệm thu (QA/QC)** $\rightarrow$ vào **`qa/INDEX.md`**
+> - Cần **Code & Database (Dev)** $\rightarrow$ vào **`apps/`** và **`packages/`**
+
+---
+
 This repository contains the conceptually frozen architecture, the audited M0 kernel implementation and the design for M1: a meaningful 28-day beginner learning journey. Consolidation v3 preserves earlier decisions while adding the missing opportunity, measurement, inference, governance and decision-burden contracts.
 
 ## Current baseline
@@ -60,7 +83,7 @@ This repository contains the conceptually frozen architecture, the audited M0 ke
 ## Reading path
 
 1. Read [ARCHITECTURE.md](ARCHITECTURE.md) for the rules implementation must not break.
-2. Use [docs/README.md](docs/README.md) as the architecture map.
+2. Use [docs/INDEX.md](docs/INDEX.md) (or [docs/README.md](docs/README.md)) as the architecture and BA map.
 3. Read the Learning Constitution and Kernel before implementing assessment, state, planning, or feedback.
 4. Read Domain Model and Database Design together before persistence work.
 5. Read the Application Architecture and API DTO Contract before controllers, clients, jobs, or auth integration.
