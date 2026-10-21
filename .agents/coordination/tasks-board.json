@@ -23,49 +23,49 @@
     {
       "id": "WS-02",
       "name": "IPA Mouth Studio (1 Âm/Viewport)",
-      "assigned_agent": "Codex / Agent B",
-      "model": "OpenAI o3-mini / Codex",
-      "status": "UNASSIGNED",
-      "progress_percentage": 0,
+      "assigned_agent": "Antigravity",
+      "model": "Gemini Flash / Pro",
+      "status": "COMPLETED",
+      "progress_percentage": 100,
       "isolated_directory": "apps/web/src/components/ipa/",
       "token_usage": {
-        "context_window_limit": 200000,
-        "current_estimated_tokens": 0,
-        "token_burn_status": "IDLE"
+        "context_window_limit": 1000000,
+        "current_estimated_tokens": 68000,
+        "token_burn_status": "OPTIMAL_GREEN"
       },
-      "active_task": "TASK-02: Front & Side View SVGs with external HTML labels",
+      "active_task": "TASK-02: Front & Side View SVGs with external HTML labels [DONE]",
       "verification_command": "pnpm --filter @lingora/web typecheck"
     },
     {
       "id": "WS-03",
       "name": "Masterclass Ngữ Pháp 6 Phần (ForumFlash)",
-      "assigned_agent": "Codex / Agent C",
-      "model": "OpenAI o3-mini / Codex",
-      "status": "UNASSIGNED",
-      "progress_percentage": 0,
+      "assigned_agent": "Antigravity",
+      "model": "Gemini Flash / Pro",
+      "status": "COMPLETED",
+      "progress_percentage": 100,
       "isolated_directory": "apps/web/src/components/grammar/",
       "token_usage": {
-        "context_window_limit": 200000,
-        "current_estimated_tokens": 0,
-        "token_burn_status": "IDLE"
+        "context_window_limit": 1000000,
+        "current_estimated_tokens": 72000,
+        "token_burn_status": "OPTIMAL_GREEN"
       },
-      "active_task": "TASK-03: 6-part grammar component with syntax breakdown chips",
+      "active_task": "TASK-03: 6-part grammar component with syntax breakdown chips [DONE]",
       "verification_command": "pnpm --filter @lingora/web typecheck"
     },
     {
       "id": "WS-04",
       "name": "Bộ Runner Luyện Tập & Modal QA Hub",
-      "assigned_agent": "Codex / Agent D",
-      "model": "OpenAI o3-mini / Codex",
-      "status": "UNASSIGNED",
-      "progress_percentage": 0,
+      "assigned_agent": "Antigravity",
+      "model": "Gemini Flash / Pro",
+      "status": "COMPLETED",
+      "progress_percentage": 100,
       "isolated_directory": "apps/web/src/components/practice/",
       "token_usage": {
-        "context_window_limit": 200000,
-        "current_estimated_tokens": 0,
-        "token_burn_status": "IDLE"
+        "context_window_limit": 1000000,
+        "current_estimated_tokens": 76000,
+        "token_burn_status": "OPTIMAL_GREEN"
       },
-      "active_task": "TASK-04: Multiple-choice, fill-blank, speech recorder and fault modal",
+      "active_task": "TASK-04: Multiple-choice, fill-blank, speech recorder and fault modal [DONE]",
       "verification_command": "pnpm --filter @lingora/web typecheck"
     }
   ]
