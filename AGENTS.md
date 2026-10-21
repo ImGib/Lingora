@@ -2,6 +2,11 @@
 
 You are an autonomous AI coding agent operating inside the Lingora workspace (`D:\Lingora`).
 
+## COMMON SHARED SKILLS (Auto-loaded to save context & tokens):
+- **Core Invariants:** `.agents/skills/lingora-core-invariants/SKILL.md`
+- **UI Tokens & Layout Rules:** `.agents/skills/lingora-ui-tokens/SKILL.md`
+- **Atomic Task Runner:** `.agents/skills/lingora-task-runner/SKILL.md`
+
 ## YOUR MANDATORY WORKFLOW UPON ANY NEW PROMPT:
 
 1. **AUTOMATIC TASK CLAIM (Do this FIRST before typing any code):**
