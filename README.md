@@ -15,7 +15,7 @@
 | 👔 **1. BA & Product Owner** | Kế hoạch (Plan), Yêu cầu nghiệp vụ (PRD/BRD), Tiến độ các Slice | 📁 **[`docs/INDEX.md`](docs/INDEX.md)** *(Mục lục 1 trang cho BA)* | 🌐 [Stakeholder Hub — Tab BA & Plan](https://lingora-prototype.vercel.app/stakeholder-hub.html#ba) |
 | 🎨 **2. UI/UX & Khách hàng** | Bản mẫu bấm thử (Prototype), Bảng màu, Khẩu hình IPA, Layout | 📁 **[`prototype/`](prototype/index.html)** & **[`docs/07-ui/`](docs/07-ui/design-system-v1.md)** | 🌐 [Interactive Prototype Demo](https://lingora-prototype.vercel.app) |
 | 📚 **3. Giáo vụ (Curriculum)** | Nội dung 7 ngày, Từ vựng 100% IPA, Chuyên đề Ngữ pháp 6 phần | 📁 **[`curriculum/GUIDE.md`](curriculum/GUIDE.md)** & **[`curriculum/week-1/`](curriculum/week-1/)** | 🌐 [Stakeholder Hub — Tab Curriculum](https://lingora-prototype.vercel.app/stakeholder-hub.html#curriculum) |
-| 🧪 **4. QA / QC (Tester)** | Test Plan, Test Cases nghiệm thu (UAT), Giả lập lỗi, E2E | 📁 **[`qa/INDEX.md`](qa/INDEX.md)** & **[`e2e/`](e2e/)** | 🌐 [Stakeholder Hub — Tab QA/QC Center](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa) |
+| 🧪 **4. QA / QC (Tester)** | Test Plan, Test Cases nghiệm thu (UAT), Giả lập lỗi, E2E | 📁 **[`qa/INDEX.md`](qa/INDEX.md)** & **[`qa/e2e/`](qa/e2e/)** | 🌐 [Stakeholder Hub — Tab QA/QC Center](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa) |
 | 💻 **5. Developer (FE / BE)** | Code Next.js (`apps/web`), API NestJS (`apps/api`), Database, DTOs | 📁 **[`apps/`](apps/)** & **[`packages/`](packages/)** | 🌐 [Stakeholder Hub — Tab Tech & Architecture](https://lingora-prototype.vercel.app/stakeholder-hub.html#dev) |
 
 > 💡 **Mẹo dễ nhớ nhất:**
@@ -116,7 +116,7 @@ The API fails at startup when required server configuration is absent. `SUPABASE
 
 ## Deploy
 
-Use two Vercel Projects from this monorepo, with root directories `apps/api` and `apps/web`. Follow the [Vercel deployment guide](docs/10-deployment-vercel.md) for build settings, environment variables, database preflight, and Preview verification. The Supabase database preflight passes, both Preview projects are READY, API CORS/auth behavior is verified, and the API Preview alias rollback path has been exercised and restored.
+Use two Vercel Projects from this monorepo, with root directories `apps/api` and `apps/web`. Follow the [Vercel deployment guide](docs/10-operations/deployment-vercel.md) for build settings, environment variables, database preflight, and Preview verification. The Supabase database preflight passes, both Preview projects are READY, API CORS/auth behavior is verified, and the API Preview alias rollback path has been exercised and restored.
 
 ## Deliberate exclusions
 

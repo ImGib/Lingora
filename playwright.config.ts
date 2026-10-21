@@ -5,7 +5,7 @@ dotenv.config({ path: 'apps/api/.env', quiet: true });
 dotenv.config({ path: 'apps/web/.env', quiet: true });
 
 export default defineConfig({
-  testDir: './e2e',
+  testDir: './qa/e2e',
   fullyParallel: false,
   forbidOnly: true,
   retries: 0,

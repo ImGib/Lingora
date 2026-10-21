@@ -40,7 +40,7 @@ Product intent
 | Implementation milestones | `09-implementation/README.md` | M0 DONE; M1 IN PROGRESS |
 | M0 Slice 01 source audit | `09-implementation/m0-kernel/slice-01/README.md` | 01A–01F DONE |
 | M1 4-Week Learning MVP | `09-implementation/m1-four-week-learning/` | SLICE 01 IN PROGRESS |
-| Vercel deployment | `10-deployment-vercel.md` | LOCAL BUILD VERIFIED; CLOUD PREVIEW PENDING |
+| Vercel deployment | `10-operations/deployment-vercel.md` | LOCAL BUILD VERIFIED; CLOUD PREVIEW PENDING |
 | Architecture Gap Audit / Consolidation v2 | `08-decisions/ADR-007-architecture-consolidation-v2.md` | ACCEPTED |
 | Architecture Consolidation v3 | `08-decisions/ADR-009-architecture-consolidation-v3.md` | ACCEPTED |
 | Unified Practice/Assessment item model | `08-decisions/ADR-008-unified-learning-item-model.md` | ACCEPTED |

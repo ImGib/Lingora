@@ -20,7 +20,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['e2e/**/*.ts', 'playwright.config.ts'],
+    files: ['qa/e2e/**/*.ts', 'playwright.config.ts'],
     rules: {
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
@@ -28,6 +28,12 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+    },
+  },
+  {
+    files: ['**/*.spec.ts', '**/test/**/*.ts'],
+    rules: {
+      '@typescript-eslint/unbound-method': 'off',
     },
   },
 );
