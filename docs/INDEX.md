@@ -10,6 +10,7 @@
 | Tôi muốn xem... | Mở file này | Trạng thái |
 |---|---|---|
 | **Kế hoạch Triển Khai Toàn Diện Website (Fullsite Master Plan)** | [`09-implementation/active-plans/fullsite-master-plan.md`](09-implementation/active-plans/fullsite-master-plan.md) | 🟡 **ĐANG TRIỂN KHAI** |
+| **Tiêu Chuẩn Nghiệm Thu Hoàn Thiện Đa Agent (Completion Criteria)** | [`09-implementation/active-plans/completion-criteria.md`](09-implementation/active-plans/completion-criteria.md) | 🟢 **QUY CHUẨN ĐÓNG BĂNG** |
 | **Kế hoạch Coding UI/UX (Chuẩn Prototype 100%)** | [`09-implementation/active-plans/uiux-coding-master-plan.md`](09-implementation/active-plans/uiux-coding-master-plan.md) | 🟢 **ĐÃ HOÀN TẤT CORE** |
 | **Bảng Điều Phối & Giám Sát Đa AI (Task & Token Tracker)** | [`../.agents/coordination/README.md`](../.agents/coordination/README.md) | 🟢 **REAL-TIME TRACKING** |
 | **Ma trận Phân chia Task Song Song (Cho Multi-AI / Codex)** | [`09-implementation/active-plans/parallel-tasks-codex-matrix.md`](09-implementation/active-plans/parallel-tasks-codex-matrix.md) | 🟢 **SẴN SÀNG PHÂN CHIA** |
