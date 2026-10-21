@@ -1,11 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: 'apps/api/.env', quiet: true });
-dotenv.config({ path: 'apps/web/.env', quiet: true });
+dotenv.config({ path: '04-coding/apps/api/.env', quiet: true });
+dotenv.config({ path: '04-coding/apps/web/.env', quiet: true });
 
 export default defineConfig({
-  testDir: './qa/e2e',
+  testDir: './05-testing/e2e',
   fullyParallel: false,
   forbidOnly: true,
   retries: 0,

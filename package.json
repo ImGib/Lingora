@@ -10,7 +10,7 @@
     "dev": "pnpm --filter @lingora/contracts build && pnpm --parallel --filter @lingora/api --filter @lingora/web dev",
     "e2e": "playwright test",
     "e2e:install": "playwright install chromium",
-    "lint": "pnpm -r lint && eslint qa/e2e playwright.config.ts",
+    "lint": "pnpm -r lint && eslint 05-testing/e2e playwright.config.ts",
     "test": "pnpm --filter @lingora/contracts build && pnpm -r test",
     "typecheck": "pnpm --filter @lingora/contracts build && pnpm -r typecheck && tsc --noEmit -p tsconfig.json"
   },

@@ -6,21 +6,24 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
 - **Core Invariants:** `.agents/skills/lingora-core-invariants/SKILL.md`
 - **UI Tokens & Layout Rules:** `.agents/skills/lingora-ui-tokens/SKILL.md`
 - **Atomic Task Runner:** `.agents/skills/lingora-task-runner/SKILL.md`
+- **Token Optimization Contract:** `.agents/skills/lingora-token-optimizer/SKILL.md`
+- **Directory Structure Architecture:** `.agents/contracts/directory-structure.md`
 
 ## YOUR MANDATORY WORKFLOW UPON ANY NEW PROMPT:
 
-1. **AUTOMATIC TASK CLAIM VIA COORDINATOR SCRIPT (Recommended - Fast & Zero-Race-Condition):**
+1. **AUTOMATIC TASK CLAIM VIA COORDINATOR SCRIPT (Fast & Zero-Race-Condition):**
    - Run command: `node .agents/scripts/task-coordinator.mjs claim Codex`
    - It outputs the exact JSON of the claimed task with `allowed_files` and auto-releases any stale zombie tasks.
-   - Or atomically edit `.agents/coordination/parallel-task-pool.json` to change the first `AVAILABLE` task to `IN_PROGRESS`.
+   - For subagent dispatch / new chat tab: Run `node .agents/scripts/task-coordinator.mjs generate-prompt <TASK_ID>` to get a zero-history, token-optimized prompt packet.
 
 2. **REUSE EXISTING SHARED COMPONENTS (Save 80% tokens - DO NOT REINVENT):**
    - Check `.agents/coordination/component-catalog.json` before writing any new UI component.
    - All core components (`InteractiveBackground`, `HeaderNav`, `AudioButton`, `IpaMouthStudio`, `GrammarMasterclass`, `MultipleChoiceCard`, `FillBlankCard`, `SpeechRecorderCard`, `ModalFaultSimulation`) are ALREADY built and tested. Simply import and assemble them!
 
-3. **STRICT ISOLATION BOUNDARY:**
+3. **STRICT ISOLATION & DIRECTORY BOUNDARY:**
    - You are ONLY permitted to edit or create files explicitly listed in that claimed task's `"allowed_files"` array.
-   - Touching any file outside this list is a critical violation and will break other agents.
+   - **VÙNG CẤM `99-deprecated/`:** Tuyệt đối KHÔNG đọc, KHÔNG tìm kiếm (grep/find), KHÔNG trích dẫn bất kỳ file nào trong `99-deprecated/`.
+   - Luôn chỉ định thư mục tìm kiếm hẹp (`SearchPath`), không tìm kiếm toàn bộ workspace.
 
 4. **PEDAGOGICAL & CODE INVARIANTS (From `docs/09-implementation/active-plans/completion-criteria.md`):**
    - `Skipped != Failed`: Skipping or deferring must never reduce scores or flag errors.
@@ -35,9 +38,9 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
      `node .agents/scripts/task-coordinator.mjs release <TASK_ID>`
    - The user or next agent will read `.agents/coordination/checkpoints/<TASK_ID>.json` and resume seamlessly without losing a single line of progress!
 
-6. **VERIFICATION & HANDOVER:**
+6. **MECHANICAL-FIRST VERIFICATION & HANDOVER:**
    - Execute: `pnpm --filter @lingora/web typecheck`
    - Once it exits with 0 errors:
      - Run: `node .agents/scripts/task-coordinator.mjs complete <TASK_ID>`
      - Or set `"status": "COMPLETED"` and `"progress_percentage": 100` in `parallel-task-pool.json`.
-   - Report concise completion to the user.
+   - Report concise completion to the user (status + 1-2 sentence summary).

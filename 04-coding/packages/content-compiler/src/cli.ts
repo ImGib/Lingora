@@ -14,8 +14,8 @@ Usage:
   content-compiler compile-all <manifests-dir> [--out-dir <migrations-dir>]
 
 Examples:
-  content-compiler validate curriculum/week-1/day-1.json
-  content-compiler compile curriculum/week-1/day-2.json --out apps/api/supabase/migrations/20261021000000_m1_w1_d2.sql
+  content-compiler validate 01-curriculum/week-1/day-1.json
+  content-compiler compile 01-curriculum/week-1/day-2.json --out apps/api/supabase/migrations/20261021000000_m1_w1_d2.sql
 `);
 }
 

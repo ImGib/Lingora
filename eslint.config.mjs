@@ -20,7 +20,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['qa/e2e/**/*.ts', 'playwright.config.ts'],
+    files: ['05-testing/e2e/**/*.ts', 'playwright.config.ts'],
     rules: {
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',

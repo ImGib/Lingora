@@ -1,0 +1,69 @@
+# ==============================================================================
+# LINGORA ARCHITECTURAL DECISION REGISTRY (SoT P1 - MACHINE READABLE)
+# ==============================================================================
+# Quy tắc: Agent BẮT BUỘC đọc các mục ACTIVE trước khi thay đổi kiến trúc hoặc scope.
+# Thứ tự ưu tiên SoT: P0 (Chỉ thị trực tiếp của User) > P1 (Decision Registry)
+#                   > P2 (Approved Design 02/03) > P3 (Source Code 04) > P4 (AI Inference)
+# ==============================================================================
+
+version: 1
+updated_at: "2026-10-21T18:20:00+07:00"
+
+decisions:
+  - id: DEC-2026-1021-001-directory-architecture-freeze
+    kind: architecture
+    tier: P0
+    status: ACTIVE
+    date: "2026-10-21"
+    authority_ref: "User yêu cầu chuẩn hóa 1:1 theo TDC PRJ_FOLDER"
+    subject: "Đóng băng cấu trúc phân tầng 00 -> 09, 99 và plans, reports"
+    decision: >
+      Toàn bộ dự án tuân thủ cấu trúc phân tầng: 00-intake, 01-rd, 02-bd, 03-dd,
+      04-coding (apps & packages), 05-testing, 06-delivery, 07-design, 08-deploy,
+      09-feedback, 99-deprecated, plans, reports. Cấm tạo thư mục tự do ở root.
+    impacted_paths:
+      - "00-intake/"
+      - "01-rd/"
+      - "02-bd/"
+      - "03-dd/"
+      - "04-coding/"
+      - "05-testing/"
+      - "06-delivery/"
+      - "07-design/"
+      - "08-deploy/"
+      - "09-feedback/"
+      - "99-deprecated/"
+      - "plans/"
+      - "reports/"
+
+  - id: DEC-2026-1021-002-pedagogical-invariants-lock
+    kind: pedagogy
+    tier: P0
+    status: ACTIVE
+    date: "2026-10-21"
+    authority_ref: "docs/02-learning-architecture và ARCHITECTURE.md"
+    subject: "Bốn bất biến sư phạm bất khả xâm phạm"
+    decision: >
+      1. Skipped != Failed (Bỏ qua không giảm điểm, không cảnh báo đỏ).
+      2. Support != Independent (Có dùng hint thì gán has_support: true, không tính vào bằng chứng độc lập).
+      3. Technical Failure != Learner Failure (Lỗi mic/mạng phải có luồng cứu hộ, hiển thị thông báo dịu nhẹ).
+      4. Growth Garden != Streak Punishment (Vắng mặt không phạt reset cây tiến độ về 0).
+    impacted_paths:
+      - "00-intake/sot/pedagogical-invariants.md"
+      - "04-coding/apps/web/src/features/lesson/"
+      - "04-coding/apps/api/src/modules/learning/"
+
+  - id: DEC-2026-1021-003-token-progressive-disclosure
+    kind: token-optimization
+    tier: P1
+    status: ACTIVE
+    date: "2026-10-21"
+    authority_ref: "Kinh nghiệm từ TDC PRJ_FOLDER zflow & orchestration-protocol"
+    subject: "Quy chuẩn Progressive Disclosure <= 100 dòng cho Skills và <= 80 dòng cho Plans"
+    decision: >
+      Mọi file SKILL.md bắt buộc <= 100 dòng; mọi file plan.md bắt buộc <= 80 dòng.
+      Chi tiết mở rộng phải đặt trong references/ hoặc phase-XX-*.md và nạp on-demand.
+      Subagent dispatch dùng prompt packet <= 250 tokens, cấm truyền session history dài.
+    impacted_paths:
+      - ".agents/skills/"
+      - "plans/"

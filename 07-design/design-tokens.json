@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "LingoraSoftStudyDesignTokens",
+  "version": "1.0.0",
+  "colors": {
+    "canvas": "#fff9fb",
+    "card": "rgba(255, 255, 255, 0.95)",
+    "primary": {
+      "indigo": "#6366f1",
+      "lavender": "#6f5fdf",
+      "purple": "#8b5cf6"
+    },
+    "semantic": {
+      "mint": "#10b981",
+      "emerald": "#059669",
+      "peach": "#f6c89f",
+      "amber": "#f59e0b",
+      "rose": "#f43f5e",
+      "blush": "#f3a8c4"
+    },
+    "neutral": {
+      "border": "rgba(226, 232, 240, 0.8)",
+      "text_heading": "#0f172a",
+      "text_body": "#334155",
+      "text_muted": "#64748b"
+    }
+  },
+  "typography": {
+    "font_family": "Plus Jakarta Sans, system-ui, sans-serif",
+    "ipa_font": "Lucida Sans Unicode, Arial Unicode MS, sans-serif"
+  },
+  "components": {
+    "ipa_studio": {
+      "phonemes_per_viewport": 1,
+      "views": ["front", "cross_section"],
+      "labels_rendered_as": "html_outside_svg"
+    },
+    "grammar_masterclass": {
+      "parts_count": 6,
+      "structure": "ForumFlash"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 packages:
-  - apps/*
-  - packages/*
+  - 04-coding/apps/*
+  - 04-coding/packages/*
 
 minimumReleaseAgeExclude:
   - '@angular-devkit/core@22.2.0'

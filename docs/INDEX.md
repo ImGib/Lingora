@@ -49,8 +49,8 @@
 
 | Tôi muốn xem... | Mở file này | Nội dung chính |
 |---|---|---|
-| **Hướng dẫn Biên soạn Học liệu Chuẩn** | [`../curriculum/GUIDE.md`](../curriculum/GUIDE.md) | Quy chuẩn 3 Chặng học, 100% IPA, Ngữ pháp 6 phần (ForumFlash style) |
-| **Dữ liệu JSON Tuần 1 (Ngày 1 -> Ngày 7)** | [`../curriculum/week-1/`](../curriculum/week-1/) | File nguồn `day-1.json` .. `day-7.json` |
+| **Hướng dẫn Biên soạn Học liệu Chuẩn** | [`../01-curriculum/GUIDE.md`](../01-curriculum/GUIDE.md) | Quy chuẩn 3 Chặng học, 100% IPA, Ngữ pháp 6 phần (ForumFlash style) |
+| **Dữ liệu JSON Tuần 1 (Ngày 1 -> Ngày 7)** | [`../01-curriculum/week-1/`](../01-curriculum/week-1/) | File nguồn `day-1.json` .. `day-7.json` |
 | **Thiết kế Chi tiết 4 Tuần Học** | [`09-implementation/m1-four-week-learning/four-week-curriculum.md`](09-implementation/m1-four-week-learning/four-week-curriculum.md) | Đề cương chi tiết Tuần 1, Tuần 2, Tuần 3, Tuần 4 |
 
 ---
@@ -59,6 +59,6 @@
 
 | Tôi muốn xem... | Mở file này | Nội dung chính |
 |---|---|---|
-| **Cổng Kiểm thử QA/QC & Danh sách Test Cases** | [`../qa/INDEX.md`](../qa/INDEX.md) | Test Plan, UAT Checklist, Kịch bản giả lập lỗi kỹ thuật |
+| **Cổng Kiểm thử QA/QC & Danh sách Test Cases** | [`../05-testing/INDEX.md`](../05-testing/INDEX.md) | Test Plan, UAT Checklist, Kịch bản giả lập lỗi kỹ thuật |
 | **Mô hình Dữ liệu & Database (Supabase)** | [`05-data/database-design-v1.md`](05-data/database-design-v1.md) | Thiết kế 33 bảng PostgreSQL, RLS và lưu trữ |
 | **Hợp đồng Giao tiếp API (API DTO Contract)** | [`06-application/api-contract-v1.md`](06-application/api-contract-v1.md) | Danh sách Endpoints và cấu trúc JSON trao đổi giữa Web & API |

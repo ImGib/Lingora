@@ -12,6 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -79,6 +80,40 @@ switch (action) {
     break;
   }
 
+  case 'verify-boundary': {
+    const taskId = param1;
+    if (!taskId) {
+      console.error('Error: task_id is required');
+      process.exit(1);
+    }
+    const pool = readJson(POOL_PATH);
+    const task = pool.active_tasks.find((t) => t.task_id === taskId);
+    if (!task) {
+      console.error(`Error: Task ${taskId} not found`);
+      process.exit(1);
+    }
+    try {
+      const gitStatus = execSync('git status --porcelain', { encoding: 'utf8' });
+      const modifiedFiles = gitStatus
+        .split('\n')
+        .map((line) => line.slice(3).trim())
+        .filter((file) => file.length > 0 && file.startsWith('04-coding/') && !file.endsWith('/'));
+      const allowedSet = new Set(task.allowed_files.map((f) => f.replace(/\\/g, '/')));
+      const violations = modifiedFiles.filter((f) => !allowedSet.has(f.replace(/\\/g, '/')));
+
+      if (violations.length === 0) {
+        console.log(`✅ [BOUNDARY PASS] All modified files strictly comply with ${taskId} allowed_files.`);
+      } else {
+        console.error(`❌ [SCOPE DRIFT DETECTED] ${violations.length} file(s) modified outside allowed_files:`);
+        violations.forEach((v) => console.error(`   - ${v}`));
+        process.exit(1);
+      }
+    } catch (e) {
+      console.log('⚠️ Boundary check skipped (git command unavailable or error):', e.message);
+    }
+    break;
+  }
+
   case 'complete': {
     const taskId = param1;
     if (!taskId) {
@@ -91,6 +126,26 @@ switch (action) {
       console.error(`Error: Task ${taskId} not found`);
       process.exit(1);
     }
+
+    // TDC-inspired Scope Drift Watchdog: check git status
+    try {
+      const gitStatus = execSync('git status --porcelain', { encoding: 'utf8' });
+      const modifiedFiles = gitStatus
+        .split('\n')
+        .map((line) => line.slice(3).trim())
+        .filter((file) => file.length > 0 && file.startsWith('04-coding/') && !file.endsWith('/'));
+      const allowedSet = new Set(task.allowed_files.map((f) => f.replace(/\\/g, '/')));
+      const violations = modifiedFiles.filter((f) => !allowedSet.has(f.replace(/\\/g, '/')));
+
+      if (violations.length > 0) {
+        console.warn(`\n⚠️ [SCOPE DRIFT ALERT] Agent modified files outside allowed_files for ${taskId}:`);
+        violations.forEach((v) => console.warn(`   - ${v}`));
+        console.warn('Review scope violations to prevent breaking other parallel agents.\n');
+      }
+    } catch {
+      // Git command failed or not in git repo, bypass check
+    }
+
     task.status = 'COMPLETED';
     task.progress_percentage = 100;
     task.completed_at = new Date().toISOString();
@@ -116,7 +171,11 @@ switch (action) {
       process.exit(1);
     }
 
-    const checkpointFile = path.resolve(__dirname, `../coordination/checkpoints/${taskId}.json`);
+    const checkpointsDir = path.resolve(__dirname, '../coordination/checkpoints');
+    if (!fs.existsSync(checkpointsDir)) {
+      fs.mkdirSync(checkpointsDir, { recursive: true });
+    }
+    const checkpointFile = path.join(checkpointsDir, `${taskId}.json`);
     const checkpointData = {
       task_id: taskId,
       saved_at: new Date().toISOString(),
@@ -158,6 +217,93 @@ switch (action) {
     break;
   }
 
+  case 'audit-context': {
+    const skillsDir = path.resolve(__dirname, '../skills');
+    const MAX_LINES = 100;
+    const results = [];
+
+    function scanDir(dir) {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const e of entries) {
+        const fullPath = path.join(dir, e.name);
+        if (e.isDirectory()) {
+          scanDir(fullPath);
+        } else if (e.name.endsWith('.md')) {
+          const lines = fs.readFileSync(fullPath, 'utf8').split('\n').length;
+          const relPath = path.relative(path.resolve(__dirname, '../../'), fullPath).replace(/\\/g, '/');
+          results.push({
+            file: relPath,
+            lines,
+            status: lines <= MAX_LINES ? 'PASS' : 'WARN_EXCEEDS_100',
+          });
+        }
+      }
+    }
+
+    scanDir(skillsDir);
+    console.log('\n--- LINGORA TOKEN BUDGET / PROGRESSIVE DISCLOSURE AUDIT ---');
+    console.table(results);
+    const violations = results.filter((r) => r.status !== 'PASS');
+    if (violations.length === 0) {
+      console.log('✅ ALL SKILLS COMPLY WITH THE <= 100 LINES PROGRESSIVE DISCLOSURE RULE!\n');
+    } else {
+      console.warn(`⚠️ ${violations.length} file(s) exceed 100 lines. Consider moving details into references/\n`);
+    }
+    break;
+  }
+
+  case 'generate-prompt': {
+    const taskId = param1;
+    if (!taskId) {
+      console.error('Error: task_id is required');
+      process.exit(1);
+    }
+    const pool = readJson(POOL_PATH);
+    const task = pool.active_tasks.find((t) => t.task_id === taskId);
+    if (!task) {
+      console.error(`Error: Task ${taskId} not found`);
+      process.exit(1);
+    }
+
+    const promptPacket = `================================================================================
+AI SUBAGENT DISPATCH PACKET (ZERO SESSION HISTORY) — ${task.task_id}
+================================================================================
+[TASK IDENTITY]
+ID: ${task.task_id} (${task.phase})
+Name: ${task.name}
+
+[ISOLATED WORK CONTEXT]
+Directory: ${task.isolated_directory}
+Workspace Root: C:\\BaoTG\\Lingora
+
+[ALLOWED FILES - STRICT WRITE BOUNDARY]
+${task.allowed_files.map((f) => `- ${f}`).join('\n')}
+
+[REFERENCE FILES - READ ONLY (ON DEMAND)]
+- .agents/skills/lingora-core-invariants/SKILL.md (Core pedagogy)
+- .agents/skills/lingora-ui-tokens/SKILL.md (UI Tokens & Soft Study Palette)
+- .agents/coordination/component-catalog.json (Shared component reuse)
+
+[INVARIANTS TO ENFORCE]
+1. Skipped != Failed (Skipping does not penalize score)
+2. Support != Independent (Hints set has_support: true)
+3. Reuse existing components from component-catalog.json (Never duplicate buttons or canvas)
+4. Do NOT read or search in 99-deprecated/
+
+[VERIFICATION COMMAND]
+${task.verification_command}
+
+[REPORTING PROTOCOL]
+When finished, reply concisely:
+STATUS: DONE | BLOCKED
+Summary: [1-2 sentences on what was implemented]
+Concerns: [Optional blocker details]
+================================================================================`;
+
+    console.log(promptPacket);
+    break;
+  }
+
   case 'list': {
     const pool = readJson(POOL_PATH);
     console.table(pool.active_tasks.map((t) => ({
@@ -177,6 +323,12 @@ Lingora Multi-Agent Task Coordinator CLI
 Usage:
   node .agents/scripts/task-coordinator.mjs claim [agent_name] [stale_timeout_mins]
   node .agents/scripts/task-coordinator.mjs complete <task_id>
+  node .agents/scripts/task-coordinator.mjs checkpoint <task_id> <progress_%> [summary]
+  node .agents/scripts/task-coordinator.mjs release <task_id>
+  node .agents/scripts/task-coordinator.mjs verify-boundary <task_id>
+  node .agents/scripts/task-coordinator.mjs generate-prompt <task_id>
+  node .agents/scripts/task-coordinator.mjs audit-context
   node .agents/scripts/task-coordinator.mjs list
 `);
 }
+

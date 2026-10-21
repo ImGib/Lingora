@@ -12,17 +12,19 @@
 
 | Vai trò | Bạn cần xem gì? | Thư mục / File trong máy (`Local`) | Xem trực tiếp trên Web (`Live Portal`) |
 |---|---|---|---|
+| 📜 **0. Tri thức Gốc (SoT)** | Tiêu chuẩn CEFR, Chuẩn 44 âm IPA, 4 Bất biến sư phạm | 📁 **[`00-intake/README.md`](00-intake/README.md)** & **[`00-intake/sot/`](00-intake/sot/)** | *Source of Truth (P0)* |
 | 👔 **1. BA & Product Owner** | Kế hoạch (Plan), Yêu cầu nghiệp vụ (PRD/BRD), Tiến độ các Slice | 📁 **[`docs/INDEX.md`](docs/INDEX.md)** *(Mục lục 1 trang cho BA)* | 🌐 [Stakeholder Hub — Tab BA & Plan](https://lingora-prototype.vercel.app/stakeholder-hub.html#ba) |
-| 🎨 **2. UI/UX & Khách hàng** | Bản mẫu bấm thử (Prototype), Bảng màu, Khẩu hình IPA, Layout | 📁 **[`prototype/`](prototype/index.html)** & **[`docs/07-ui/`](docs/07-ui/design-system-v1.md)** | 🌐 [Interactive Prototype Demo](https://lingora-prototype.vercel.app) |
-| 📚 **3. Giáo vụ (Curriculum)** | Nội dung 7 ngày, Từ vựng 100% IPA, Chuyên đề Ngữ pháp 6 phần | 📁 **[`curriculum/GUIDE.md`](curriculum/GUIDE.md)** & **[`curriculum/week-1/`](curriculum/week-1/)** | 🌐 [Stakeholder Hub — Tab Curriculum](https://lingora-prototype.vercel.app/stakeholder-hub.html#curriculum) |
-| 🧪 **4. QA / QC (Tester)** | Test Plan, Test Cases nghiệm thu (UAT), Giả lập lỗi, E2E | 📁 **[`qa/INDEX.md`](qa/INDEX.md)** & **[`qa/e2e/`](qa/e2e/)** | 🌐 [Stakeholder Hub — Tab QA/QC Center](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa) |
+| 📚 **2. Giáo vụ (Curriculum)** | Nội dung 7 ngày, Từ vựng 100% IPA, Chuyên đề Ngữ pháp 6 phần | 📁 **[`01-curriculum/GUIDE.md`](01-curriculum/GUIDE.md)** & **[`01-curriculum/week-1/`](01-curriculum/week-1/)** | 🌐 [Stakeholder Hub — Tab Curriculum](https://lingora-prototype.vercel.app/stakeholder-hub.html#curriculum) |
+| 🎨 **3. UI/UX & Khách hàng** | Bản mẫu bấm thử (Prototype), Bảng màu, Khẩu hình IPA, Layout | 📁 **[`02-design/`](02-design/index.html)** & **[`docs/07-ui/`](docs/07-ui/design-system-v1.md)** | 🌐 [Interactive Prototype Demo](https://lingora-prototype.vercel.app) |
+| 🧪 **4. QA / QC (Tester)** | Test Plan, Test Cases nghiệm thu (UAT), Giả lập lỗi, E2E | 📁 **[`05-testing/INDEX.md`](05-testing/INDEX.md)** & **[`05-testing/e2e/`](05-testing/e2e/)** | 🌐 [Stakeholder Hub — Tab QA/QC Center](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa) |
 | 💻 **5. Developer (FE / BE)** | Code Next.js (`apps/web`), API NestJS (`apps/api`), Database, DTOs | 📁 **[`apps/`](apps/)** & **[`packages/`](packages/)** | 🌐 [Stakeholder Hub — Tab Tech & Architecture](https://lingora-prototype.vercel.app/stakeholder-hub.html#dev) |
 
 > 💡 **Mẹo dễ nhớ nhất:**
-> - Cần **Tài liệu & Plan (BA)** $\rightarrow$ vào **`docs/INDEX.md`**
-> - Cần **Giao diện & Demo (UI/UX, Customer)** $\rightarrow$ vào **`prototype/`**
-> - Cần **Bài học & Từ vựng (Giáo vụ)** $\rightarrow$ vào **`curriculum/`**
-> - Cần **Test Cases & Nghiệm thu (QA/QC)** $\rightarrow$ vào **`qa/INDEX.md`**
+> - Cần **Tri thức gốc & SoT** $\rightarrow$ vào **`00-intake/`**
+> - Cần **Bài học & Từ vựng (Giáo vụ)** $\rightarrow$ vào **`01-curriculum/`**
+> - Cần **Giao diện & Prototype (UI/UX)** $\rightarrow$ vào **`02-design/`**
+> - Cần **Hợp đồng dữ liệu & DTOs** $\rightarrow$ vào **`03-contracts/`** & **`packages/contracts/`**
+> - Cần **Test Cases & Nghiệm thu (QA/QC)** $\rightarrow$ vào **`05-testing/`**
 > - Cần **Code & Database (Dev)** $\rightarrow$ vào **`apps/`** và **`packages/`**
 
 ---

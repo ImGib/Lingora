@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["qa/e2e/**/*.ts", "playwright.config.ts"]
+  "include": ["05-testing/e2e/**/*.ts", "playwright.config.ts"]
 }

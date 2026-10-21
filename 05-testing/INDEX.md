@@ -1,18 +1,18 @@
-# 🧪 Cổng Kiểm Thử & Nghiệm Thu Dành Cho QA / QC (`qa/INDEX.md`)
+# 🧪 Cổng Kiểm Thử & Nghiệm Thu Dành Cho QA / QC (`05-testing/INDEX.md`)
 
 > **Quy tắc 3 giây:** Mọi tài liệu về **Kế hoạch Test (Test Plan)**, **Danh sách Test Cases nghiệm thu (UAT)**, **Kịch bản Giả lập Lỗi (Fault Injection)** và **Test Tự động (E2E)** đều nằm tại đây.
 > 🌐 **Mở Bảng Checklist UAT Tương tác trên trình duyệt:** [https://lingora-prototype.vercel.app/stakeholder-hub.html#qa](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa)
 
 ---
 
-## 1. Danh mục Tài liệu & Công cụ trong Thư mục `qa/`
+## 1. Danh mục Tài liệu & Công cụ trong Thư mục `05-testing/`
 
 | Tệp / Thư mục | Dành cho ai? | Mục đích sử dụng |
 |---|---|---|
-| 📄 **[`qa/INDEX.md`](INDEX.md)** *(File hiện tại)* | QA Lead, QC, BA, PO | Tổng quan chiến lược kiểm thử, 5 cổng chất lượng (Quality Gates) & lệnh chạy test |
-| 📄 **[`qa/test-cases-uat.md`](test-cases-uat.md)** | Manual QC, BA, Khách hàng | Danh sách **25 Test Cases trọng tâm** phủ kín Welcome, Check, Hôm nay, Lộ trình 3 Chặng, IPA Studio, Ngữ pháp 6 phần, Viết/Thu âm và Tiến độ |
-| 📄 **[`qa/fault-scenarios.md`](fault-scenarios.md)** | Manual QC, Dev | Hướng dẫn sử dụng nút **`⚙ Giả lập`** trên Prototype để test 4 sự cố kỹ thuật (*Mất Mic, Lỗi tải bản ghi, Lỗi Audio, Nghỉ 3 ngày*) |
-| 🤖 **[`qa/e2e/slice-01f.spec.ts`](e2e/slice-01f.spec.ts)** | Automation QA, Dev | Kịch bản Playwright E2E tự động kiểm tra luồng đăng nhập, nộp bài chống trùng lặp (idempotency) và chuẩn trợ năng WCAG AA |
+| 📄 **[`05-testing/INDEX.md`](INDEX.md)** *(File hiện tại)* | QA Lead, QC, BA, PO | Tổng quan chiến lược kiểm thử, 5 cổng chất lượng (Quality Gates) & lệnh chạy test |
+| 📄 **[`05-testing/test-cases-uat.md`](test-cases-uat.md)** | Manual QC, BA, Khách hàng | Danh sách **25 Test Cases trọng tâm** phủ kín Welcome, Check, Hôm nay, Lộ trình 3 Chặng, IPA Studio, Ngữ pháp 6 phần, Viết/Thu âm và Tiến độ |
+| 📄 **[`05-testing/fault-scenarios.md`](fault-scenarios.md)** | Manual QC, Dev | Hướng dẫn sử dụng nút **`⚙ Giả lập`** trên Prototype để test 4 sự cố kỹ thuật (*Mất Mic, Lỗi tải bản ghi, Lỗi Audio, Nghỉ 3 ngày*) |
+| 🤖 **[`05-testing/e2e/slice-01f.spec.ts`](e2e/slice-01f.spec.ts)** | Automation QA, Dev | Kịch bản Playwright E2E tự động kiểm tra luồng đăng nhập, nộp bài chống trùng lặp (idempotency) và chuẩn trợ năng WCAG AA |
 | 🤖 **[`../apps/api/test/`](../apps/api/test/)** | Backend QA, Dev | Bộ kiểm thử Unit & Integration cho `PlanningService`, `ArtifactsService`, `QuarantineService` |
 
 ---
