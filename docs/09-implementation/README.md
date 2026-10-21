@@ -9,6 +9,7 @@ This area answers four separate questions: what exists in code, what has automat
 | Milestone | Purpose | Status |
 |---|---|---|
 | M0 — Learning Kernel | Prove one trustworthy end-to-end learning loop | **DONE**; 01A–01F verified |
+| UI/UX Coding 100% Prototype | Port complete prototype UX/visuals/pedagogy to Next.js | **IN PROGRESS**; [Implementation Plan](uiux-implementation-plan.md) |
 | M1 — 4-Week Learning MVP | A beginner can learn meaningfully for 28 continuous days | **IN PROGRESS**; Starting Point Check backend and UI built |
 | Later maturity | Multi-skill depth, calibration, IELTS and academic readiness | **LATER** |
 
