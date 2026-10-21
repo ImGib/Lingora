@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LingoraMultiAgentParallelTaskPool",
+  "version": "2.0.0",
+  "updated_at": "2026-10-21T16:15:00+07:00",
+  "protocol": "ATOMIC_FILE_LOCKING",
+  "active_tasks": [
+    {
+      "task_id": "TASK-2A",
+      "phase": "PHASE 2",
+      "name": "Xây dựng Trang Lộ trình 4 Mốc IELTS 6.5 (/roadmap)",
+      "isolated_directory": "apps/web/src/app/roadmap/",
+      "allowed_files": [
+        "apps/web/src/app/roadmap/page.tsx",
+        "apps/web/src/components/roadmap/milestone-card.tsx",
+        "apps/web/src/components/roadmap/roadmap-interactive-view.tsx"
+      ],
+      "status": "AVAILABLE",
+      "assigned_agent": null,
+      "locked_at": null,
+      "progress_percentage": 0,
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    },
+    {
+      "task_id": "TASK-2B",
+      "phase": "PHASE 2",
+      "name": "Nâng cấp Landing Page (/) Chuẩn SaaS & Hero Tương Tác",
+      "isolated_directory": "apps/web/src/app/",
+      "allowed_files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/components/common/footer.tsx"
+      ],
+      "status": "AVAILABLE",
+      "assigned_agent": null,
+      "locked_at": null,
+      "progress_percentage": 0,
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    },
+    {
+      "task_id": "TASK-3A",
+      "phase": "PHASE 3",
+      "name": "Xây dựng Trang Chuyên Biệt Phòng Lab 44 Âm IPA (/lab/ipa)",
+      "isolated_directory": "apps/web/src/app/lab/ipa/",
+      "allowed_files": [
+        "apps/web/src/app/lab/ipa/page.tsx",
+        "apps/web/src/components/ipa/ipa-full-chart.tsx"
+      ],
+      "status": "AVAILABLE",
+      "assigned_agent": null,
+      "locked_at": null,
+      "progress_percentage": 0,
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    },
+    {
+      "task_id": "TASK-3B",
+      "phase": "PHASE 3",
+      "name": "Xây dựng Trang Thư Viện Masterclass Ngữ Pháp (/lab/grammar)",
+      "isolated_directory": "apps/web/src/app/lab/grammar/",
+      "allowed_files": [
+        "apps/web/src/app/lab/grammar/page.tsx",
+        "apps/web/src/components/grammar/grammar-catalog.tsx"
+      ],
+      "status": "AVAILABLE",
+      "assigned_agent": null,
+      "locked_at": null,
+      "progress_percentage": 0,
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    },
+    {
+      "task_id": "TASK-3C",
+      "phase": "PHASE 3",
+      "name": "Nâng cấp Dashboard Học Viên (/dashboard) Thẻ Hôm Nay 20p vs 5p",
+      "isolated_directory": "apps/web/src/features/dashboard/",
+      "allowed_files": [
+        "apps/web/src/features/dashboard/dashboard-view.tsx",
+        "apps/web/src/features/dashboard/today-action-card.tsx"
+      ],
+      "status": "AVAILABLE",
+      "assigned_agent": null,
+      "locked_at": null,
+      "progress_percentage": 0,
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    },
+    {
+      "task_id": "TASK-4A",
+      "phase": "PHASE 4",
+      "name": "Lesson Runner 5 Bước Chuẩn Mực (/lessons/[lessonId])",
+      "isolated_directory": "apps/web/src/features/lesson/",
+      "allowed_files": [
+        "apps/web/src/features/lesson/lesson-view.tsx",
+        "apps/web/src/features/lesson/lesson-step-runner.tsx"
+      ],
+      "status": "AVAILABLE",
+      "assigned_agent": null,
+      "locked_at": null,
+      "progress_percentage": 0,
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    }
+  ]
+}

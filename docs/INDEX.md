@@ -10,6 +10,7 @@
 | Tôi muốn xem... | Mở file này | Trạng thái |
 |---|---|---|
 | ⭐ **KẾ HOẠCH TỔNG THỂ DUY NHẤT (Single Source of Truth cho Mọi Agent)** | [`09-implementation/active-plans/UNIFIED-MASTER-PLAN.md`](09-implementation/active-plans/UNIFIED-MASTER-PLAN.md) | 🟢 **TIẾN ĐỘ THỜI GIAN THỰC** |
+| ⚡ **Giao Thức Điều Phối Task Song Song Đa Agent (Concurrency Protocol)** | [`09-implementation/active-plans/MULTI-AGENT-CONCURRENCY-PROTOCOL.md`](09-implementation/active-plans/MULTI-AGENT-CONCURRENCY-PROTOCOL.md) | 🟢 **CHỐNG TRÙNG TASK 100%** |
 | **Đặc Tả Chi Tiết Từng Mốc Học & Đề Test Đến IELTS 6.5 (Test Specs)** | [`09-implementation/active-plans/ielts-milestones-and-test-specs.md`](09-implementation/active-plans/ielts-milestones-and-test-specs.md) | 🟢 **ĐẶC TẢ CHI TIẾT 100%** |
 | **Tiêu Chuẩn Nghiệm Thu Hoàn Thiện Đa Agent (Completion Criteria)** | [`09-implementation/active-plans/completion-criteria.md`](09-implementation/active-plans/completion-criteria.md) | 🟢 **QUY CHUẨN ĐÓNG BĂNG** |
 | **Bảng Điều Phối & Giám Sát Đa AI (Task & Token Tracker)** | [`../.agents/coordination/README.md`](../.agents/coordination/README.md) | 🟢 **REAL-TIME TRACKING** |
