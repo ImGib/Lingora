@@ -16,6 +16,8 @@
 | **Phase 4** | Dashboard Hôm Nay, Lộ Trình 3 Chặng 90 Ngày & Modal Giả Lập Lỗi (QA Hub) | ⏳ **CHỜ BƯỚC 3** | 0% |
 | **Phase 5** | Tích Hợp Real API, Playwright E2E, Kiểm Định Trợ Năng WCAG AA & Deploy | ⏳ **CHỜ BƯỚC 4** | 0% |
 
+> ⚡ **Cơ chế chạy song song (Multi-Agent / Codex):** Để tăng tốc độ triển khai bằng nhiều AI đồng thời mà không bị xung đột code (Zero Merge Conflict), xem chi tiết phân chia 4 Làn công việc tại: [`docs/09-implementation/parallel-tasks-matrix.md`](parallel-tasks-matrix.md).
+
 ---
 
 ## 🧭 Kiến Trúc & Quy Chuẩn Bất Biến (Architecture & Invariants)

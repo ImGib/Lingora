@@ -11,6 +11,7 @@
 |---|---|---|
 | **Bức tranh tổng thể M1 (Lộ trình 4 Tuần - 28 Ngày)** | [`09-implementation/m1-four-week-learning/overview.md`](09-implementation/m1-four-week-learning/overview.md) | 🟡 **ĐANG TRIỂN KHAI** |
 | **Kế hoạch Coding UI/UX (Chuẩn Prototype 100%)** | [`09-implementation/uiux-implementation-plan.md`](09-implementation/uiux-implementation-plan.md) | 🟡 **ĐANG TRIỂN KHAI** |
+| **Ma trận Phân chia Task Song Song (Cho Multi-AI / Codex)** | [`09-implementation/parallel-tasks-matrix.md`](09-implementation/parallel-tasks-matrix.md) | 🟢 **SẴN SÀNG PHÂN CHIA** |
 | **Chi tiết Slice 01: Kiểm tra đầu vào & Tuần 1 (Ngày 1–7)** | [`09-implementation/m1-four-week-learning/slices/01-entry-and-week-1.md`](09-implementation/m1-four-week-learning/slices/01-entry-and-week-1.md) | 🟡 **ĐANG HOÀN THIỆN** |
 | **Bản rà soát Kế hoạch & Phản biện Kiến trúc gần nhất** | [`09-implementation/m1-four-week-learning/plan-review-2026-10-20.md`](09-implementation/m1-four-week-learning/plan-review-2026-10-20.md) | 🟢 **ĐÃ DUYỆT** |
 | **Điều kiện hoàn thành (Definition of Done) của M1** | [`09-implementation/m1-four-week-learning/definition-of-done.md`](09-implementation/m1-four-week-learning/definition-of-done.md) | 🟢 **CHUẨN NGHIỆM THU** |
