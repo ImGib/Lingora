@@ -188,6 +188,13 @@
           <span>📁 Thư mục: apps/ &amp; packages/</span>
         </div>
       </button>
+      <button type="button" class="hub-role-btn" data-tab="ai-ops" role="tab" aria-selected="false" style="border-color: rgba(99,102,241,0.4); background: rgba(99,102,241,0.06);">
+        <span class="hub-role-ico">🤖</span>
+        <div>
+          <strong>6. AI Mission Control</strong>
+          <span style="color:#6366f1;font-weight:600">● Live Task &amp; Token</span>
+        </div>
+      </button>
     </div>
 
     <!-- PANEL 0: OVERVIEW 5-ZONE MAP -->
@@ -518,6 +525,59 @@
         </div>
       </div>
     </section>
+
+    <!-- PANEL 6: AI MISSION CONTROL (LIVE TASK & TOKEN TRACKER) -->
+    <section class="hub-panel" id="panel-ai-ops">
+      <div class="card" style="margin-bottom:20px; border-left: 4px solid #6366f1;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px">
+          <div>
+            <div class="kicker" style="color:#6366f1">TRUNG TÂM ĐIỀU PHỐI ĐA AI (ANTIGRAVITY &amp; CODEX)</div>
+            <h2>Bảng Giám Sát Tiến Độ Task &amp; Trạng Thái Token Trực Tuyến</h2>
+            <p class="muted small">Theo dõi trực tiếp từ trình duyệt trên điện thoại hoặc máy tính mà <strong>không cần mở terminal agy hay màn hình codex</strong>.</p>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center">
+            <span id="ai-live-indicator" style="display:inline-flex; align-items:center; gap:6px; font-size:0.85rem; color:#10b981; font-weight:700">
+              <span style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;display:inline-block"></span>
+              Đang đồng bộ trực tiếp
+            </span>
+            <button class="btn soft sm" id="btn-refresh-ai-board">🔄 Làm mới</button>
+          </div>
+        </div>
+
+        <div style="margin-top:20px; overflow-x:auto">
+          <table class="hub-table" id="ai-tasks-table">
+            <thead>
+              <tr>
+                <th>Làn Công Việc</th>
+                <th>AI Phụ Trách</th>
+                <th>Thư Mục Làm Việc Độc Quyền</th>
+                <th>Tiến Độ (%)</th>
+                <th>Trạng Thái Task</th>
+                <th>Mức Dùng Token / Context Window</th>
+              </tr>
+            </thead>
+            <tbody id="ai-tasks-tbody">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="hub-grid-3" style="margin-top:24px">
+          <div class="gm-fn-card" style="border-top: 3px solid #10b981">
+            <div class="gm-fn-title">🟢 An Toàn Token (< 60%)</div>
+            <p class="gm-fn-desc">AI hoạt động ở trạng thái tốt nhất, khả năng giữ vững các bất biến sư phạm và context bộ nhớ đạt 100%.</p>
+          </div>
+          <div class="gm-fn-card" style="border-top: 3px solid #f59e0b">
+            <div class="gm-fn-title">🟡 Cảnh Báo Vàng (60% - 80%)</div>
+            <p class="gm-fn-desc">AI bắt đầu đầy bộ nhớ ngắn hạn. Cần nhắc AI chỉ đọc file cần sửa, không quét lại toàn bộ repository.</p>
+          </div>
+          <div class="gm-fn-card" style="border-top: 3px solid #ef4444">
+            <div class="gm-fn-title">🔴 Tràn Context (> 80%)</div>
+            <p class="gm-fn-desc">Có nguy cơ quên context hoặc lặp code. Gợi ý bạn yêu cầu AI gõ lệnh <code>/compact</code> hoặc lưu tóm tắt để mở session mới.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -540,9 +600,136 @@
         el.addEventListener('click', () => activateTab(el.dataset.gotoTab));
       });
       const hash = location.hash.replace('#', '');
-      if (['overview', 'ba', 'uiux', 'curriculum', 'qa', 'dev'].includes(hash)) {
+      if (['overview', 'ba', 'uiux', 'curriculum', 'qa', 'dev', 'ai-ops'].includes(hash)) {
         activateTab(hash);
       }
+
+      // Render AI Tasks Board & Token Monitor
+      const AI_BOARD_DATA = {
+        updated_at: '2026-10-21T15:15:00+07:00',
+        active_workstreams: [
+          {
+            id: 'WS-01',
+            name: 'Visual System & Background 60fps',
+            assigned_agent: 'Antigravity',
+            model: 'Gemini Flash / Pro',
+            status: 'READY_TO_START',
+            progress_percentage: 0,
+            isolated_directory: 'apps/web/src/components/common/',
+            token_usage: {
+              context_window_limit: 1000000,
+              current_estimated_tokens: 42000,
+              token_burn_status: 'OPTIMAL_GREEN'
+            },
+            active_task: 'Canvas gradient mesh 60fps & Header Toggle'
+          },
+          {
+            id: 'WS-02',
+            name: 'IPA Mouth Studio (1 Âm/Viewport)',
+            assigned_agent: 'Codex / Agent B',
+            model: 'OpenAI o3-mini / Codex',
+            status: 'UNASSIGNED',
+            progress_percentage: 0,
+            isolated_directory: 'apps/web/src/components/ipa/',
+            token_usage: {
+              context_window_limit: 200000,
+              current_estimated_tokens: 0,
+              token_burn_status: 'IDLE'
+            },
+            active_task: 'Front & Side View SVGs with external HTML labels'
+          },
+          {
+            id: 'WS-03',
+            name: 'Masterclass Ngữ Pháp 6 Phần (ForumFlash)',
+            assigned_agent: 'Codex / Agent C',
+            model: 'OpenAI o3-mini / Codex',
+            status: 'UNASSIGNED',
+            progress_percentage: 0,
+            isolated_directory: 'apps/web/src/components/grammar/',
+            token_usage: {
+              context_window_limit: 200000,
+              current_estimated_tokens: 0,
+              token_burn_status: 'IDLE'
+            },
+            active_task: '6-part grammar component with syntax breakdown chips'
+          },
+          {
+            id: 'WS-04',
+            name: 'Bộ Runner Luyện Tập & Modal QA Hub',
+            assigned_agent: 'Codex / Agent D',
+            model: 'OpenAI o3-mini / Codex',
+            status: 'UNASSIGNED',
+            progress_percentage: 0,
+            isolated_directory: 'apps/web/src/components/practice/',
+            token_usage: {
+              context_window_limit: 200000,
+              current_estimated_tokens: 0,
+              token_burn_status: 'IDLE'
+            },
+            active_task: 'Multiple-choice, fill-blank, speech recorder and fault modal'
+          }
+        ]
+      };
+
+      function renderAiTasksTable() {
+        const tbody = document.getElementById('ai-tasks-tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        AI_BOARD_DATA.active_workstreams.forEach((ws) => {
+          const tr = document.createElement('tr');
+          const tokenPct = ws.token_usage.current_estimated_tokens > 0 
+            ? Math.round((ws.token_usage.current_estimated_tokens / ws.token_usage.context_window_limit) * 100) 
+            : 0;
+          let tokenColor = '#10b981';
+          let tokenBadge = '🟢 Optimal';
+          if (tokenPct >= 80) { tokenColor = '#ef4444'; tokenBadge = '🔴 Near Limit'; }
+          else if (tokenPct >= 60) { tokenColor = '#f59e0b'; tokenBadge = '🟡 Moderate'; }
+          else if (tokenPct === 0) { tokenColor = '#64748b'; tokenBadge = '⚪ Idle'; }
+
+          tr.innerHTML = `
+            <td>
+              <strong>${ws.name}</strong><br>
+              <span class="muted small">${ws.id}: ${ws.active_task}</span>
+            </td>
+            <td>
+              <span class="chip ${ws.assigned_agent.includes('Antigravity') ? 'primary' : 'soft'}">🤖 ${ws.assigned_agent}</span><br>
+              <span class="muted small">${ws.model}</span>
+            </td>
+            <td><code class="path-code">${ws.isolated_directory}</code></td>
+            <td style="min-width:140px">
+              <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:700; margin-bottom:4px">
+                <span>Tiến độ</span><span>${ws.progress_percentage}%</span>
+              </div>
+              <div style="width:100%; height:8px; background:#e2e8f0; border-radius:4px; overflow:hidden">
+                <div style="width:${ws.progress_percentage}%; height:100%; background:linear-gradient(90deg, #6366f1, #10b981); transition:width 0.4s ease"></div>
+              </div>
+            </td>
+            <td>
+              <span class="chip ${ws.status === 'COMPLETED' ? 'ok' : (ws.status === 'READY_TO_START' ? 'learning' : 'soft')}">
+                ${ws.status}
+              </span>
+            </td>
+            <td>
+              <div style="display:flex; align-items:center; gap:8px">
+                <span style="font-weight:700; color:${tokenColor}">${tokenBadge}</span>
+                <span class="muted small">${ws.token_usage.current_estimated_tokens ? (ws.token_usage.current_estimated_tokens / 1000).toFixed(0) + 'k' : '0'} / ${(ws.token_usage.context_window_limit / 1000).toFixed(0)}k (${tokenPct}%)</span>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+      renderAiTasksTable();
+      document.getElementById('btn-refresh-ai-board')?.addEventListener('click', () => {
+        renderAiTasksTable();
+        const ind = document.getElementById('ai-live-indicator');
+        if (ind) {
+          ind.innerHTML = '✨ Vừa làm mới xong!';
+          setTimeout(() => {
+            ind.innerHTML = '<span style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;display:inline-block"></span> Đang đồng bộ trực tiếp';
+          }, 1500);
+        }
+      });
 
       // Persist UAT status in localStorage
       const KEY = 'lingora_uat_status_v1';
