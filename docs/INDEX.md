@@ -10,6 +10,7 @@
 | Tôi muốn xem... | Mở file này | Trạng thái |
 |---|---|---|
 | **Kế hoạch Coding UI/UX (Chuẩn Prototype 100%)** | [`09-implementation/active-plans/uiux-coding-master-plan.md`](09-implementation/active-plans/uiux-coding-master-plan.md) | 🟡 **ĐANG TRIỂN KHAI** |
+| **Bảng Điều Phối & Giám Sát Đa AI (Task & Token Tracker)** | [`../.agents/coordination/README.md`](../.agents/coordination/README.md) | 🟢 **REAL-TIME TRACKING** |
 | **Ma trận Phân chia Task Song Song (Cho Multi-AI / Codex)** | [`09-implementation/active-plans/parallel-tasks-codex-matrix.md`](09-implementation/active-plans/parallel-tasks-codex-matrix.md) | 🟢 **SẴN SÀNG PHÂN CHIA** |
 | **Bức tranh tổng thể M1 (Lộ trình 4 Tuần - 28 Ngày)** | [`09-implementation/m1-four-week-learning/overview.md`](09-implementation/m1-four-week-learning/overview.md) | 🟡 **ĐANG TRIỂN KHAI** |
 | **Chi tiết Slice 01: Kiểm tra đầu vào & Tuần 1 (Ngày 1–7)** | [`09-implementation/m1-four-week-learning/slices/01-entry-and-week-1.md`](09-implementation/m1-four-week-learning/slices/01-entry-and-week-1.md) | 🟡 **ĐANG HOÀN THIỆN** |

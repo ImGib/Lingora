@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LingoraAgentCoordinationBoard",
+  "version": "1.0.0",
+  "updated_at": "2026-10-21T15:15:00+07:00",
+  "active_workstreams": [
+    {
+      "id": "WS-01",
+      "name": "Visual System & Background 60fps",
+      "assigned_agent": "Antigravity",
+      "model": "Gemini Flash / Pro",
+      "status": "READY_TO_START",
+      "progress_percentage": 0,
+      "isolated_directory": "apps/web/src/components/common/",
+      "token_usage": {
+        "context_window_limit": 1000000,
+        "current_estimated_tokens": 42000,
+        "token_burn_status": "OPTIMAL_GREEN"
+      },
+      "active_task": "TASK-01: Canvas gradient mesh and header toggle",
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    },
+    {
+      "id": "WS-02",
+      "name": "IPA Mouth Studio (1 Âm/Viewport)",
+      "assigned_agent": "Codex / Agent B",
+      "model": "OpenAI o3-mini / Codex",
+      "status": "UNASSIGNED",
+      "progress_percentage": 0,
+      "isolated_directory": "apps/web/src/components/ipa/",
+      "token_usage": {
+        "context_window_limit": 200000,
+        "current_estimated_tokens": 0,
+        "token_burn_status": "IDLE"
+      },
+      "active_task": "TASK-02: Front & Side View SVGs with external HTML labels",
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    },
+    {
+      "id": "WS-03",
+      "name": "Masterclass Ngữ Pháp 6 Phần (ForumFlash)",
+      "assigned_agent": "Codex / Agent C",
+      "model": "OpenAI o3-mini / Codex",
+      "status": "UNASSIGNED",
+      "progress_percentage": 0,
+      "isolated_directory": "apps/web/src/components/grammar/",
+      "token_usage": {
+        "context_window_limit": 200000,
+        "current_estimated_tokens": 0,
+        "token_burn_status": "IDLE"
+      },
+      "active_task": "TASK-03: 6-part grammar component with syntax breakdown chips",
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    },
+    {
+      "id": "WS-04",
+      "name": "Bộ Runner Luyện Tập & Modal QA Hub",
+      "assigned_agent": "Codex / Agent D",
+      "model": "OpenAI o3-mini / Codex",
+      "status": "UNASSIGNED",
+      "progress_percentage": 0,
+      "isolated_directory": "apps/web/src/components/practice/",
+      "token_usage": {
+        "context_window_limit": 200000,
+        "current_estimated_tokens": 0,
+        "token_burn_status": "IDLE"
+      },
+      "active_task": "TASK-04: Multiple-choice, fill-blank, speech recorder and fault modal",
+      "verification_command": "pnpm --filter @lingora/web typecheck"
+    }
+  ]
+}
