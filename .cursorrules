@@ -1,0 +1,7 @@
+# AGENT DISPATCHER & AUTO-TASK PROTOCOL
+
+Whenever an AI model (Codex, Claude, etc.) opens this project, it must immediately:
+1. Read `.agents/coordination/parallel-task-pool.json`
+2. Claim the first task with `"status": "AVAILABLE"`
+3. Lock it (`IN_PROGRESS`) and work ONLY inside that task's `allowed_files`.
+4. Run `pnpm --filter @lingora/web typecheck` and mark `"COMPLETED"`.
