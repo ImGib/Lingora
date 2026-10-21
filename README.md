@@ -95,7 +95,7 @@ This repository contains the conceptually frozen architecture, the audited M0 ke
 
 ## Implemented checkpoint
 
-The source audit was closed on 2026-09-26 with 01A–01F rated `DONE`. See the [evidence-backed audit](docs/09-implementation/m0-kernel/slice-01/README.md). Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
+The source audit was closed on 2026-09-26 with 01A–01F rated `DONE`. See the [evidence-backed audit](docs/09-implementation/archive-legacy/m0-kernel/slice-01/README.md). Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
 
 Slice 01B adds versioned curriculum hierarchy, bounded competencies/relations, immutable published package/item definitions, ItemFamily exposure boundaries, a learner-safe lesson endpoint, and lesson rendering. ADR-008 keeps Practice and Assessment semantically distinct inside one versioned LearningItem lifecycle.
 
