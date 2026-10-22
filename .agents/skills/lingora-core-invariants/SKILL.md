@@ -1,24 +1,29 @@
 ---
 name: lingora-core-invariants
-description: Bất biến sư phạm và quy tắc nghiệp vụ cốt lõi của Lingora (Skipped != Failed, Support != Independent, Fault Tolerance). Tự động nạp cho mọi Agent để không cần giải thích lại.
+description: Core pedagogical, business, and authentication invariants of Lingora (Skipped != Failed, Support != Independent, Fault Tolerance, Resource-Based Auth).
 ---
 
-# LINGORA CORE PEDAGOGICAL INVARIANTS
+# LINGORA CORE INVARIANTS
 
-Khi viết bất kỳ component, service, hoặc handler nào trong Lingora, mọi Agent BẮT BUỘC tuân thủ các bất biến sau mà không cần hỏi lại:
+Every developer and AI agent must adhere strictly to these invariants without exception:
 
 1. **`Skipped != Failed`:**
-   - Khi học viên bấm nút "Bỏ qua", "Để sau", hoặc "Nghỉ hôm nay" $\rightarrow$ Đây là hành vi điều phối nhịp độ học hợp lệ.
-   - Tuyệt đối KHÔNG trừ điểm, KHÔNG tính là lỗi sai, KHÔNG hiển thị màu đỏ cảnh báo.
+   - When a learner clicks "Skip", "Postpone", or takes a study pause $\rightarrow$ This is a valid pacing decision.
+   - Never deduct score, never count as an error, and never display red alert banners.
 
 2. **`Support != Independent Evidence`:**
-   - Khi học viên bấm xem "Gợi ý (Hint)", "Xem lời thoại (Transcript)" $\rightarrow$ Hệ thống gán cờ `has_support: true`.
-   - Kết quả này chỉ được tính là Luyện tập (Practice), KHÔNG ĐƯỢC tính vào Bằng chứng năng lực độc lập (Mastery Evidence).
+   - When a learner accesses a "Hint" or "Transcript" $\rightarrow$ Set `has_support: true`.
+   - Results are counted as supported practice and isolated from independent mastery evidence.
 
 3. **`Technical Failure != Learner Failure`:**
-   - Khi micro bị từ chối quyền, rớt mạng, hoặc file âm thanh bị lỗi $\rightarrow$ Hiển thị thông báo êm dịu: *"Đây là lỗi kỹ thuật, không phải lỗi của bạn"*.
-   - Luôn cung cấp luồng cứu hộ: Cho phép gõ bài viết thay thế cho thu âm nói.
+   - When microphone permissions are denied, audio fails to load, or network drops $\rightarrow$ Display: *"This is a technical issue, not your fault"*.
+   - Always offer an immediate fallback path (e.g., written input instead of speech recording).
 
 4. **`Growth Garden != Streak Punishment`:**
-   - Khi học viên vắng mặt 3–7 ngày quay lại $\rightarrow$ Tuyệt đối KHÔNG reset cây tiến độ về 0.
-   - Hiển thị lời chào mừng quay lại êm dịu và đề xuất ôn tập nhẹ 5 phút (`Verify before Recovery`).
+   - When a learner returns after an absence (3–7 days) $\rightarrow$ Never reset progress to zero.
+   - Display a gentle welcome and propose a 5-minute lightweight review (*Verify before Recovery*).
+
+5. **`Resource-Based Authentication (Clerk Standard)`:**
+   - Deprecated `createRouteMatcher` in middleware/proxy is strictly forbidden.
+   - Protect sensitive routes at the resource level via `await auth.protect()` in layouts/pages (`/dashboard/layout.tsx`, `/lessons/layout.tsx`, `/attempts/layout.tsx`).
+   - Every individual app workspace (`04-coding/apps/web`, `04-coding/apps/api`) must maintain its own `.env` / `.env.local` containing `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY`.
