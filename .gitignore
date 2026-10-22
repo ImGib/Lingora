@@ -16,3 +16,4 @@ pnpm-debug.log*
 .vercel
 **/.vercel
 .agents/plugins/ui-ux-pro-max/
+.agents/worktrees/

@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "LingoraMultiAgentParallelTaskPool",
   "version": "2.1.0",
-  "updated_at": "2026-10-21T18:10:00+07:00",
+  "updated_at": "2026-10-22T02:01:50.610Z",
   "protocol": "ATOMIC_FILE_LOCKING",
   "active_tasks": [
     {
@@ -15,11 +15,12 @@
         "04-coding/apps/web/src/components/roadmap/milestone-card.tsx",
         "04-coding/apps/web/src/components/roadmap/roadmap-interactive-view.tsx"
       ],
-      "status": "AVAILABLE",
-      "assigned_agent": null,
-      "locked_at": null,
-      "progress_percentage": 0,
-      "verification_command": "pnpm --filter @lingora/web typecheck"
+      "status": "COMPLETED",
+      "assigned_agent": "Codex",
+      "locked_at": "2026-10-22T08:15:14.6531328+07:00",
+      "progress_percentage": 100,
+      "verification_command": "pnpm --filter @lingora/web typecheck",
+      "completed_at": "2026-10-22T01:21:40.527Z"
     },
     {
       "task_id": "TASK-2B",
@@ -30,11 +31,12 @@
         "04-coding/apps/web/src/app/page.tsx",
         "04-coding/apps/web/src/components/common/footer.tsx"
       ],
-      "status": "AVAILABLE",
-      "assigned_agent": null,
-      "locked_at": null,
-      "progress_percentage": 0,
-      "verification_command": "pnpm --filter @lingora/web typecheck"
+      "status": "COMPLETED",
+      "assigned_agent": "Codex",
+      "locked_at": "2026-10-22T01:15:33.048Z",
+      "progress_percentage": 100,
+      "verification_command": "pnpm --filter @lingora/web typecheck",
+      "completed_at": "2026-10-22T01:23:31.865Z"
     },
     {
       "task_id": "TASK-3A",
@@ -45,11 +47,12 @@
         "04-coding/apps/web/src/app/lab/ipa/page.tsx",
         "04-coding/apps/web/src/components/ipa/ipa-full-chart.tsx"
       ],
-      "status": "AVAILABLE",
-      "assigned_agent": null,
-      "locked_at": null,
-      "progress_percentage": 0,
-      "verification_command": "pnpm --filter @lingora/web typecheck"
+      "status": "COMPLETED",
+      "assigned_agent": "Codex",
+      "locked_at": "2026-10-22T01:23:55.566Z",
+      "progress_percentage": 100,
+      "verification_command": "pnpm --filter @lingora/web typecheck",
+      "completed_at": "2026-10-22T01:27:30.033Z"
     },
     {
       "task_id": "TASK-3B",
@@ -60,11 +63,12 @@
         "04-coding/apps/web/src/app/lab/grammar/page.tsx",
         "04-coding/apps/web/src/components/grammar/grammar-catalog.tsx"
       ],
-      "status": "AVAILABLE",
-      "assigned_agent": null,
-      "locked_at": null,
-      "progress_percentage": 0,
-      "verification_command": "pnpm --filter @lingora/web typecheck"
+      "status": "COMPLETED",
+      "assigned_agent": "Codex",
+      "locked_at": "2026-10-22T01:27:35.394Z",
+      "progress_percentage": 100,
+      "verification_command": "pnpm --filter @lingora/web typecheck",
+      "completed_at": "2026-10-22T01:32:49.079Z"
     },
     {
       "task_id": "TASK-3C",
@@ -75,11 +79,12 @@
         "04-coding/apps/web/src/features/dashboard/dashboard-view.tsx",
         "04-coding/apps/web/src/features/dashboard/today-action-card.tsx"
       ],
-      "status": "AVAILABLE",
-      "assigned_agent": null,
-      "locked_at": null,
-      "progress_percentage": 0,
-      "verification_command": "pnpm --filter @lingora/web typecheck"
+      "status": "COMPLETED",
+      "assigned_agent": "Codex",
+      "locked_at": "2026-10-22T01:32:59.190Z",
+      "progress_percentage": 100,
+      "verification_command": "pnpm --filter @lingora/web typecheck",
+      "completed_at": "2026-10-22T01:53:06.123Z"
     },
     {
       "task_id": "TASK-4A",
@@ -90,11 +95,18 @@
         "04-coding/apps/web/src/features/lesson/lesson-view.tsx",
         "04-coding/apps/web/src/features/lesson/lesson-step-runner.tsx"
       ],
-      "status": "AVAILABLE",
-      "assigned_agent": null,
-      "locked_at": null,
-      "progress_percentage": 0,
-      "verification_command": "pnpm --filter @lingora/web typecheck"
+      "status": "COMPLETED",
+      "assigned_agent": "Codex",
+      "locked_at": "2026-10-22T01:53:34.890Z",
+      "progress_percentage": 100,
+      "verification_command": "pnpm --filter @lingora/web typecheck",
+      "workspace_path": "D:\\Lingora\\.agents\\worktrees\\TASK-4A",
+      "baseline_tree": "cc086815974226d78dc40c6770779582852e9a6c",
+      "baseline_hashes": {
+        "04-coding/apps/web/src/features/lesson/lesson-view.tsx": "d979b4f76c1eed848e34250009373345b718d32eaf1f863d5d1eb4a22bcdd750",
+        "04-coding/apps/web/src/features/lesson/lesson-step-runner.tsx": null
+      },
+      "completed_at": "2026-10-22T02:01:50.610Z"
     }
   ]
 }

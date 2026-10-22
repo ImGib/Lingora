@@ -14,10 +14,10 @@
 | Giai Đoạn (Phase) | Nội Dung Công Việc Chính | Trạng Thái | Tiến Độ (%) | Agent Đảm Nhiệm & Lệnh Xác Minh |
 | :---: | :--- | :---: | :---: | :--- |
 | **PHASE 1** | **Xây Dựng Core Components UI/UX (Chuẩn Prototype 100%)**<br>• Canvas nền 60fps & HeaderNav (`components/common/`)<br>• Phòng Lab IPA 1 âm/viewport (`components/ipa/`)<br>• Masterclass Ngữ pháp 6 phần (`components/grammar/`)<br>• Runner luyện tập & QA Modal (`components/practice/`) | 🟢 **COMPLETED** | **100%** | **Đã xong & Verified 100%**<br>`pnpm --filter @lingora/web typecheck` (Pass) |
-| **PHASE 2** | **Trang Lộ Trình 4 Mốc IELTS 6.5 (`/roadmap`) & Landing Page (`/`)**<br>• Trang `/roadmap` tương tác chuyển đổi 4 Mốc (A1 $\rightarrow$ 6.5)<br>• Hiển thị chi tiết kiến thức & dạng bài test cho từng mốc<br>• Cập nhật Landing Page (`/`) đồng bộ Header/Footer chuẩn SaaS | 🟡 **TIẾP THEO (IN QUEUE)** | **0%** | 👉 **TASK CẦN LÀM NGAY**<br>Target: `apps/web/src/app/roadmap/` & `page.tsx` |
-| **PHASE 3** | **Khu Vực Học Viên: Dashboard & Thư Viện Phòng Lab Tự Do**<br>• Trang `/dashboard` Thẻ Hôm nay (Học 20p vs Học nhẹ 5p)<br>• Trang chuyên biệt Lab 44 âm IPA (`/lab/ipa`)<br>• Trang Thư viện Masterclass Ngữ pháp (`/lab/grammar`) | ⏳ CHỜ PHASE 2 | **0%** | Target: `apps/web/src/app/dashboard/` & `/lab/` |
-| **PHASE 4** | **Lesson Runner 5 Bước Chuẩn Mực (`/lessons/[lessonId]`)**<br>• Nối luồng: Khẩu hình $\rightarrow$ Từ vựng $\rightarrow$ Ngữ pháp $\rightarrow$ Runner $\rightarrow$ Ghi nhận<br>• Tích hợp cứu hộ kỹ thuật khi mất mic / audio lỗi | ⏳ CHỜ PHASE 3 | **0%** | Target: `apps/web/src/features/lesson/` |
-| **PHASE 5** | **Tích Hợp API Supabase, Lưu Tiến Độ Đám Mây & Deploy**<br>• Lưu kết quả học viên vào PostgreSQL qua NestJS API<br>• Chế độ Khách (Guest mode) lưu `localStorage`<br>• Playwright E2E & Triển khai Production Vercel | ⏳ CHỜ PHASE 4 | **0%** | Target: `apps/api/` & `qa/e2e/` |
+| **PHASE 2** | **Trang Lộ Trình 4 Mốc IELTS 6.5 (`/roadmap`) & Landing Page (`/`)**<br>• Trang `/roadmap` tương tác chuyển đổi 4 Mốc (A1 $\rightarrow$ 6.5)<br>• Hiển thị chi tiết kiến thức & dạng bài test cho từng mốc<br>• Cập nhật Landing Page (`/`) đồng bộ Header/Footer chuẩn SaaS | 🟢 **COMPLETED** | **100%** | **Đã xong & Verified 100%**<br>`TASK-2A` & `TASK-2B` (Pass) |
+| **PHASE 3** | **Khu Vực Học Viên: Dashboard & Thư Viện Phòng Lab Tự Do**<br>• Trang `/dashboard` Thẻ Hôm nay (Học 20p vs Học nhẹ 5p)<br>• Trang chuyên biệt Lab 44 âm IPA (`/lab/ipa`)<br>• Trang Thư viện Masterclass Ngữ pháp (`/lab/grammar`) | 🟢 **COMPLETED** | **100%** | **Đã xong & Verified 100%**<br>`TASK-3A`, `TASK-3B`, `TASK-3C` (Pass) |
+| **PHASE 4** | **Lesson Runner 5 Bước Chuẩn Mực (`/lessons/[lessonId]`)**<br>• Nối luồng: Khẩu hình $\rightarrow$ Từ vựng $\rightarrow$ Ngữ pháp $\rightarrow$ Runner $\rightarrow$ Ghi nhận<br>• Tích hợp cứu hộ kỹ thuật khi mất mic / audio lỗi | 🟢 **COMPLETED** | **100%** | **Đã xong & Verified 100%**<br>`TASK-4A` (Pass) |
+| **PHASE 5** | **Tích Hợp API Supabase, Lưu Tiến Độ Đám Mây & Deploy**<br>• Lưu kết quả học viên vào PostgreSQL qua NestJS API<br>• Chế độ Khách (Guest mode) lưu `localStorage`<br>• Playwright E2E & Triển khai Production Vercel | 🟡 **TIẾP THEO (IN QUEUE)** | **0%** | 👉 **TASK CẦN LÀM TIẾP**<br>Target: `apps/api/` & `qa/e2e/` |
 
 ---
 
@@ -56,11 +56,10 @@ flowchart LR
 
 ## 🚀 4. PHẠM VI TASK TIẾP THEO (PROMPT SẴN CHO AGENT BẮT ĐẦU NGAY)
 
-> **Agent tiếp theo (hoặc phiên làm việc mới) thực hiện ngay nhiệm vụ sau:**
+> **Agent tiếp theo (hoặc phiên làm việc mới) thực hiện nhiệm vụ sau:**
 
-- **Nhiệm vụ:** Thực hiện **PHASE 2**: Xây dựng trang Lộ trình 4 Mốc IELTS 6.5 (`apps/web/src/app/roadmap/page.tsx`) và nâng cấp Landing Page (`apps/web/src/app/page.tsx`).
-- **Thư mục làm việc:** `apps/web/src/app/roadmap/`, `apps/web/src/components/roadmap/`, `apps/web/src/app/page.tsx`.
-- **Yêu cầu:** 
-  1. Trang `/roadmap` có bộ Tab tương tác chuyển đổi giữa 4 Mốc (Mốc 1: 0-3.0, Mốc 2: 3.0-4.5, Mốc 3: 4.5-5.5, Mốc 4: 5.5-6.5).
-  2. Mỗi mốc thể hiện rõ: Danh mục kiến thức phát âm/từ vựng/ngữ pháp và định dạng bài test tương ứng.
-  3. Chạy `pnpm --filter @lingora/web typecheck` đạt Pass 100%.
+- **Nhiệm vụ:** Thực hiện **PHASE 5**: Tích hợp API Supabase, lưu tiến độ đám mây vào PostgreSQL qua NestJS API, đồng bộ LocalStorage cho Guest mode, và chạy kiểm thử Playwright E2E.
+- **Thư mục làm việc:** `04-coding/apps/api/`, `04-coding/apps/web/src/lib/api.ts`, `04-coding/qa/e2e/`.
+- **Yêu cầu:**
+  1. Kết nối lưu tiến độ học tập vào PostgreSQL.
+  2. Playwright E2E kiểm thử toàn bộ luồng học viên đạt Pass 100%.

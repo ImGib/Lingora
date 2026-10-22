@@ -12,7 +12,12 @@
     "e2e:install": "playwright install chromium",
     "lint": "pnpm -r lint && eslint 05-testing/e2e playwright.config.ts",
     "test": "pnpm --filter @lingora/contracts build && pnpm -r test",
-    "typecheck": "pnpm --filter @lingora/contracts build && pnpm -r typecheck && tsc --noEmit -p tsconfig.json"
+    "typecheck": "pnpm --filter @lingora/contracts build && pnpm -r typecheck && tsc --noEmit -p tsconfig.json",
+    "test:evidence": "node .agents/scripts/capture-evidence.mjs",
+    "build:fast": "node .agents/scripts/fast-build.mjs",
+    "build:web:fast": "node .agents/scripts/fast-build.mjs --target=web",
+    "build:api:fast": "node .agents/scripts/fast-build.mjs --target=api",
+    "verify:fast": "node .agents/scripts/fast-build.mjs --verify-only"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",

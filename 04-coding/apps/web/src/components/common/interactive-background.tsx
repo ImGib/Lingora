@@ -234,7 +234,7 @@ export function InteractiveBackground({ initialActive = true }: InteractiveBackg
       <button
         type="button"
         onClick={toggleActive}
-        className="fixed bottom-4 right-4 z-50 inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/85 px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm backdrop-blur-md transition-all hover:bg-white hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+        className="bg-fx-toggle fixed bottom-4 right-4 z-50 inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/85 px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm backdrop-blur-md transition-all hover:bg-white hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
         title="Bật/Tắt hiệu ứng nền động 60fps"
         aria-label="Chuyển đổi hiệu ứng nền động"
       >

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import type { DashboardDto, GoalInputDto } from '@lingora/contracts';
 import { completeBreak, createGoal, generatePlan, getDashboard, overrideBlock, transitionSession } from '@/lib/api';
 import { GrowthTreeCard } from './growth-tree-card';
+import { TodayActionCard } from './today-action-card';
 
 type PlanBlock = NonNullable<DashboardDto['plan']>['blocks'][number];
 type BlockAction = 'skip' | 'defer' | 'replace' | 'explore' | 'complete';
@@ -133,115 +134,278 @@ export function DashboardView() {
   const settled = plan?.blocks.filter((block) => block.status !== 'PENDING').length ?? 0;
   const breakBlockId = action?.type === 'TAKE_BREAK' ? action.planBlockId : null;
 
-  return <div className="dashboard-page">
-    <nav className="dashboard-nav" aria-label="Main navigation">
-      <Link className="dashboard-brand" href="/" aria-label="Lingora home"><span className="dashboard-brand-mark">L</span><span>Lingora<span className="brand-period">.</span></span></Link>
-      <div className="dashboard-nav-links">
-        <span className="dashboard-nav-current" aria-current="page">Today</span>
-        <Link href="/starting-point">Starting point</Link>
-        <Link href="/prototype">Prototype MVP</Link>
-      </div>
-      <div className="dashboard-nav-user"><UserButton /></div>
-    </nav>
+  return (
+    <div className="dashboard-page">
+      <nav className="dashboard-nav" aria-label="Main navigation">
+        <Link className="dashboard-brand" href="/" aria-label="Lingora home">
+          <span className="dashboard-brand-mark">L</span>
+          <span>Lingora<span className="brand-period">.</span></span>
+        </Link>
+        <div className="dashboard-nav-links">
+          <span className="dashboard-nav-current" aria-current="page">Today</span>
+          <Link href="/roadmap">Lộ trình 4 Mốc</Link>
+          <Link href="/lab/ipa">Lab 44 Âm IPA</Link>
+          <Link href="/lab/grammar">Masterclass Ngữ pháp</Link>
+          <Link href="/starting-point">Starting point</Link>
+          <Link href="/prototype">Prototype MVP</Link>
+        </div>
+        <div className="dashboard-nav-user"><UserButton /></div>
+      </nav>
 
-    <div className="dashboard-content">
-      <header className="dashboard-header">
-        <div><p className="dashboard-kicker"><span className="kicker-line" /> YOUR LEARNING SPACE</p>
-          <h1>A little progress,<br /><span>every day.</span></h1>
-          <p>Follow a calm plan, keep your place, and learn at a pace you can sustain.</p></div>
-        <div className="dashboard-date-card"><span className="dashboard-date-dot" /><span>{friendlyDate(plan?.localDate)}</span></div>
-      </header>
+      <div className="dashboard-content">
+        <header className="dashboard-header">
+          <div>
+            <p className="dashboard-kicker"><span className="kicker-line" /> YOUR LEARNING SPACE</p>
+            <h1>A little progress,<br /><span>every day.</span></h1>
+            <p>Follow a calm plan, keep your place, and learn at a pace you can sustain.</p>
+          </div>
+          <div className="dashboard-date-card">
+            <span className="dashboard-date-dot" />
+            <span>{friendlyDate(plan?.localDate)}</span>
+          </div>
+        </header>
 
-      <p className="dashboard-live-status" role="status">{message}</p>
+        <p className="dashboard-live-status" role="status">{message}</p>
 
-      {!isLoaded ? <section className="dashboard-empty"><h2>Getting things ready…</h2><p>Your study space is loading.</p></section>
-        : !isSignedIn ? <section className="dashboard-empty"><h2>Welcome back when you’re ready.</h2><p>Sign in to see your saved plan.</p><Link className="button primary" href="/sign-in">Sign in</Link></section>
-          : !dashboard ? <section className="dashboard-empty"><h2>We couldn’t load your plan.</h2><p>{message}</p><button className="button secondary" onClick={() => void refresh().catch((error: unknown) => setMessage(error instanceof Error ? error.message : 'Please try again.'))}>Try again</button></section>
-            : !dashboard.goal ? <div className="dashboard-onboarding">
-              <section className="dashboard-onboarding-intro">
-                <div className="onboarding-top-row">
-                  <p className="dashboard-kicker">01 / BEGIN HERE</p>
-                  <img className="onboarding-mascot" src="/mascot.jpg" alt="" width={68} height={68} />
+        {!isLoaded ? (
+          <section className="dashboard-empty">
+            <h2>Getting things ready…</h2>
+            <p>Your study space is loading.</p>
+          </section>
+        ) : !isSignedIn ? (
+          <section className="dashboard-empty">
+            <h2>Welcome back when you’re ready.</h2>
+            <p>Sign in to see your saved plan.</p>
+            <Link className="button primary" href="/sign-in">Sign in</Link>
+          </section>
+        ) : !dashboard ? (
+          <section className="dashboard-empty">
+            <h2>We couldn’t load your plan.</h2>
+            <p>{message}</p>
+            <button className="button secondary" onClick={() => void refresh().catch((error: unknown) => setMessage(error instanceof Error ? error.message : 'Please try again.'))}>
+              Try again
+            </button>
+          </section>
+        ) : !dashboard.goal ? (
+          <div className="dashboard-onboarding">
+            <section className="dashboard-onboarding-intro">
+              <div className="onboarding-top-row">
+                <p className="dashboard-kicker">01 / BEGIN HERE</p>
+                <img className="onboarding-mascot" src="/mascot.jpg" alt="" width={68} height={68} />
+              </div>
+              <h2>Make this plan yours.</h2>
+              <p>Choose a purpose and a daily amount of time that feels realistic. You can begin small.</p>
+              <div className="onboarding-note">
+                <span className="note-sparkle">✦</span>
+                <span>Your starting point check is optional. Skipping it never counts as a failure.</span>
+              </div>
+              <Link href="/starting-point">Explore the optional check <span aria-hidden="true">↗</span></Link>
+            </section>
+            <form className="dashboard-goal-form" onSubmit={(event) => void saveGoal(event)}>
+              <h3>Your study rhythm</h3>
+              <label>
+                What are you learning for?
+                <select value={purpose} onChange={(event) => setPurpose(event.target.value as GoalInputDto['purpose'])}>
+                  <option value="IELTS_ACADEMIC">IELTS Academic</option>
+                  <option value="STUDY_ABROAD">Study abroad</option>
+                  <option value="GENERAL_ENGLISH">Everyday English</option>
+                </select>
+              </label>
+              <label>
+                Minutes you can study each day
+                <input type="number" min="5" max="240" value={minutes} onChange={(event) => setMinutes(Number(event.target.value))} required />
+              </label>
+              <div className="dashboard-form-row">
+                <label>
+                  Target band <span>(optional)</span>
+                  <input type="number" min="0" max="9" step="0.5" value={targetBand} onChange={(event) => setTargetBand(event.target.value)} />
+                </label>
+                <label>
+                  Deadline <span>(optional)</span>
+                  <input type="date" value={deadline} onChange={(event) => setDeadline(event.target.value)} />
+                </label>
+              </div>
+              <button className="button primary" disabled={busy}>
+                Save goal and make my plan <span aria-hidden="true">→</span>
+              </button>
+            </form>
+          </div>
+        ) : (
+          <>
+            <div className="dashboard-overview">
+              <TodayActionCard
+                initialMode={dashboard.goal.studyMinutesPerDay <= 10 ? 'light_5' : 'standard_20'}
+                title={next?.title}
+                description={next?.description}
+                ctaText={next?.cta}
+                ctaHref={href}
+                onActionClick={
+                  action?.type === 'RESUME_SESSION'
+                    ? () => void changeSession('resume')
+                    : action?.type === 'OPEN_TODAY_PLAN'
+                    ? () => void createPlan()
+                    : breakBlockId
+                    ? () => void changeBlock(breakBlockId, 'complete')
+                    : action?.type === 'FINISH_DAY' && dashboard.session
+                    ? () => void changeSession('complete')
+                    : undefined
+                }
+                isBusy={busy}
+                activeBlockType={action?.type}
+              />
+
+              <aside className="dashboard-rhythm-card" aria-label="Study rhythm">
+                <div className="rhythm-header">
+                  <span>YOUR RHYTHM</span>
+                  <span className="rhythm-flower" aria-hidden="true">✳</span>
                 </div>
-                <h2>Make this plan yours.</h2>
-                <p>Choose a purpose and a daily amount of time that feels realistic. You can begin small.</p>
-                <div className="onboarding-note"><span className="note-sparkle">✦</span><span>Your starting point check is optional. Skipping it never counts as a failure.</span></div>
-                <Link href="/starting-point">Explore the optional check <span aria-hidden="true">↗</span></Link></section>
-              <form className="dashboard-goal-form" onSubmit={(event) => void saveGoal(event)}>
-                <h3>Your study rhythm</h3>
-                <label>What are you learning for?<select value={purpose} onChange={(event) => setPurpose(event.target.value as GoalInputDto['purpose'])}>
-                  <option value="IELTS_ACADEMIC">IELTS Academic</option><option value="STUDY_ABROAD">Study abroad</option><option value="GENERAL_ENGLISH">Everyday English</option>
-                </select></label>
-                <label>Minutes you can study each day<input type="number" min="5" max="240" value={minutes} onChange={(event) => setMinutes(Number(event.target.value))} required /></label>
-                <div className="dashboard-form-row"><label>Target band <span>(optional)</span><input type="number" min="0" max="9" step="0.5" value={targetBand} onChange={(event) => setTargetBand(event.target.value)} /></label>
-                  <label>Deadline <span>(optional)</span><input type="date" value={deadline} onChange={(event) => setDeadline(event.target.value)} /></label></div>
-                <button className="button primary" disabled={busy}>Save goal and make my plan <span aria-hidden="true">→</span></button>
-              </form>
-            </div> : <>
-              <div className="dashboard-overview">
-                <section className="dashboard-next-card" aria-labelledby="next-action-title">
-                  <div className="next-card-top"><p className="dashboard-kicker"><span className="next-pulse" /> {next?.eyebrow}</p><span className="next-card-index">01 / NEXT</span></div>
-                  <div><h2 id="next-action-title">{next?.title}</h2><p>{next?.description}</p></div>
-                  <div className="next-card-bottom">
-                    {href ? <Link className="dashboard-primary-link" href={href}>{next?.cta}<span aria-hidden="true">↗</span></Link>
-                      : action?.type === 'RESUME_SESSION' ? <button className="dashboard-primary-link" disabled={busy} onClick={() => void changeSession('resume')}>{next?.cta}<span aria-hidden="true">↗</span></button>
-                        : action?.type === 'OPEN_TODAY_PLAN' ? <button className="dashboard-primary-link" disabled={busy} onClick={() => void createPlan()}>{next?.cta}<span aria-hidden="true">↗</span></button>
-                          : breakBlockId ? <button className="dashboard-primary-link" disabled={busy} onClick={() => void changeBlock(breakBlockId, 'complete')}>{next?.cta}<span aria-hidden="true">↗</span></button>
-                            : action?.type === 'FINISH_DAY' && dashboard.session ? <button className="dashboard-primary-link" disabled={busy} onClick={() => void changeSession('complete')}>{next?.cta}<span aria-hidden="true">↗</span></button>
-                              : <span className="next-card-finished">Return when you are ready for another study day.</span>}
-                    {dashboard.session?.status === 'IN_PROGRESS' && action?.type !== 'FINISH_DAY' && <button className="next-pause" disabled={busy} onClick={() => void changeSession('pause')}>Pause session</button>}
+                <p className="rhythm-number">{dashboard.goal.studyMinutesPerDay}<span> min / day</span></p>
+                <p>A steady amount you chose for your learning days.</p>
+                <div className="rhythm-divider" />
+                <dl>
+                  <div>
+                    <dt>Learning for</dt>
+                    <dd>{purposeLabel(dashboard.goal.purpose)}</dd>
                   </div>
-                </section>
-                <aside className="dashboard-rhythm-card" aria-label="Study rhythm">
-                  <div className="rhythm-header"><span>YOUR RHYTHM</span><span className="rhythm-flower" aria-hidden="true">✳</span></div>
-                  <p className="rhythm-number">{dashboard.goal.studyMinutesPerDay}<span> min / day</span></p>
-                  <p>A steady amount you chose for your learning days.</p>
-                  <div className="rhythm-divider" />
-                  <dl><div><dt>Learning for</dt><dd>{purposeLabel(dashboard.goal.purpose)}</dd></div>
-                    {dashboard.goal.targetBand !== null && <div><dt>Target band</dt><dd>{dashboard.goal.targetBand}</dd></div>}
-                    {dashboard.goal.deadline && <div><dt>By</dt><dd>{dashboard.goal.deadline}</dd></div>}</dl>
-                </aside>
-              </div>
+                  {dashboard.goal.targetBand !== null && (
+                    <div>
+                      <dt>Target band</dt>
+                      <dd>{dashboard.goal.targetBand}</dd>
+                    </div>
+                  )}
+                  {dashboard.goal.deadline && (
+                    <div>
+                      <dt>By</dt>
+                      <dd>{dashboard.goal.deadline}</dd>
+                    </div>
+                  )}
+                </dl>
+              </aside>
+            </div>
 
-              <div className="dashboard-lower-grid">
-                <section className="dashboard-plan-card" aria-labelledby="plan-title">
-                  <div className="dashboard-section-head"><div><p className="dashboard-kicker"><span className="kicker-line" /> 02 / TODAY’S PATH</p><h2 id="plan-title">Your plan, step by step.</h2><p>One manageable action at a time. Adjustments stay in your control.</p></div>
-                    {plan && <div className="plan-count"><strong>{settled}</strong><span>of {plan.blocks.length}<br />steps settled</span></div>}</div>
-                  {plan ? <><progress className="plan-progress" value={settled} max={Math.max(plan.blocks.length, 1)} aria-label="Today's plan steps settled" />
-                    <ol className="plan-steps">{plan.blocks.map((block, index) => <li className={`plan-step plan-step-${block.status.toLowerCase()} ${action?.planBlockId === block.id ? 'plan-step-current' : ''}`} key={block.id}>
-                      <div className="plan-step-rail"><span className="plan-step-number">{String(index + 1).padStart(2, '0')}</span><span className="plan-step-line" /></div>
-                      <div className="plan-step-body"><div className="plan-step-heading"><div><p className="plan-step-type">{block.type.toLowerCase()} {action?.planBlockId === block.id ? '· up next' : ''}</p><h3>{blockCopy[block.type].title}</h3></div><span className={`plan-status plan-status-${block.status.toLowerCase()}`}>{block.status === 'PENDING' && action?.planBlockId === block.id ? 'Up next' : statusCopy[block.status]}</span></div>
-                        <p>{blockCopy[block.type].description}</p>
-                        {block.status === 'PENDING' && (block.type === 'BREAK' ? action?.type === 'TAKE_BREAK' && action.planBlockId === block.id && <button className="plan-inline-action" disabled={busy} onClick={() => void changeBlock(block.id, 'complete')}>Mark break complete <span aria-hidden="true">→</span></button>
-                          : <details className="plan-adjust"><summary>Adjust this step <span aria-hidden="true">⌄</span></summary><div className="plan-adjust-grid">
-                            <button disabled={busy} onClick={() => void changeBlock(block.id, 'skip')}><strong>Skip</strong><small>Leave it out today</small></button>
-                            <button disabled={busy} onClick={() => void changeBlock(block.id, 'defer')}><strong>Defer</strong><small>Come back later</small></button>
-                            <button disabled={busy} onClick={() => void changeBlock(block.id, 'replace')}><strong>Replace</strong><small>Switch lesson and practice</small></button>
-                            <button disabled={busy} onClick={() => void changeBlock(block.id, 'explore')}><strong>Explore</strong><small>Open this topic freely</small></button>
-                          </div></details>)}
-                      </div>
-                    </li>)}</ol>
-                    <p className="plan-footnote">{completed} completed · Skipping or deferring is a planning choice, never a failure. Finishing a step does not mean mastery.</p>
-                  </> : <div className="plan-empty"><span className="plan-empty-icon" aria-hidden="true">✦</span><h3>A fresh plan starts here.</h3><p>We will put together a short path from the goal you saved.</p><button className="button primary" disabled={busy} onClick={() => void createPlan()}>Prepare today’s plan</button></div>}
-                </section>
+            <div className="dashboard-lower-grid">
+              <section className="dashboard-plan-card" aria-labelledby="plan-title">
+                <div className="dashboard-section-head">
+                  <div>
+                    <p className="dashboard-kicker"><span className="kicker-line" /> 02 / TODAY’S PATH</p>
+                    <h2 id="plan-title">Your plan, step by step.</h2>
+                    <p>One manageable action at a time. Adjustments stay in your control.</p>
+                  </div>
+                  {plan && (
+                    <div className="plan-count">
+                      <strong>{settled}</strong>
+                      <span>of {plan.blocks.length}<br />steps settled</span>
+                    </div>
+                  )}
+                </div>
+                {plan ? (
+                  <>
+                    <progress className="plan-progress" value={settled} max={Math.max(plan.blocks.length, 1)} aria-label="Today's plan steps settled" />
+                    <ol className="plan-steps">
+                      {plan.blocks.map((block, index) => (
+                        <li className={`plan-step plan-step-${block.status.toLowerCase()} ${action?.planBlockId === block.id ? 'plan-step-current' : ''}`} key={block.id}>
+                          <div className="plan-step-rail">
+                            <span className="plan-step-number">{String(index + 1).padStart(2, '0')}</span>
+                            <span className="plan-step-line" />
+                          </div>
+                          <div className="plan-step-body">
+                            <div className="plan-step-heading">
+                              <div>
+                                <p className="plan-step-type">{block.type.toLowerCase()} {action?.planBlockId === block.id ? '· up next' : ''}</p>
+                                <h3>{blockCopy[block.type].title}</h3>
+                              </div>
+                              <span className={`plan-status plan-status-${block.status.toLowerCase()}`}>
+                                {block.status === 'PENDING' && action?.planBlockId === block.id ? 'Up next' : statusCopy[block.status]}
+                              </span>
+                            </div>
+                            <p>{blockCopy[block.type].description}</p>
+                            {block.status === 'PENDING' && (
+                              block.type === 'BREAK' ? (
+                                action?.type === 'TAKE_BREAK' && action.planBlockId === block.id && (
+                                  <button className="plan-inline-action" disabled={busy} onClick={() => void changeBlock(block.id, 'complete')}>
+                                    Mark break complete <span aria-hidden="true">→</span>
+                                  </button>
+                                )
+                              ) : (
+                                <details className="plan-adjust">
+                                  <summary>Adjust this step <span aria-hidden="true">⌄</span></summary>
+                                  <div className="plan-adjust-grid">
+                                    <button disabled={busy} onClick={() => void changeBlock(block.id, 'skip')}>
+                                      <strong>Skip</strong>
+                                      <small>Leave it out today</small>
+                                    </button>
+                                    <button disabled={busy} onClick={() => void changeBlock(block.id, 'defer')}>
+                                      <strong>Defer</strong>
+                                      <small>Come back later</small>
+                                    </button>
+                                    <button disabled={busy} onClick={() => void changeBlock(block.id, 'replace')}>
+                                      <strong>Replace</strong>
+                                      <small>Switch lesson and practice</small>
+                                    </button>
+                                    <button disabled={busy} onClick={() => void changeBlock(block.id, 'explore')}>
+                                      <strong>Explore</strong>
+                                      <small>Open this topic freely</small>
+                                    </button>
+                                  </div>
+                                </details>
+                              )
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                    <p className="plan-footnote">
+                      {completed} completed · Skipping or deferring is a planning choice, never a failure. Finishing a step does not mean mastery.
+                    </p>
+                  </>
+                ) : (
+                  <div className="plan-empty">
+                    <span className="plan-empty-icon" aria-hidden="true">✦</span>
+                    <h3>A fresh plan starts here.</h3>
+                    <p>We will put together a short path from the goal you saved.</p>
+                    <button className="button primary" disabled={busy} onClick={() => void createPlan()}>
+                      Prepare today’s plan
+                    </button>
+                  </div>
+                )}
+              </section>
 
-                <aside className="dashboard-side-stack">
-                  <GrowthTreeCard completedCount={completed} totalCount={plan?.blocks.length || 7} />
-                  <section className="dashboard-evidence-card" aria-labelledby="evidence-title"><p className="dashboard-kicker">03 / LEARNING SIGNAL</p><h2 id="evidence-title">What we know so far</h2>
-                    <div className="evidence-state"><span className="evidence-orbit" aria-hidden="true">✳</span><div><span>Current evidence</span><strong>{dashboard.competency.label.toLowerCase()}</strong></div></div>
-                    <p>{dashboard.competency.label === 'UNKNOWN' ? 'We are still gathering evidence. Your plan can continue without an ability label.' : `This signal has ${dashboard.competency.confidence.toLowerCase()} confidence based on the work recorded so far.`}</p>
-                    <span className="evidence-caption">Progress through a plan and evidence of ability are different things.</span>
-                  </section>
-                  <section className="dashboard-check-card"><p className="dashboard-kicker">STARTING POINT</p><h2>Explore your starting point.</h2><p>Try a short, optional check to see what has already been demonstrated.</p><Link href="/starting-point">Open the check <span aria-hidden="true">↗</span></Link></section>
-                  <section className="dashboard-prototype-card" aria-labelledby="proto-preview-title">
-                    <p className="dashboard-kicker">WEEK 1 PREVIEW</p>
-                    <h2 id="proto-preview-title">Explore the 7-day flow.</h2>
-                    <p>Experience the complete Week 1 prototype: daily learning episodes, microphone audio recording, and spaced review simulation.</p>
-                    <Link href="/prototype">Launch prototype <span aria-hidden="true">↗</span></Link>
-                  </section>
-                </aside>
-              </div>
-            </>}
+              <aside className="dashboard-side-stack">
+                <GrowthTreeCard completedCount={completed} totalCount={plan?.blocks.length || 7} />
+                <section className="dashboard-evidence-card" aria-labelledby="evidence-title">
+                  <p className="dashboard-kicker">03 / LEARNING SIGNAL</p>
+                  <h2 id="evidence-title">What we know so far</h2>
+                  <div className="evidence-state">
+                    <span className="evidence-orbit" aria-hidden="true">✳</span>
+                    <div>
+                      <span>Current evidence</span>
+                      <strong>{dashboard.competency.label.toLowerCase()}</strong>
+                    </div>
+                  </div>
+                  <p>
+                    {dashboard.competency.label === 'UNKNOWN'
+                      ? 'We are still gathering evidence. Your plan can continue without an ability label.'
+                      : `This signal has ${dashboard.competency.confidence.toLowerCase()} confidence based on the work recorded so far.`}
+                  </p>
+                  <span className="evidence-caption">Progress through a plan and evidence of ability are different things.</span>
+                </section>
+                <section className="dashboard-check-card">
+                  <p className="dashboard-kicker">STARTING POINT</p>
+                  <h2>Explore your starting point.</h2>
+                  <p>Try a short, optional check to see what has already been demonstrated.</p>
+                  <Link href="/starting-point">Open the check <span aria-hidden="true">↗</span></Link>
+                </section>
+                <section className="dashboard-prototype-card" aria-labelledby="proto-preview-title">
+                  <p className="dashboard-kicker">WEEK 1 PREVIEW</p>
+                  <h2 id="proto-preview-title">Explore the 7-day flow.</h2>
+                  <p>Experience the complete Week 1 prototype: daily learning episodes, microphone audio recording, and spaced review simulation.</p>
+                  <Link href="/prototype">Launch prototype <span aria-hidden="true">↗</span></Link>
+                </section>
+              </aside>
+            </div>
+          </>
+        )}
+      </div>
     </div>
-  </div>;
+  );
 }

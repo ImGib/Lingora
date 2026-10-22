@@ -2,7 +2,9 @@
   "name": "@lingora/web",
   "version": "0.0.0",
   "private": true,
-  "engines": { "node": "24.x" },
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "build": "pnpm --filter @lingora/contracts build && next build",
     "dev": "next dev",
@@ -20,9 +22,12 @@
   },
   "devDependencies": {
     "@lingora/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "postcss": "^8.5.31",
+    "tailwindcss": "^4.3.3",
     "vitest": "^5.0.1"
   }
 }

@@ -7,13 +7,15 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
 - **UI Tokens & Layout Rules:** `.agents/skills/lingora-ui-tokens/SKILL.md`
 - **Atomic Task Runner:** `.agents/skills/lingora-task-runner/SKILL.md`
 - **Token Optimization Contract:** `.agents/skills/lingora-token-optimizer/SKILL.md`
+- **Visual Evidence Verifier:** `.agents/skills/lingora-visual-verifier/SKILL.md`
 - **Directory Structure Architecture:** `.agents/contracts/directory-structure.md`
 
-## YOUR MANDATORY WORKFLOW UPON ANY NEW PROMPT:
+## YOUR MANDATORY WORKFLOW FOR A NEW POOLED IMPLEMENTATION TASK:
 
 1. **AUTOMATIC TASK CLAIM VIA COORDINATOR SCRIPT (Fast & Zero-Race-Condition):**
    - Run command: `node .agents/scripts/task-coordinator.mjs claim Codex`
-   - It outputs the exact JSON of the claimed task with `allowed_files` and auto-releases any stale zombie tasks.
+   - Claim only when starting a new pooled implementation task. Follow-up questions, coordinator maintenance, and work on an already claimed task must not claim another task.
+   - It outputs `allowed_files` and an isolated `workspace_path`. Edit task files only inside that worktree. It never reassigns an `IN_PROGRESS` task based on elapsed time alone; explicitly use `release <TASK_ID>` only after confirming the owner has stopped.
    - For subagent dispatch / new chat tab: Run `node .agents/scripts/task-coordinator.mjs generate-prompt <TASK_ID>` to get a zero-history, token-optimized prompt packet.
 
 2. **REUSE EXISTING SHARED COMPONENTS (Save 80% tokens - DO NOT REINVENT):**
@@ -22,6 +24,8 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
 
 3. **STRICT ISOLATION & DIRECTORY BOUNDARY:**
    - You are ONLY permitted to edit or create files explicitly listed in that claimed task's `"allowed_files"` array.
+   - Explicit user requests to maintain the coordinator itself may edit its script, tests, and instructions without claiming an unrelated implementation task.
+   - New claims use separate Git worktrees. Keep each agent inside its own `workspace_path` and `allowed_files`. Existing tasks claimed before this rule finish in the main workspace.
    - **VÙNG CẤM `99-deprecated/`:** Tuyệt đối KHÔNG đọc, KHÔNG tìm kiếm (grep/find), KHÔNG trích dẫn bất kỳ file nào trong `99-deprecated/`.
    - Luôn chỉ định thư mục tìm kiếm hẹp (`SearchPath`), không tìm kiếm toàn bộ workspace.
 
@@ -30,6 +34,7 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
    - `Support != Independent`: Using hints must set `has_support: true`.
    - `IPA Studio`: Strict 1 phoneme/viewport. All text labels MUST be HTML outside `<svg>`.
    - `Grammar`: 6-part ForumFlash structure.
+   - `Background Singleton`: `<InteractiveBackground />` is mounted ONLY once in `RootLayout`. Never mount inside child pages.
 
 5. **TOKEN EXHAUSTION & RECOVERY PROTOCOL (If your context window is filling up > 70%):**
    - Save your current work immediately by running:
@@ -38,9 +43,10 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
      `node .agents/scripts/task-coordinator.mjs release <TASK_ID>`
    - The user or next agent will read `.agents/coordination/checkpoints/<TASK_ID>.json` and resume seamlessly without losing a single line of progress!
 
-6. **MECHANICAL-FIRST VERIFICATION & HANDOVER:**
-   - Execute: `pnpm --filter @lingora/web typecheck`
-   - Once it exits with 0 errors:
-     - Run: `node .agents/scripts/task-coordinator.mjs complete <TASK_ID>`
-     - Or set `"status": "COMPLETED"` and `"progress_percentage": 100` in `parallel-task-pool.json`.
+6. **MECHANICAL-FIRST VERIFICATION & HANDOVER (Fast & Zero-Token-Waste):**
+   - Run `pnpm verify:fast` (parallel mechanical typechecks in ~7s with filtered stdout) or `pnpm --filter @lingora/web typecheck`.
+   - For UI tasks: run `pnpm test:evidence` to capture visual screenshots with Playwright instead of reading hundreds of lines of CSS/HTML.
+   - For build validation: use `pnpm build:fast` (incremental contracts cache, parallel build in ~13s).
+   - Once it exits with 0 errors, run `node D:\Lingora\.agents\scripts\task-coordinator.mjs complete <TASK_ID>`. For worktree tasks, this command verifies again, checks merge conflicts, and copies only assigned files into the main workspace.
+   - Never edit `parallel-task-pool.json` directly; that bypasses the coordinator lock and state checks.
    - Report concise completion to the user (status + 1-2 sentence summary).

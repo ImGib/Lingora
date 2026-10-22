@@ -9,9 +9,17 @@ export class LocalStorageService implements StoragePort {
   private readonly baseDir: string;
 
   constructor() {
-    this.baseDir = process.env.STORAGE_LOCAL_DIR || path.resolve(process.cwd(), 'uploads');
-    if (!fs.existsSync(this.baseDir)) {
-      fs.mkdirSync(this.baseDir, { recursive: true });
+    const defaultDir =
+      process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+        ? path.join('/tmp', 'uploads')
+        : path.resolve(process.cwd(), 'uploads');
+    this.baseDir = process.env.STORAGE_LOCAL_DIR || defaultDir;
+    try {
+      if (!fs.existsSync(this.baseDir)) {
+        fs.mkdirSync(this.baseDir, { recursive: true });
+      }
+    } catch (err) {
+      console.warn('LocalStorageService: could not create storage directory', err);
     }
   }
 

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { completeLessonExposure, getLesson, getLessonExposure, startAttempt } from '@/lib/api';
 import { ContentReportModal } from '../quarantine/content-report-modal';
 import { ArtifactWorkspace } from '../artifacts/artifact-workspace';
+import { LessonStepRunner } from './lesson-step-runner';
 
 function speak(text: string, rate = 0.88) {
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -332,6 +333,7 @@ export function LessonView({ lessonId }: { lessonId: string }) {
   const [busy, setBusy] = useState(false);
   const [revealedVi, setRevealedVi] = useState<Record<string, boolean>>({});
   const [customSpellName, setCustomSpellName] = useState('Linh');
+  const [viewMode, setViewMode] = useState<'step_runner' | 'full_doc'>('step_runner');
   const [activeIpaIdx, setActiveIpaIdx] = useState<Record<string, number>>({});
   const [reportingTarget, setReportingTarget] = useState<{ activityId?: string; titleContext?: string } | null>(null);
 
@@ -404,7 +406,39 @@ export function LessonView({ lessonId }: { lessonId: string }) {
         <p>{lesson.summary}</p>
       </header>
 
-      <div className="study-workspace">
+      <div className="flex items-center gap-2 mb-6 p-1.5 rounded-2xl bg-slate-100/80 w-fit">
+        <button
+          type="button"
+          onClick={() => setViewMode('step_runner')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            viewMode === 'step_runner'
+              ? 'bg-indigo-600 text-white shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          🎯 Trình Chạy 5 Bước Chuẩn Mực
+        </button>
+        <button
+          type="button"
+          onClick={() => setViewMode('full_doc')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            viewMode === 'full_doc'
+              ? 'bg-indigo-600 text-white shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          📖 Toàn Bộ Tài Liệu Bài Học
+        </button>
+      </div>
+
+      {viewMode === 'step_runner' ? (
+        <LessonStepRunner
+          lessonId={lesson.id}
+          lessonTitle={lesson.title}
+          onFinish={() => void finishExposure()}
+        />
+      ) : (
+        <div className="study-workspace">
         <div className="study-workspace-main">
       {lesson.activities.map((activity, actIdx) => {
         const content = activity.content;
@@ -1320,6 +1354,7 @@ export function LessonView({ lessonId }: { lessonId: string }) {
           </div>
         </aside>
       </div>
+      )}
     </article>
   );
 }
