@@ -1,125 +1,200 @@
 # Lingora — Architecture Consolidation v3
 
-**Document set:** Architecture Consolidation v3 + M1 4-Week Learning MVP
-**Status:** CONCEPTUALLY FROZEN; M0 SLICE 01 DONE; M1 SLICE 01 IN PROGRESS
-**Product:** English learning system for a beginner-to-IELTS Academic and study-abroad journey
+**Document Set:** Architecture Consolidation v3 + M1 4-Week Learning MVP  
+**Status:** CONCEPTUALLY FROZEN; M0 AUDIT COMPLETED; M1 VERTICAL SLICES IN PROGRESS  
+**Product:** Adaptive English learning ecosystem for the beginner-to-IELTS Academic and study-abroad journey  
+**Live Deployments:**
+- 🌐 **Web Frontend (Production):** [https://lingora-web-psi.vercel.app](https://lingora-web-psi.vercel.app)
+- 🚀 **REST API (Production):** [https://lingora-api.vercel.app](https://lingora-api.vercel.app)
+- 🎨 **Interactive Prototype Hub:** [https://lingora-prototype.vercel.app](https://lingora-prototype.vercel.app)
 
 ---
 
-## 🧭 Bảng Chỉ Đường Nhanh Theo Vai Trò (`5-Zone Stakeholder Map`)
+## 🧭 5-Zone Stakeholder Navigation Map
 
-Để bạn và bất kỳ thành viên nào trong dự án luôn nhớ ngay vị trí tài liệu chỉ trong **3 giây**, toàn bộ kho dự án được chia làm **5 ngăn chính tương ứng với 5 vai trò**:
+To ensure every stakeholder, developer, and AI agent locates authoritative documentation within **3 seconds**, the repository is organized into **5 functional zones**:
 
-| Vai trò | Bạn cần xem gì? | Thư mục / File trong máy (`Local`) | Xem trực tiếp trên Web (`Live Portal`) |
+| Stakeholder Zone | Focus & Purpose | Local Workspace Path | Live Portal / Reference |
 |---|---|---|---|
-| 📜 **0. Tri thức Gốc (SoT)** | Tiêu chuẩn CEFR, Chuẩn 44 âm IPA, 4 Bất biến sư phạm | 📁 **[`00-intake/README.md`](00-intake/README.md)** & **[`00-intake/sot/`](00-intake/sot/)** | *Source of Truth (P0)* |
-| 👔 **1. BA & Product Owner** | Kế hoạch (Plan), Yêu cầu nghiệp vụ (PRD/BRD), Tiến độ các Slice | 📁 **[`docs/INDEX.md`](docs/INDEX.md)** *(Mục lục 1 trang cho BA)* | 🌐 [Stakeholder Hub — Tab BA & Plan](https://lingora-prototype.vercel.app/stakeholder-hub.html#ba) |
-| 📚 **2. Giáo vụ (Curriculum)** | Nội dung 7 ngày, Từ vựng 100% IPA, Chuyên đề Ngữ pháp 6 phần | 📁 **[`01-curriculum/GUIDE.md`](01-curriculum/GUIDE.md)** & **[`01-curriculum/week-1/`](01-curriculum/week-1/)** | 🌐 [Stakeholder Hub — Tab Curriculum](https://lingora-prototype.vercel.app/stakeholder-hub.html#curriculum) |
-| 🎨 **3. UI/UX & Khách hàng** | Bản mẫu bấm thử (Prototype), Bảng màu, Khẩu hình IPA, Layout | 📁 **[`02-design/`](02-design/index.html)** & **[`docs/07-ui/`](docs/07-ui/design-system-v1.md)** | 🌐 [Interactive Prototype Demo](https://lingora-prototype.vercel.app) |
-| 🧪 **4. QA / QC (Tester)** | Test Plan, Test Cases nghiệm thu (UAT), Giả lập lỗi, E2E | 📁 **[`05-testing/INDEX.md`](05-testing/INDEX.md)** & **[`05-testing/e2e/`](05-testing/e2e/)** | 🌐 [Stakeholder Hub — Tab QA/QC Center](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa) |
-| 💻 **5. Developer (FE / BE)** | Code Next.js (`apps/web`), API NestJS (`apps/api`), Database, DTOs | 📁 **[`apps/`](apps/)** & **[`packages/`](packages/)** | 🌐 [Stakeholder Hub — Tab Tech & Architecture](https://lingora-prototype.vercel.app/stakeholder-hub.html#dev) |
+| 📜 **0. Tri-Knowledge & SoT** | CEFR Standards, 44-Phoneme IPA Spec, 4 Core Pedagogical Invariants | 📁 [`00-intake/README.md`](00-intake/README.md) & [`00-intake/sot/`](00-intake/sot/) | *Source of Truth (P0)* |
+| 👔 **1. Product & Architecture** | Business Requirements (PRD), Architecture Decisions (ADR), Slice Progress | 📁 [`docs/INDEX.md`](docs/INDEX.md) & [`docs/README.md`](docs/README.md) | 🌐 [Stakeholder Hub — BA & Plan](https://lingora-prototype.vercel.app/stakeholder-hub.html#ba) |
+| 📚 **2. Curriculum & Learning** | 28-Day Syllabus, 100% IPA Vocabulary, 6-Part ForumFlash Grammar Modules | 📁 [`01-curriculum/GUIDE.md`](01-curriculum/GUIDE.md) & [`01-curriculum/week-1/`](01-curriculum/week-1/) | 🌐 [Stakeholder Hub — Curriculum](https://lingora-prototype.vercel.app/stakeholder-hub.html#curriculum) |
+| 🎨 **3. UI/UX & Design** | Design System, Soft Study Companion Tokens, IPA Mouth Studio, Responsive | 📁 [`02-design/`](02-design/index.html) & [`docs/07-ui/`](docs/07-ui/design-system-v1.md) | 🌐 [Interactive Prototype Demo](https://lingora-prototype.vercel.app) |
+| 🧪 **4. QA / QC & Testing** | Master Test Plan, UAT Test Cases, Fault Injection Simulator, Automation | 📁 [`05-testing/INDEX.md`](05-testing/INDEX.md) & [`05-testing/master-test-plan.md`](05-testing/master-test-plan.md) | 🌐 [Stakeholder Hub — QA Center](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa) |
+| 💻 **5. Engineering & Monorepo** | Next.js 15 Web, NestJS 11 REST API, Supabase PostgreSQL, Shared DTOs | 📁 [`04-coding/`](04-coding/README.md) | 🌐 [Stakeholder Hub — Tech](https://lingora-prototype.vercel.app/stakeholder-hub.html#dev) |
 
-> 💡 **Mẹo dễ nhớ nhất:**
-> - Cần **Tri thức gốc & SoT** $\rightarrow$ vào **`00-intake/`**
-> - Cần **Bài học & Từ vựng (Giáo vụ)** $\rightarrow$ vào **`01-curriculum/`**
-> - Cần **Giao diện & Prototype (UI/UX)** $\rightarrow$ vào **`02-design/`**
-> - Cần **Hợp đồng dữ liệu & DTOs** $\rightarrow$ vào **`03-contracts/`** & **`packages/contracts/`**
-> - Cần **Test Cases & Nghiệm thu (QA/QC)** $\rightarrow$ vào **`05-testing/`**
-> - Cần **Code & Database (Dev)** $\rightarrow$ vào **`apps/`** và **`packages/`**
+> 💡 **Quick Navigation Rule:**
+> - **Tri-Knowledge & SoT** $\rightarrow$ `00-intake/`
+> - **Curriculum & Pedagogical Content** $\rightarrow$ `01-curriculum/`
+> - **UI/UX Design, Prototypes & Tokens** $\rightarrow$ `02-design/`
+> - **Shared Transport Contracts & DTOs** $\rightarrow$ `03-contracts/` & `04-coding/packages/contracts/`
+> - **Source Code Implementation (Web & API)** $\rightarrow$ `04-coding/`
+> - **Verification, UAT & Quality Assurance** $\rightarrow$ `05-testing/`
+> - **Autonomous Multi-Agent Coordination** $\rightarrow$ `.agents/coordination/` & `.agents/skills/`
 
 ---
 
-This repository contains the conceptually frozen architecture, the audited M0 kernel implementation and the design for M1: a meaningful 28-day beginner learning journey. Consolidation v3 preserves earlier decisions while adding the missing opportunity, measurement, inference, governance and decision-burden contracts.
+## 🏛️ Architectural Baseline & Frozen Decisions
 
-## Current baseline
+| Architectural Area | Baseline Status | Authoritative Reference |
+|---|---|---|
+| Learning Architecture & Pedagogical Constitution | **FROZEN** | [`docs/01-learning/`](docs/01-learning/) |
+| Domain Model v1 | **FROZEN** | [`docs/02-domain/`](docs/02-domain/) |
+| Curriculum S0/S1 & Competency Mapping | **VALIDATED** | [`01-curriculum/`](01-curriculum/) |
+| Grammar, Listening, Writing, Speaking Slices | **VALIDATED** | [`docs/01-learning/`](docs/01-learning/) |
+| Database Schema v1 & Supabase Migrations | **COMPLETE** | [`04-coding/apps/api/supabase/migrations/`](04-coding/apps/api/supabase/migrations/) |
+| Application / Identity / Async Boundary | **FROZEN** | [`docs/04-application/`](docs/04-application/) |
+| Shared API DTO Contracts v1 | **VALIDATED** | [`04-coding/packages/contracts/`](04-coding/packages/contracts/) |
+| Content Authoring & Publishing Lifecycle | **FROZEN** | [`docs/06-content/`](docs/06-content/) |
+| Design System & Responsive Tokens | **VALIDATED** | [`docs/07-ui/design-system-v1.md`](docs/07-ui/design-system-v1.md) |
+| Visual Identity: *Soft Study Companion* | **LOCKED** | [`02-design/`](02-design/) |
+| M0 Implementation Kernel Audit | **01A–01F DONE** | [`docs/09-implementation/`](docs/09-implementation/) |
+| M1 4-Week Learning MVP | **IN PROGRESS** | [`docs/09-implementation/m1-four-week-learning/`](docs/09-implementation/m1-four-week-learning/) |
+| Architecture Consolidation v3 | **ACCEPTED** | [`docs/08-decisions/ADR-009-architecture-consolidation-v3.md`](docs/08-decisions/ADR-009-architecture-consolidation-v3.md) |
 
-| Area | Status |
-|---|---|
-| Learning Architecture, Constitution, Kernel | **FROZEN** |
-| Domain Model v1 | **FROZEN** |
-| Curriculum S0/S1 | **VALIDATED** |
-| Grammar, Listening, Writing, Speaking slices | **VALIDATED** |
-| Database Design v1 — Phase A | **COMPLETE** |
-| Database Design v1 — Phase B strategy and first vertical slice | **VALIDATED** |
-| Application / Identity / Async Architecture v1 | **FROZEN** |
-| API DTO Contract v1 | **VALIDATED** |
-| Content Authoring & Publishing Architecture v1 | **FROZEN** |
-| UI & Information Architecture v1 | **VALIDATED** |
-| Design System & Component Architecture v1 | **VALIDATED** |
-| Visual identity — Soft Study Companion | **LOCKED** |
-| M0 implementation audit | **01A–01F DONE** |
-| M1 — 4-Week Learning MVP | **SLICE 01 IN PROGRESS** |
-| Architecture Consolidation v3 | **ACCEPTED** |
+`FROZEN` indicates mandatory compliance. Altering any frozen invariant requires an explicit Architectural Decision Record (ADR) and formal impact review.
 
-`FROZEN` means implementation must conform to the document. A change to a frozen invariant requires an explicit decision record and impact review; it does not mean the design can never evolve.
+---
 
-## Product and stack
+## 🛡️ Non-Negotiable Pedagogical & Technical Invariants
 
-- Frontend: Next.js, TypeScript, Tailwind CSS, shadcn/ui, and Recharts on Vercel.
-- Backend: NestJS REST modular monolith. Application workflows and domain authority live here.
-- Authentication: Clerk. External identity is mapped to a Lingora-owned learner UUID.
-- Initial infrastructure: Supabase PostgreSQL and hot object storage; Supabase Auth is not the primary identity source.
-- Optional cold/archive/backup storage: Google Drive through a provider port.
-- Portability: repositories, identity, storage, evaluation, and AI providers are behind ports/adapters.
-- Workspace: pnpm monorepo with `apps/web`, `apps/api`, and a deliberately narrow `packages/contracts` package. Shared transport contracts are not a shared domain model.
+These core invariants govern all code, UI components, backend services, and automated agents:
 
-## Non-negotiable boundaries
+1. **Observation $\neq$ Evidence $\neq$ Mastery $\neq$ Decision:** Every learning state transition must follow verified empirical criteria.
+2. **Skipped $\neq$ Failed:** Deferring or skipping an item/activity must NEVER reduce a learner's score, apply penalties, or flag red errors.
+3. **Support $\neq$ Independent:** Using a hint, transcript, or pronunciation slow-mode sets `has_support: true` and is isolated from independent mastery proofs.
+4. **Technical Failure $\neq$ Learner Failure:** Network drops, audio decode failures, or microphone permission denials are classified as environmental faults; the system provides transparent fallbacks without penalizing the user.
+5. **IPA Mouth Studio Constraint:** Strict 1 phoneme per viewport. All instructional text labels must be HTML elements outside the SVG viewport to prevent horizontal mobile overflow.
+6. **Grammar Structure:** Strict 6-part ForumFlash schema (*Core Concept, Pragmatics & Function, Component Matrix, 3 Syntactic Forms, Recognition Signals, Sentence Autopsy*).
+7. **Background Singleton:** `<InteractiveBackground />` is mounted exactly once in `RootLayout`. Child pages must never instantiate duplicate canvas backdrops.
+8. **External Identity $\neq$ Domain Identity:** Clerk IDs authenticate sessions but are never used as learner foreign keys in the domain model.
+9. **Zero Drift & Clean Boundaries:** Agents operate within atomic Git worktrees and are strictly confined to their declared `allowed_files`.
 
-- Observation is not Evidence; Evidence is not Mastery; Assessment is not Decision.
-- Learning Claim is not Competency; exposure, practice opportunity, and evidence opportunity are distinct; an activity is not automatically a valid Performance Opportunity.
-- Evidence existence is not sufficiency; historical evidence is not current confidence.
-- Curriculum is not Learner State; Knowledge is not Performance.
-- Weakness is not Bottleneck; Unknown is not Weak; Skipped is not Failed.
-- Feedback is not Learning; Correction is not Mastery.
-- Support usage changes the meaning and weight of evidence.
-- Transfer and delayed retention are required for strong mastery claims.
-- Technical failure is never learner failure.
-- AI output is never learner production.
-- Every state must have a valid next action.
-- DTO, Domain Entity, and Database Row are separate representations.
-- External identity is not Domain identity; Clerk IDs never become learner foreign keys.
-- Published content versions are immutable; attempts pin exact package and assessment-item versions.
-- AI-generated content is not validated or published content, and benchmark content remains isolated.
-- Domain code must not import Clerk, Supabase, Next.js, Vercel, Google Drive, or AI-provider SDKs.
+---
 
-## Reading path
+## 🧰 Technology Stack
 
-1. Read [ARCHITECTURE.md](ARCHITECTURE.md) for the rules implementation must not break.
-2. Use [docs/INDEX.md](docs/INDEX.md) (or [docs/README.md](docs/README.md)) as the architecture and BA map.
-3. Read the Learning Constitution and Kernel before implementing assessment, state, planning, or feedback.
-4. Read Domain Model and Database Design together before persistence work.
-5. Read the Application Architecture and API DTO Contract before controllers, clients, jobs, or auth integration.
-6. Read Content Authoring before changing package/item lifecycle or publishing behavior.
-7. Read UI Architecture and Design System together before implementing learner or authoring surfaces.
-8. Use [ADR-009](docs/08-decisions/ADR-009-architecture-consolidation-v3.md) for Consolidation v3.
-9. Use the [implementation map](docs/09-implementation/README.md) for audited status and milestone gates.
-10. Build toward [M1 — 4-Week Learning MVP](docs/09-implementation/m1-four-week-learning/overview.md), prioritizing curriculum/content and real-learner validation over speculative platform expansion.
+- **Frontend:** Next.js 15 (App Router, React 19, TypeScript, Tailwind CSS v4, Plus Jakarta Sans, Lucide React).
+- **Backend:** NestJS 11 REST modular monolith with clean Ports and Adapters architecture.
+- **Identity & Authentication:** Clerk with decoupled domain UUID provisioning.
+- **Database & Storage:** Supabase PostgreSQL with strict Row Level Security (RLS) enabled on all tables, supplemented by Supabase MCP integration.
+- **Transport Contracts:** `@lingora/contracts` shared across web and API.
+- **Testing & Quality:** Playwright (E2E and visual evidence screenshots), `@axe-core/playwright` (WCAG 2.1 AA accessibility), Vitest, Supertest, and custom mechanical zero-token gates.
+- **Package Manager:** `pnpm` workspace monorepo (Node $\ge 22$, pnpm $\ge 10.3$).
 
-## Implemented checkpoint
+---
 
-The source audit was closed on 2026-09-26 with 01A–01F rated `DONE`. See the [evidence-backed audit](docs/09-implementation/archive-legacy/m0-kernel/slice-01/README.md). Slice 01A provides the pnpm workspace, Next.js presentation shell, NestJS API, Clerk token verification boundary, Lingora-owned learner identity provisioning, profile endpoints, and the identity-only PostgreSQL migration. No real secrets are stored in the repository.
+## ⚡ Fast Mechanical Gates & Tooling
 
-Slice 01B adds versioned curriculum hierarchy, bounded competencies/relations, immutable published package/item definitions, ItemFamily exposure boundaries, a learner-safe lesson endpoint, and lesson rendering. ADR-008 keeps Practice and Assessment semantically distinct inside one versioned LearningItem lifecycle.
+Lingora includes specialized zero-token-waste automation scripts located in `.agents/scripts/`:
 
-Slice 01B package v2 adds the missing controlled-practice activity and a hint delivered only after support use is recorded. It retains package v1 for already-pinned attempts. Slices 01C–01E add exact-version attempts, saved responses, support use, deterministic submit with idempotency, source-near observations, separate evidence and conservative competency state, plus a versioned goal, daily plan, dashboard action and resume path. Slice 01F adds persisted study sessions, explicit pause/resume/complete/abandon transitions, and an attempt-to-session link. The dashboard and practice UI connect these steps. Typecheck, lint, unit tests, build, and the disposable PostgreSQL integration/HTTP suite pass. All eight Slice 01 migration groups are applied to the Lingora Supabase project; its `public` schema contains 33 tables with RLS enabled and no `anon`/`authenticated` table SELECT grants. A disposable Clerk development user completed the browser flow against both local PostgreSQL and live Supabase: sign in, goal and plan, lesson, saved responses across reload, hint, submit, feedback, updated evidence/action, and pause/resume across reload. The live fixture was removed after verification.
+```bash
+# Parallel mechanical typecheck for contracts, web, and api (~8s, filtered stdout)
+pnpm verify:fast
 
-Slice 01A was live-verified on 2026-09-25 against a Clerk development instance and Supabase PostgreSQL: login, idempotent learner provisioning, profile read/update/reload, unauthenticated rejection, schema constraints, RLS, and revoked browser-role grants all passed. The temporary Clerk and database fixtures were removed after verification.
+# Incremental monorepo build with contracts caching (~13s)
+pnpm build:fast
 
-## Run Slice 01
+# Automated UI/UX accessibility (WCAG 2.1 AA) and 390px zero-overflow layout check
+pnpm test:ui-ux
 
-1. Install with `pnpm install`.
-2. Copy `apps/web/.env.example` to `apps/web/.env.local` and `apps/api/.env.example` to `apps/api/.env`, then replace placeholders with the same Clerk instance and a PostgreSQL connection.
-3. Apply the timestamped migrations under `apps/api/supabase/migrations` in lexical order to the target Supabase PostgreSQL database. Use a disposable database first for integration verification.
-4. Run `pnpm dev`, then open `http://localhost:3000`.
+# Infrastructure preflight: live DB handshake & CORS headers verification
+pnpm test:smoke
 
-To repeat the backend verification, set `TEST_DATABASE_URL` to a PostgreSQL database reserved for tests and run `pnpm --filter @lingora/api verify:slice01`. The command creates an isolated schema, applies all migrations, checks RLS and learner ownership, exercises the learning flow and HTTP contracts with a test identity verifier, then drops that schema. The connection needs permission to create schemas (and to create the `anon`/`authenticated` roles if the database does not already have them). This check does not replace the real Clerk browser flow.
+# Automated Playwright visual evidence screenshots (stored in evidence/ directory)
+pnpm test:evidence
 
-The API fails at startup when required server configuration is absent. `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are intentionally absent: these checkpoints connect to PostgreSQL through `DATABASE_URL` and do not use Supabase Storage or the Supabase SDK.
+# Run fast typechecks and UI/UX checks in combination
+pnpm test:all
 
-## Deploy
+# Configure Supabase MCP server dynamically for AI agents
+pnpm mcp:supabase <PROJECT_REF>
+```
 
-Use two Vercel Projects from this monorepo, with root directories `apps/api` and `apps/web`. Follow the [Vercel deployment guide](docs/10-operations/deployment-vercel.md) for build settings, environment variables, database preflight, and Preview verification. The Supabase database preflight passes, both Preview projects are READY, API CORS/auth behavior is verified, and the API Preview alias rollback path has been exercised and restored.
+---
 
-## Deliberate exclusions
+## 🚀 Getting Started & Local Development
 
-Slice 01F is DONE. A repeatable Playwright suite uses two disposable real Clerk identities against live Supabase to verify duplicate-submit replay without duplicate observations/evidence, cross-learner isolation, authentication failures, keyboard operation and automated WCAG A/AA checks. Vercel Preview and rollback are also verified. M1 Slice 01 is now in progress with the Starting Point Check backend and learner-facing flow implemented; Week 1 content and release gates remain open.
+### 1. Prerequisites
+- **Node.js:** $\ge 22.0.0$
+- **pnpm:** $\ge 10.3.0$
+- Active PostgreSQL database (or Supabase project)
+
+### 2. Installation & Environment
+```bash
+# Clone the repository
+git clone https://github.com/ImGib/Lingora.git
+cd Lingora
+
+# Install all workspace dependencies
+pnpm install
+
+# Configure environment variables
+cp 04-coding/apps/web/.env.example 04-coding/apps/web/.env.local
+cp 04-coding/apps/api/.env.example 04-coding/apps/api/.env
+```
+
+Ensure `04-coding/apps/web/.env.local` contains:
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+Ensure `04-coding/apps/api/.env` contains:
+```env
+PORT=3001
+DATABASE_URL=postgresql://postgres:[PASSWORD]@[HOST]:[PORT]/postgres
+CLERK_SECRET_KEY=sk_test_...
+CORS_ORIGIN=http://localhost:3000
+```
+
+### 3. Run Development Servers
+```bash
+# Concurrently runs @lingora/contracts build, @lingora/api, and @lingora/web
+pnpm dev
+```
+Open [http://localhost:3000](http://localhost:3000) for the web client, and [http://localhost:3001/v1/health](http://localhost:3001/v1/health) for the API health check.
+
+---
+
+## 🤖 Multi-Agent Coordination Protocol
+
+Lingora operates under an autonomous multi-AI coordination workflow to prevent merge conflicts and context exhaustion:
+
+1. **Atomic Task Claiming:**
+   ```bash
+   node .agents/scripts/task-coordinator.mjs claim <AGENT_NAME>
+   ```
+   Locks an available task atomically, creates an isolated Git worktree under `.agents/worktrees/<TASK_ID>`, and outputs strict `allowed_files`.
+
+2. **Scope Boundaries:**
+   Agents are forbidden from modifying files outside their assigned `allowed_files`. Scope drift is mechanically detected and blocks completion.
+
+3. **Atomic Verification & Handover:**
+   ```bash
+   node .agents/scripts/task-coordinator.mjs complete <TASK_ID>
+   ```
+   Runs mechanical verification, confirms clean diffs, merges assigned files back into the main workspace, and automatically prunes the temporary Git worktree.
+
+4. **Progress Checkpoint & Context Recovery:**
+   ```bash
+   node .agents/scripts/task-coordinator.mjs checkpoint <TASK_ID> <PERCENTAGE> "Summary of progress"
+   node .agents/scripts/task-coordinator.mjs release <TASK_ID>
+   ```
+
+---
+
+## 🧪 Master Test Plan & Quality Gates
+
+For in-depth test design, test matrices, and execution procedures, see:
+- 📑 **[`05-testing/master-test-plan.md`](05-testing/master-test-plan.md)**: Comprehensive 4-Tier Master Test Plan (Unit, Integration, UI/UX Accessibility, E2E Playwright).
+- 📑 **[`05-testing/INDEX.md`](05-testing/INDEX.md)**: 5 Mandatory Quality Gates and testing index.
+- 📑 **[`05-testing/test-cases-uat.md`](05-testing/test-cases-uat.md)**: 25 end-to-end acceptance test scenarios.
+- 📑 **[`05-testing/fault-scenarios.md`](05-testing/fault-scenarios.md)**: Fault injection scenarios (Microphone denial, network drop, audio error, 3-day inactivity).
+
+---
+
+## 📄 License & Governance
+
+Lingora is proprietary intellectual property. All rights reserved. Refer to architectural invariants in [`ARCHITECTURE.md`](ARCHITECTURE.md) and [`AGENTS.md`](AGENTS.md) before contributing.

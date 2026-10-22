@@ -1,33 +1,32 @@
-# reports — Quy Chuẩn Báo Cáo Cơ Học & Lưu Vết Kiểm Thử (Reporting Protocol)
+# reports — Mechanical Reporting & Test Tracing Protocol
 
-> **MỤC TIÊU TỐI ƯU TOKEN (Lấy cảm hứng từ TDC PRJ_FOLDER):**
-> Tuyệt đối KHÔNG in hàng trăm dòng kết quả build, log typecheck lỗi hay dữ liệu thô vào cửa sổ chat với AI. Toàn bộ bằng chứng cơ học phải được ghi thành file trong thư mục `reports/`. AI chỉ đọc file tóm tắt báo cáo khi cần sửa lỗi.
+> **TOKEN OPTIMIZATION INVARIANT:**
+> Agents must NEVER dump hundreds of lines of raw build output, verbose typecheck errors, or unprocessed test logs directly into the conversation window. All mechanical outputs must be persisted to structured files under `reports/`. Agents only reference compact summaries in conversation.
 
 ---
 
-## 1. Cấu Trúc Phân Loại Báo Cáo
+## 1. Directory Structure & Categories
+
 ```text
 reports/
-├── README.md               ← Hướng dẫn này
-├── typecheck/              ← Kết quả chạy tsc / pnpm typecheck
-│   └── 261021-gate-audit.log
-├── token-audits/           ← Kết quả kiểm tra độ dài ngữ cảnh (audit-context)
-│   └── 261021-skills-budget.md
-├── reviews/                ← Kết quả code review / pedagogic review
-│   └── 261021-ipa-studio-review.md
-└── benchmarks/             ← Thống kê lượng token đã tiêu thụ theo phiên
+├── README.md               ← This protocol guide
+├── typecheck/              ← Typecheck verification logs (e.g. 261021-gate-audit.log)
+├── token-audits/           ← Context window and skill line audits
+├── reviews/                ← Architectural & pedagogical review logs
+└── benchmarks/             ← Execution timings and token consumption statistics
 ```
 
 ---
 
-## 2. Quy Tắc Báo Cáo Cho AI Agent
-1. **Chỉ tóm tắt khi báo cáo người dùng:**
-   - Khi chạy lệnh kiểm chứng, Agent ghi toàn bộ log thô vào `reports/{category}/{YYMMDD}-{name}.log`.
-   - Trong hội thoại, Agent chỉ đưa ra thông điệp ngắn gọn:
+## 2. Reporting Protocol for AI Agents
+
+1. **Concise User Summaries:**
+   - When executing verification suites, persist full outputs to `reports/{category}/{YYMMDD}-{name}.log`.
+   - Provide a concise status in the chat:
      ```text
      Gate Typecheck: PASS (0 errors).
-     Báo cáo chi tiết lưu tại: reports/typecheck/261021-gate.log
+     Detailed report saved to: reports/typecheck/261021-gate.log
      ```
-2. **Khi gặp lỗi (Debugging):**
-   - Không nạp lại toàn bộ file log $> 5.000$ dòng.
-   - Chỉ lọc trích xuất 3 đến 5 dòng lỗi cốt lõi (file, dòng, mã lỗi TS) để đưa vào prompt sửa lỗi.
+2. **Error Diagnosis Protocol:**
+   - Do NOT load log files $> 5,000$ lines into conversation context.
+   - Extract only the core 3–5 error lines (file path, line number, TypeScript error code) to form targeted diagnosis prompts.

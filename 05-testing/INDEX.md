@@ -1,41 +1,75 @@
-# 🧪 Cổng Kiểm Thử & Nghiệm Thu Dành Cho QA / QC (`05-testing/INDEX.md`)
+# 🧪 Quality Assurance, Verification & Testing Index
 
-> **Quy tắc 3 giây:** Mọi tài liệu về **Kế hoạch Test (Test Plan)**, **Danh sách Test Cases nghiệm thu (UAT)**, **Kịch bản Giả lập Lỗi (Fault Injection)** và **Test Tự động (E2E)** đều nằm tại đây.
-> 🌐 **Mở Bảng Checklist UAT Tương tác trên trình duyệt:** [https://lingora-prototype.vercel.app/stakeholder-hub.html#qa](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa)
+**Document Location:** `05-testing/INDEX.md`  
+**Purpose:** Authoritative reference for Quality Assurance (QA), Quality Control (QC), and automated testing suites across the Lingora platform.  
+**Interactive Checklist:** [https://lingora-prototype.vercel.app/stakeholder-hub.html#qa](https://lingora-prototype.vercel.app/stakeholder-hub.html#qa)
 
 ---
 
-## 1. Danh mục Tài liệu & Công cụ trong Thư mục `05-testing/`
+## 📑 Testing Documentation & Assets
 
-| Tệp / Thư mục | Dành cho ai? | Mục đích sử dụng |
+| Document / Tool | Primary Audience | Description & Focus |
 |---|---|---|
-| 📄 **[`05-testing/INDEX.md`](INDEX.md)** *(File hiện tại)* | QA Lead, QC, BA, PO | Tổng quan chiến lược kiểm thử, 5 cổng chất lượng (Quality Gates) & lệnh chạy test |
-| 📄 **[`05-testing/test-cases-uat.md`](test-cases-uat.md)** | Manual QC, BA, Khách hàng | Danh sách **25 Test Cases trọng tâm** phủ kín Welcome, Check, Hôm nay, Lộ trình 3 Chặng, IPA Studio, Ngữ pháp 6 phần, Viết/Thu âm và Tiến độ |
-| 📄 **[`05-testing/fault-scenarios.md`](fault-scenarios.md)** | Manual QC, Dev | Hướng dẫn sử dụng nút **`⚙ Giả lập`** trên Prototype để test 4 sự cố kỹ thuật (*Mất Mic, Lỗi tải bản ghi, Lỗi Audio, Nghỉ 3 ngày*) |
-| 🤖 **[`05-testing/e2e/slice-01f.spec.ts`](e2e/slice-01f.spec.ts)** | Automation QA, Dev | Kịch bản Playwright E2E tự động kiểm tra luồng đăng nhập, nộp bài chống trùng lặp (idempotency) và chuẩn trợ năng WCAG AA |
-| 🤖 **[`../apps/api/test/`](../apps/api/test/)** | Backend QA, Dev | Bộ kiểm thử Unit & Integration cho `PlanningService`, `ArtifactsService`, `QuarantineService` |
+| 📄 **[`05-testing/master-test-plan.md`](master-test-plan.md)** | QA Lead, Architects, Developers | **Comprehensive 4-Tier Master Test Plan** covering Unit, Integration, UI/UX Accessibility, and E2E automation |
+| 📄 **[`05-testing/INDEX.md`](INDEX.md)** *(Current File)* | QA, QC, Product Owner, BA | Overview of testing architecture, 5 mandatory quality gates, and CLI test runners |
+| 📄 **[`05-testing/test-cases-uat.md`](test-cases-uat.md)** | Manual QC, BA, Acceptance Team | **25 acceptance test cases** covering Welcome, Diagnostic, Daily Action, Roadmap, IPA Lab, Grammar, and Lesson Runner |
+| 📄 **[`05-testing/fault-scenarios.md`](fault-scenarios.md)** | Manual QC, Developers | Guide to the **`⚙ Fault Simulation`** modal testing 4 environmental errors (*Mic Denied, Audio Failure, Offline, 3-Day Inactivity*) |
+| 🤖 **[`05-testing/e2e/slice-01f.spec.ts`](e2e/slice-01f.spec.ts)** | Automation QA, CI | Playwright E2E script verifying login flows, idempotent submissions, session pauses, and accessibility |
+| 🤖 **[`04-coding/apps/api/test/`](../04-coding/apps/api/test/)** | Backend QA, Developers | NestJS Unit & Integration test suite for `PlanningService`, `QuarantineService`, and domain repositories |
+| 📸 **[`evidence/`](../evidence/)** | Design Reviewers, Stakeholders | Automated visual screenshot captures generated via Playwright Headless |
 
 ---
 
-## 2. Năm Cổng Chất Lượng Bắt Buộc (`5 Mandatory Quality Gates`)
+## 🛡️ The 5 Mandatory Quality Gates
 
-Trước khi nghiệm thu bất kỳ tính năng hay bài học nào của Lingora, QA/QC kiểm tra theo 5 cổng sau:
+Every feature, page, and vertical slice in Lingora must pass these 5 gates prior to release:
 
-1. **Cổng 1 — Bất biến Sư phạm (`Pedagogical Invariants Gate`)**:
-   - Học viên bấm `Bỏ qua` hoặc `Để sau` $\rightarrow$ Hệ thống ghi nhận bình thường, **không trừ điểm, không báo lỗi đỏ**.
-   - Học viên bấm xem `Gợi ý (Hint)` hoặc `Xem lời thoại (Transcript)` $\rightarrow$ Kết quả hiển thị nhãn **`Ghi nhận: có hỗ trợ`**, không tính vào bằng chứng độc lập.
-2. **Cổng 2 — Giao diện Không Tràn Viền & 1 Âm/Viewport (`Visual & Layout QC Gate`)**:
-   - Trong bước **Phòng Lab Khẩu hình IPA**: Chỉ hiển thị đúng **1 âm IPA trên 1 màn hình** (chuyển qua lại bằng thanh tab), không bắt người dùng cuộn lên xuống.
-   - Hai khung hình **1. NHÌN THẲNG (MÔI & RĂNG)** và **2. MẶT CẮT NGANG (LƯỠI & HƠI)** hiển thị sắc nét, chữ nằm trong khung HTML, không tràn viền ở mọi kích thước màn hình.
-3. **Cổng 3 — Chuẩn Học liệu & Ngữ pháp 6 Phần (`Content & Curriculum QC Gate`)**:
-   - 100% từ vựng mới có ký hiệu phiên âm IPA, hướng dẫn đánh vần và 2 nút âm thanh (`🔊 Chuẩn` & `🐢 Chậm`).
-   - Bài giảng ngữ pháp (Ngày 2 & Ngày 4) có đủ **6 mục**: *1. Giải thích trọng tâm, 2. Chức năng & Ví dụ, 3. Mảnh ghép & Bảng chia ngôi, 4. Cấu trúc 3 thể (+/-/?), 5. Cách phân tích nhận biết, 6. Ví dụ giảng giải mổ xẻ câu*.
-4. **Cổng 4 — An toàn Sự cố Kỹ thuật (`Fault Tolerance Gate`)**:
-   - Khi Micro bị từ chối hoặc Audio lỗi, hệ thống hiển thị thông báo **"Đây là lỗi kỹ thuật, không phải lỗi của bạn"** kèm phương án thay thế (xem lời thoại hoặc viết thay cho ghi âm).
-5. **Cổng 5 — Kỹ thuật Tự động (`Automated CI Gate`)**:
-   - Chạy lệnh kiểm tra tự động đạt 100% Pass:
-     ```powershell
-     pnpm typecheck
-     pnpm lint
-     pnpm test
-     ```
+### Gate 1 — Pedagogical Invariants Gate
+- **Skipped != Failed:** Selecting "Skip" or "Postpone" records state cleanly without penalties, score reductions, or red error alerts.
+- **Support != Independent:** Utilizing "Hint", "Transcript", or slow-speed audio flags `has_support: true` and is strictly excluded from independent competency claims.
+
+### Gate 2 — Visual, Responsive & 390px Zero-Overflow Gate
+- **IPA Mouth Studio Constraint:** Displays strictly **1 phoneme per viewport** with no vertical page jumping.
+- **Zero Horizontal Overflow:** All views must maintain zero horizontal overflow down to **390px mobile viewports**.
+- **Dual Perspective SVGs:** Front View (Lips, teeth) and Cross-Section View (Tongue, airflow) render cleanly with all text annotations placed outside SVG containers as HTML elements.
+
+### Gate 3 — Curriculum & Content QC Gate
+- **100% IPA Transcriptions:** All newly introduced vocabulary terms include IPA phonetic symbols, syllable breakdowns, and dual audio buttons (`🔊 Standard` & `🐢 Slow`).
+- **6-Part Grammar Structure:** Grammar modules strictly follow the ForumFlash schema (*Core Concept, Pragmatics & Function, Component Matrix, 3 Syntactic Forms, Recognition Signals, Sentence Autopsy*).
+
+### Gate 4 — Environmental Fault Tolerance Gate
+- When system permissions (e.g. microphone) are blocked or media fails to load, the system displays the non-punitive message: **"This is a technical issue, not your fault"** and provides an instant fallback path (e.g., written submission).
+
+### Gate 5 — Automated Mechanical CI Gate
+- Monorepo mechanical gates must exit with code 0:
+  ```bash
+  # Fast parallel typechecks (~8s)
+  pnpm verify:fast
+
+  # Accessibility (WCAG 2.1 AA) & 390px layout check
+  pnpm test:ui-ux
+
+  # Infrastructure handshake & CORS preflight
+  pnpm test:smoke
+
+  # Visual screenshot evidence generation
+  pnpm test:evidence
+  ```
+
+---
+
+## 🏃 Running Tests Locally
+
+```bash
+# Run all mechanical quality gates
+pnpm test:all
+
+# Run backend unit and integration tests
+pnpm --filter @lingora/api test
+
+# Run Playwright E2E test suite
+pnpm e2e
+
+# Inspect visual evidence screenshots
+open evidence/
+```
