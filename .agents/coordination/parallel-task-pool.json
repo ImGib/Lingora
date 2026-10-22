@@ -100,12 +100,6 @@
       "locked_at": "2026-10-22T01:53:34.890Z",
       "progress_percentage": 100,
       "verification_command": "pnpm --filter @lingora/web typecheck",
-      "workspace_path": "D:\\Lingora\\.agents\\worktrees\\TASK-4A",
-      "baseline_tree": "cc086815974226d78dc40c6770779582852e9a6c",
-      "baseline_hashes": {
-        "04-coding/apps/web/src/features/lesson/lesson-view.tsx": "d979b4f76c1eed848e34250009373345b718d32eaf1f863d5d1eb4a22bcdd750",
-        "04-coding/apps/web/src/features/lesson/lesson-step-runner.tsx": null
-      },
       "completed_at": "2026-10-22T02:01:50.610Z"
     }
   ]

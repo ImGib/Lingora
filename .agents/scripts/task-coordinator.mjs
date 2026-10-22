@@ -310,7 +310,14 @@ function completeWorktreeTask(pool, task) {
     task.progress_percentage = 100;
     task.completed_at = new Date().toISOString();
     pool.updated_at = task.completed_at;
+    const oldWorkspace = task.workspace_path;
+    delete task.workspace_path;
+    delete task.baseline_tree;
+    delete task.baseline_hashes;
     writeJson(POOL_PATH, pool);
+    if (oldWorkspace) {
+      removeTaskWorktree(oldWorkspace);
+    }
   } catch (error) {
     restoreMerge(journal);
     fs.unlinkSync(MERGE_JOURNAL_PATH);
