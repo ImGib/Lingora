@@ -9,6 +9,11 @@ export const DATABASE_POOL = Symbol('DATABASE_POOL');
 export function normalizeDatabaseUrl(databaseUrl: string): string {
   const url = new URL(databaseUrl);
 
+  const isRemote = url.hostname !== 'localhost' && url.hostname !== '127.0.0.1';
+  if (isRemote && !url.searchParams.has('sslmode')) {
+    url.searchParams.set('sslmode', 'require');
+  }
+
   // pg 8 currently aliases sslmode=require to verify-full. Opt into libpq
   // semantics explicitly so `require` keeps TLS mandatory without requiring a
   // project CA; deployments that provide a CA should use verify-full instead.
