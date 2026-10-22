@@ -13,7 +13,7 @@ export function HeaderNav() {
       </Link>
       <div className="nav-actions">
         <a
-          className="button secondary"
+          className="button secondary hidden md:inline-flex"
           href="/prototype/index.html"
           target="_blank"
           rel="noopener noreferrer"
@@ -22,7 +22,7 @@ export function HeaderNav() {
           Bản Prototype 7 Ngày
         </a>
         <a
-          className="button secondary"
+          className="button secondary hidden md:inline-flex"
           href="https://lingora-prototype.vercel.app/stakeholder-hub.html#ai-ops"
           target="_blank"
           rel="noopener noreferrer"

@@ -17,11 +17,11 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: radial-gradient(circle at 85% 10%, #eeebff 0, transparent 28%), var(--background); color: var(--text); }
 button, input, select { font: inherit; }
-.page-shell { min-height: 100vh; padding: 24px clamp(20px, 6vw, 84px); }
+.page-shell { min-height: 100vh; padding: 24px clamp(16px, 5vw, 84px); overflow-x: hidden; }
 .page-shell.narrow { max-width: 820px; margin: 0 auto; }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .brand { font-size: 1.35rem; font-weight: 800; letter-spacing: -.03em; }
-.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .hero { max-width: 780px; padding: clamp(90px, 16vh, 180px) 0 80px; }
 .hero h1, .section-heading h1 { margin: 10px 0 18px; font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: .98; letter-spacing: -.055em; }
 .section-heading { padding: 64px 0 28px; }

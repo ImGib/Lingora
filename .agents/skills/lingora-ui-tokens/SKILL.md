@@ -1,6 +1,6 @@
 ---
 name: lingora-ui-tokens
-description: Hệ thống Design Tokens, quy chuẩn Responsive, quy tắc Background Singleton, quy chuẩn IPA Studio và cấu trúc Ngữ pháp 6 phần ForumFlash.
+description: Hệ thống Design Tokens, quy chuẩn Responsive, quy tắc Background Singleton, quy chuẩn IPA Studio, cấu trúc Ngữ pháp 6 phần ForumFlash, và chuẩn Chống tràn viền Mobile (390px Zero Overflow).
 ---
 
 # LINGORA UI/UX DESIGN TOKENS & COMPONENT STANDARDS
@@ -20,10 +20,11 @@ Bộ quy chuẩn giao diện dùng chung giữa tất cả các Agent để code
 - **Cấm mount trùng lặp:** Tuyệt đối KHÔNG import hay render lại `<InteractiveBackground />` trong bất kỳ trang con nào (`page.tsx`, `roadmap/page.tsx`, v.v.).
 - **Nút điều khiển góc phải:** Nút bật/tắt hiệu ứng nền phải luôn mang class `.bg-fx-toggle` (`fixed bottom-4 right-4 z-50`) để không đẩy layout trang.
 
-## 3. Hệ Thống Styling Kết Hợp (Tailwind v4 + globals.css)
-- `apps/web` sử dụng Tailwind CSS v4 qua `@tailwindcss/postcss`.
-- Các class thẻ dựng sẵn (`.page-shell`, `.card`, `.button`, `.nav`, `.brand`) nằm trong `globals.css`.
-- Các class utility linh hoạt (`flex`, `grid`, `col-span`, `rounded-3xl`, `shadow-xl`) được cấp bởi Tailwind v4.
+## 3. Quy Chuẩn Responsive & Chống Tràn Viền Mobile (390px Zero Overflow)
+- **Chuẩn kiểm thử hẹp nhất:** Mọi trang bắt buộc hiển thị hoàn hảo trên khung iPhone 390px (`scrollWidth <= innerWidth`).
+- **Khung chứa trang (`.page-shell`):** Bắt buộc có `overflow-x: hidden` và `padding: 24px clamp(16px, 5vw, 84px)`.
+- **Thanh điều hướng (`HeaderNav`):** Các liên kết phụ (Prototype, AI Control) phải ẩn trên mobile (`hidden md:inline-flex`), chỉ hiển thị Brand và nút hành động chính (Sign in / Get started).
+- **Vùng chạm ngón tay (Touch Target):** Tối thiểu $44 \times 44\text{px}$ cho mọi nút bấm trên di động.
 
 ## 4. Quy Chuẩn Phòng Lab Khẩu Hình IPA (Bắt buộc)
 - **1 Âm / 1 Viewport:** Mỗi màn hình chỉ hiển thị đúng 1 âm qua thanh Tab chọn âm. Tuyệt đối không xếp 44 âm thành danh sách dài gây cuộn trang mệt mỏi.
