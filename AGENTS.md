@@ -45,8 +45,15 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
 
 6. **MECHANICAL-FIRST VERIFICATION & HANDOVER (Fast & Zero-Token-Waste):**
    - Run `pnpm verify:fast` (parallel mechanical typechecks in ~7s with filtered stdout) or `pnpm --filter @lingora/web typecheck`.
-   - For UI tasks: run `pnpm test:evidence` to capture visual screenshots with Playwright instead of reading hundreds of lines of CSS/HTML.
+   - For UI tasks: run `pnpm test:ui-ux` (WCAG AA & 390px zero overflow) and `pnpm test:evidence` (Playwright screenshot evidence).
+   - For infrastructure verification: run `pnpm test:smoke` (CORS preflight & live DB handshake).
    - For build validation: use `pnpm build:fast` (incremental contracts cache, parallel build in ~13s).
    - Once it exits with 0 errors, run `node D:\Lingora\.agents\scripts\task-coordinator.mjs complete <TASK_ID>`. For worktree tasks, this command verifies again, checks merge conflicts, and copies only assigned files into the main workspace.
    - Never edit `parallel-task-pool.json` directly; that bypasses the coordinator lock and state checks.
    - Report concise completion to the user (status + 1-2 sentence summary).
+
+7. **CONTINUOUS KNOWLEDGE & SCRIPT AUGMENTATION (Self-Refining Intelligence):**
+   - **Nguyên tắc "Gặp một lần — Đúc kết mãi mãi"**: Mọi bài học thực tế, lỗi môi trường, bất biến layout, hoặc cách khắc phục sự cố (như CORS redirect, Tailwind setup, DB pool pause, mobile overflow) KHÔNG ĐƯỢC trôi mất trong chat history mà **BẮT BUỘC phải đúc kết tự động**:
+     1. **Cập nhật Skill/Knowledge**: Bổ sung quy tắc vào file `SKILL.md` liên quan trong `.agents/skills/` (hoặc tạo skill mới theo chuẩn $\le 100$ dòng).
+     2. **Tự động hóa thành Reusable Script**: Chuyển các thao tác khắc phục/kiểm tra thủ công thành script tự động trong `.agents/scripts/` và đăng ký lệnh vào `package.json`.
+     3. **Chuyển thành Cổng cơ học**: Bổ sung vào các lệnh `test:smoke`, `test:ui-ux`, hoặc `verify:fast` để mọi Agent sau tự động kiểm tra bằng máy chỉ trong vài giây mà không tốn token chẩn đoán lại.

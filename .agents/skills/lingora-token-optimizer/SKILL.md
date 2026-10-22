@@ -1,11 +1,11 @@
 ---
 name: lingora-token-optimizer
-description: Các nguyên tắc và cơ chế kỹ thuật để tối ưu hóa token triệt để khi vận hành 100% bằng AI (Progressive Disclosure, Context Isolation, Model Tiering, Mechanical-First Gates, Silent Fast Builds).
+description: Các nguyên tắc và cơ chế kỹ thuật để tối ưu hóa token triệt để khi vận hành 100% bằng AI (Progressive Disclosure, Context Isolation, Model Tiering, Mechanical-First Gates, Silent Fast Builds, Self-Refining Knowledge).
 ---
 
 # LINGORA TOKEN OPTIMIZATION CONTRACT
 
-Khi vận hành tự động hóa 100% bằng AI trong Lingora, mọi Agent BẮT BUỘC tuân thủ 6 nguyên lý tối ưu hóa token sau:
+Khi vận hành tự động hóa 100% bằng AI trong Lingora, mọi Agent BẮT BUỘC tuân thủ 7 nguyên lý tối ưu hóa token sau:
 
 ## 1. Kiến Trúc Tiết Lộ Tịnh Tiến (Progressive Disclosure)
 - **Quy tắc $\le$ 100 dòng:** Mọi file `SKILL.md` và hướng dẫn chỉ chứa định danh, trigger, và ranh giới cốt lõi. Chi tiết chuyên sâu phải đặt trong `references/` và chỉ đọc khi có cờ hoặc yêu cầu cụ thể.
@@ -41,5 +41,12 @@ Khi vận hành tự động hóa 100% bằng AI trong Lingora, mọi Agent BẮ
 - **Tái sử dụng Component:** Bắt buộc tra cứu `.agents/coordination/component-catalog.json` trước khi viết code mới để tránh viết lại các component đã có.
 
 ## 6. Nghiệm Thu Trực Quan Không Đọc Chay Mã (Visual Evidence First)
-- Khi hoàn tất tính năng UI, chạy `pnpm test:evidence` để Playwright chụp ảnh màn hình thay vì đọc hàng trăm dòng CSS/HTML.
+- Khi hoàn tất tính năng UI, chạy `pnpm test:ui-ux` và `pnpm test:evidence` để máy kiểm tra trợ năng, chống tràn viền và chụp ảnh thay vì đọc hàng trăm dòng CSS/HTML.
 - Đính kèm ảnh qua `carousel` trong artifact để người dùng thẩm định nhanh.
+
+## 7. Tự Động Đúc Kết Tri Thức & Script Hóa (Self-Refining Knowledge & Reusable Tooling)
+- **Nguyên tắc "Gặp một lần — Đúc kết mãi mãi"**: Không để tri thức giải quyết sự cố trôi mất trong chat history.
+- Ngay sau khi giải quyết bất kỳ lỗi môi trường, config, hay bất biến giao diện nào:
+  1. **Đúc kết thành Skill/Knowledge**: Bổ sung ngay vào file `SKILL.md` liên quan trong `.agents/skills/`.
+  2. **Tự động hóa thành Reusable Script**: Viết script điều phối trong `.agents/scripts/` và thêm lệnh `pnpm <script>` vào `package.json`.
+  3. **Tích hợp vào Cổng cơ học**: Biến thành test tự động trong `test:smoke`, `test:ui-ux` hoặc `verify:fast` để mọi Agent tương lai kiểm tra bằng máy trong vài giây, tiết kiệm 100% token chẩn đoán lặp lại.
