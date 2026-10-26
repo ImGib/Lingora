@@ -91,8 +91,9 @@ async function buildContracts() {
 }
 
 async function buildApi() {
-  const res = await runPnpm(['--filter', '@lingora/api', 'exec', 'nest', 'build']);
-  return { durationSec: res.durationSec };
+  const build = await runPnpm(['--filter', '@lingora/api', 'exec', 'nest', 'build']);
+  const check = await runPnpm(['--filter', '@lingora/api', 'test:predeploy']);
+  return { durationSec: (Number(build.durationSec) + Number(check.durationSec)).toFixed(2) };
 }
 
 async function buildWeb() {

@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { Pool } from 'pg';
+import { dashboardSchema } from '@lingora/contracts';
 import { PlanningService } from '../src/modules/planning/planning.service.js';
 
 describe('PlanningService M1 increment', () => {
@@ -105,5 +106,63 @@ describe('PlanningService M1 increment', () => {
     expect(plan?.blocks[0]?.type).toBe('LESSON');
     expect(plan?.blocks[1]?.type).toBe('PRACTICE');
     expect(plan?.blocks[2]?.type).toBe('BREAK');
+  });
+
+  it('returns valid SET_GOAL dashboard when learner has no goal', async () => {
+    const mockPool = {
+      query: vi.fn()
+        .mockResolvedValueOnce({ rows: [] }) // getGoal
+        .mockResolvedValueOnce({ rows: [] }) // active attempt
+        .mockResolvedValueOnce({ rows: [] }) // session
+        .mockResolvedValueOnce({ rows: [] }) // latest evaluated attempt
+        .mockResolvedValueOnce({ rows: [] }), // competency state
+    } as unknown as Pool;
+
+    const service = new PlanningService(mockPool);
+    const dashboard = await service.dashboard(learnerId);
+
+    expect(dashboard.nextAction.type).toBe('SET_GOAL');
+    expect(dashboard.goal).toBeNull();
+    expect(dashboard.plan).toBeNull();
+    const parsed = dashboardSchema.safeParse(dashboard);
+    expect(parsed.success).toBe(true);
+  });
+
+  it('returns valid OPEN_LESSON dashboard when learner has pending blocks', async () => {
+    const blockId = '44444444-4444-4000-8000-444444444444';
+    const lessonUuid = '10000000-0000-4000-8000-000000000008';
+    const mockGoal = {
+      id: goalId,
+      version: 1,
+      purpose: 'GENERAL_ENGLISH',
+      target_band: null,
+      deadline: null,
+      study_minutes_per_day: 20,
+      status: 'ACTIVE',
+    };
+    const mockPool = {
+      query: vi.fn()
+        .mockResolvedValueOnce({ rows: [mockGoal] }) // getGoal
+        .mockResolvedValueOnce({ rows: [{ id: planId, local_date: '2026-10-26', timezone: 'Asia/Ho_Chi_Minh', policy_version: 'PLAN_01_V1', goal_id: goalId }] }) // getToday plan
+        .mockResolvedValueOnce({
+          rows: [
+            { id: blockId, position: 1, block_type: 'LESSON', lesson_id: lessonUuid, status: 'PENDING', due_at: null, estimated_minutes: 15 },
+          ],
+        }) // getToday blocks
+        .mockResolvedValueOnce({ rows: [] }) // active attempt
+        .mockResolvedValueOnce({ rows: [] }) // session
+        .mockResolvedValueOnce({ rows: [] }) // latest evaluated attempt
+        .mockResolvedValueOnce({ rows: [] }), // competency state
+    } as unknown as Pool;
+
+    const service = new PlanningService(mockPool);
+    const dashboard = await service.dashboard(learnerId);
+
+    expect(dashboard.nextAction.type).toBe('OPEN_LESSON');
+    expect(dashboard.nextAction.planBlockId).toBe(blockId);
+    expect(dashboard.goal).not.toBeNull();
+    expect(dashboard.plan).not.toBeNull();
+    const parsed = dashboardSchema.safeParse(dashboard);
+    expect(parsed.success).toBe(true);
   });
 });

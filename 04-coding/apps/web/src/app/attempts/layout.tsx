@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server';
 
 export default async function AttemptsLayout({ children }: { children: React.ReactNode }) {
-  await auth.protect();
+  await auth.protect({ unauthenticatedUrl: '/sign-in' });
   return <>{children}</>;
 }

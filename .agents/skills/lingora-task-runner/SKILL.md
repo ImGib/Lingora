@@ -17,3 +17,8 @@ Kỹ năng dùng chung cho mọi Agent để tự vận hành vòng đời task 
    - **Cổng cơ học siêu tốc:** Chạy `pnpm verify:fast` (song song cả contracts, api, web trong ~7s, lọc 95% log thừa).
    - **Kiểm chứng giao diện (Nếu là task UI):** Chạy `pnpm test:evidence` để sinh ảnh bằng chứng tại `05-testing/evidence/`.
    - **Đóng task:** Chỉ khi lệnh thoát với mã `0 error`, chạy `node D:\Lingora\.agents\scripts\task-coordinator.mjs complete <TASK_ID>`. Coordinator kiểm tra lại trong worktree và chỉ hợp nhất `allowed_files` khi không có xung đột.
+
+## API Dashboard deploy gate
+- `test:smoke` chỉ xác nhận CORS và `SELECT 1`; nó không xác nhận dashboard sau đăng nhập. Khi gặp 500 ở `/v1/dashboard`, kiểm tra cả `/v1/me` để xác định lỗi chung của xác thực/kết nối trước khi sửa planning logic.
+- API build và `build:api:fast` phải chạy `test:predeploy`: unit tests cùng truy vấn dashboard đọc thực tế trên `DATABASE_URL`. Không deploy nếu cổng này thất bại.
+- Nếu mọi route có Bearer token trả 500 còn route không token trả 401, đối chiếu `supavisor_logs` của Supabase đúng thời điểm request. Mã `28P01` / `ECHECKOUTFAILED` chỉ ra credentials của pool không hợp lệ; kiểm tra `DATABASE_URL` trên Vercel và project Supabase đích trước khi thay đổi logic dashboard.
