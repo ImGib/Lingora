@@ -18,9 +18,10 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
    - It outputs `allowed_files` and an isolated `workspace_path`. Edit task files only inside that worktree. It never reassigns an `IN_PROGRESS` task based on elapsed time alone; explicitly use `release <TASK_ID>` only after confirming the owner has stopped.
    - For subagent dispatch / new chat tab: Run `node .agents/scripts/task-coordinator.mjs generate-prompt <TASK_ID>` to get a zero-history, token-optimized prompt packet.
 
-2. **REUSE EXISTING SHARED COMPONENTS (Save 80% tokens - DO NOT REINVENT):**
-   - Check `.agents/coordination/component-catalog.json` before writing any new UI component.
-   - All core components (`InteractiveBackground`, `HeaderNav`, `AudioButton`, `IpaMouthStudio`, `GrammarMasterclass`, `MultipleChoiceCard`, `FillBlankCard`, `SpeechRecorderCard`, `ModalFaultSimulation`) are ALREADY built and tested. Simply import and assemble them!
+2. **REUSE EXISTING SHARED COMPONENTS & FAST SCOUTING (Save 80% tokens - DO NOT REINVENT):**
+   - Run `pnpm scout <symbol>` (or check `.agents/coordination/component-catalog.json`) before reading large files or writing new components.
+   - Run `pnpm skill <keyword>` to fetch exact invariant rules in <10 lines without loading whole skill files.
+   - All core components (`InteractiveBackground`, `HeaderNav`, `AudioButton`, `IpaMouthStudio`, `GrammarMasterclass`, `MultipleChoiceCard`, `FillBlankCard`, `SpeechRecorderCard`, `ModalFaultSimulation`, `RoadmapInteractiveView`, `GrammarCatalog`) are ALREADY built and tested. Simply import and assemble them!
 
 3. **STRICT ISOLATION & DIRECTORY BOUNDARY:**
    - You are ONLY permitted to edit or create files explicitly listed in that claimed task's `"allowed_files"` array.
@@ -44,11 +45,11 @@ You are an autonomous AI coding agent operating inside the Lingora workspace (`D
    - The user or next agent will read `.agents/coordination/checkpoints/<TASK_ID>.json` and resume seamlessly without losing a single line of progress!
 
 6. **MECHANICAL-FIRST VERIFICATION & HANDOVER (Fast & Zero-Token-Waste):**
-   - Run `pnpm verify:fast` (parallel mechanical typechecks in ~7s with filtered stdout) or `pnpm --filter @lingora/web typecheck`.
+   - Run `pnpm verify:fast` (parallel mechanical typechecks in ~7s with filtered stdout, which automatically synchronizes code index, component catalog, and web architecture locator maps).
    - For UI tasks: run `pnpm test:ui-ux` (WCAG AA & 390px zero overflow) and `pnpm test:evidence` (Playwright screenshot evidence).
    - For infrastructure verification: run `pnpm test:smoke` (CORS preflight & live DB handshake).
    - For build validation: use `pnpm build:fast` (incremental contracts cache, parallel build in ~13s).
-   - Once it exits with 0 errors, run `node D:\Lingora\.agents\scripts\task-coordinator.mjs complete <TASK_ID>`. For worktree tasks, this command verifies again, checks merge conflicts, and copies only assigned files into the main workspace.
+   - Once it exits with 0 errors, run `node D:\Lingora\.agents\scripts\task-coordinator.mjs complete <TASK_ID>`. For worktree tasks, this command verifies again, checks merge conflicts, copies only assigned files into the main workspace, and refreshes the locator index.
    - Never edit `parallel-task-pool.json` directly; that bypasses the coordinator lock and state checks.
    - Report concise completion to the user (status + 1-2 sentence summary).
 

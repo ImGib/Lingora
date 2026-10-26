@@ -1,15 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
-import { PhonemeSpec, IpaMouthStudio } from './ipa-mouth-studio';
-import { AudioButton } from '@/components/common/audio-button';
+import React, { useState, useRef, useEffect } from 'react';
+import { IpaMouthStudio, type PhonemeSpec } from './ipa-mouth-studio';
 
 export interface FullIpaSoundItem extends PhonemeSpec {
   category: 'monophthong' | 'diphthong' | 'consonant';
   subCategory?: string;
 }
 
-export const ALL_44_IPA_PHONEMES: FullIpaSoundItem[] = [
+const RAW_44_IPA_PHONEMES: FullIpaSoundItem[] = [
   // 1. Monophthongs (12 âm)
   {
     symbol: '/iː/',
@@ -677,13 +676,82 @@ export const ALL_44_IPA_PHONEMES: FullIpaSoundItem[] = [
   }
 ];
 
+const PHONEME_PEDAGOGICAL_META: Record<string, { isVoiced: boolean; isLong?: boolean; vietnameseTip: string }> = {
+  '/iː/': { isVoiced: true, isLong: true, vietnameseTip: 'Người Việt hay đọc ngắn như chữ "i" trong "ti vi". Hãy kéo căng 2 khóe miệng sang ngang như đang cười tươi và ngân dài 2 nhịp.' },
+  '/ɪ/': { isVoiced: true, isLong: false, vietnameseTip: 'Đừng đọc thành "i" hay "ê". Hãy thả lỏng hoàn toàn cơ miệng và hàm, phát âm cực dứt khoát nửa nhịp.' },
+  '/e/': { isVoiced: true, isLong: false, vietnameseTip: 'Mở rộng miệng vừa phải hơn âm "e" tiếng Việt, phát âm dứt khoát không kéo dài.' },
+  '/æ/': { isVoiced: true, isLong: false, vietnameseTip: 'Âm "a bẹt" huyền thoại. Hạ cằm thật sâu, khóe miệng kéo rộng sang hai bên, phát âm lai giữa "a" và "e".' },
+  '/ɑː/': { isVoiced: true, isLong: true, vietnameseTip: 'Mở rộng miệng tròn, lưỡi hạ thật thấp và sâu ở cuống họng, ngân dài "a..." trầm và ấm.' },
+  '/ɒ/': { isVoiced: true, isLong: false, vietnameseTip: 'Khẩu hình tròn môi nhẹ, hàm hạ sâu, phát âm dứt khoát gọn gàng (như trong box, hot).' },
+  '/ɔː/': { isVoiced: true, isLong: true, vietnameseTip: 'Chu môi tròn hẳn thành hình ống, ngân dài "o..." sâu trong cuống họng 2 nhịp.' },
+  '/ʊ/': { isVoiced: true, isLong: false, vietnameseTip: 'Đừng chu mỏ đọc thành "u" tiếng Việt. Môi mở hờ thả lỏng, phát âm cực gọn nửa nhịp (như trong book, put).' },
+  '/uː/': { isVoiced: true, isLong: true, vietnameseTip: 'Chu môi thật tròn và đưa ra phía trước, ngân dài âm "u..." căng tròn 2 nhịp (như trong food, blue).' },
+  '/ʌ/': { isVoiced: true, isLong: false, vietnameseTip: 'Âm "á" ngắn nhẹ. Miệng mở tự nhiên, lưỡi thả lỏng ở giữa, phát âm gọn dứt khoát (như trong cup, love).' },
+  '/ɜː/': { isVoiced: true, isLong: true, vietnameseTip: 'Môi hơi mở, đầu lưỡi hơi cong nhẹ hướng lên vòm trên, ngân dài âm "ơ..." sâu trong cuống họng (như trong bird, girl).' },
+  '/ə/': { isVoiced: true, isLong: false, vietnameseTip: 'Âm Schwa phổ biến nhất tiếng Anh. Thả lỏng toàn bộ cơ mặt, đọc thật nhẹ và ngắn (như trong about, teacher).' },
+  '/eɪ/': { isVoiced: true, vietnameseTip: 'Tránh đọc thành âm "ây" phẳng của tiếng Việt. Bắt đầu từ /e/ rồi lướt mượt khép dần sang /ɪ/ (như trong day, make).' },
+  '/aɪ/': { isVoiced: true, vietnameseTip: 'Mở rộng miệng đọc /a/ rồi trượt khép mượt sang /ɪ/, tạo thành âm "ai" sang trọng (như trong time, my).' },
+  '/ɔɪ/': { isVoiced: true, vietnameseTip: 'Chu tròn môi đọc /ɔː/ rồi trượt dẹt sang /ɪ/ (như trong boy, choice).' },
+  '/aʊ/': { isVoiced: true, vietnameseTip: 'Mở rộng miệng /a/ rồi chu môi trượt sang /ʊ/, không đọc thành "ao" cụt ngủn (như trong now, sound).' },
+  '/əʊ/': { isVoiced: true, vietnameseTip: 'Bắt đầu từ âm /ə/ thả lỏng rồi chu tròn môi về /ʊ/, không đọc thành âm "ô" thuần (như trong go, home).' },
+  '/ɪə/': { isVoiced: true, vietnameseTip: 'Đọc âm /ɪ/ rồi thả lỏng lướt về /ə/, tạo thành âm "ia" nhẹ nhàng (như trong here, near).' },
+  '/eə/': { isVoiced: true, vietnameseTip: 'Đọc âm /e/ mở vừa rồi lướt về /ə/ (như trong hair, care).' },
+  '/ʊə/': { isVoiced: true, vietnameseTip: 'Chu môi nhẹ đọc /ʊ/ rồi thả lỏng trượt về /ə/ (như trong tourist, poor).' },
+  '/p/': { isVoiced: false, vietnameseTip: 'Âm vô thanh: Ngậm chặt 2 môi rồi bật mạnh luồng hơi ra, cổ họng KHÔNG được rung (đặt tờ giấy trước miệng sẽ bay).' },
+  '/b/': { isVoiced: true, vietnameseTip: 'Âm hữu thanh: Ngậm 2 môi và bật ra đồng thời làm RUNG mạnh dây thanh quản ở cổ.' },
+  '/t/': { isVoiced: false, vietnameseTip: 'Đầu lưỡi chạm gờ nướu trên rồi giật bật mạnh luồng hơi xuống, cổ họng không rung (tránh đọc thành chữ "th" hay "t" tiếng Việt).' },
+  '/d/': { isVoiced: true, vietnameseTip: 'Vị trí lưỡi giống /t/ nhưng phải RUNG cổ họng thật rõ ràng, đặc biệt ở cuối từ (need, bad).' },
+  '/tʃ/': { isVoiced: false, vietnameseTip: 'Chu môi nhẹ, đầu lưỡi chạm gờ nướu rồi bật mạnh xì hơi (như trong church, watch), không rung cổ.' },
+  '/dʒ/': { isVoiced: true, vietnameseTip: 'Khẩu hình giống /tʃ/ nhưng bắt buộc phải RUNG mạnh cổ họng (như trong judge, job, age).' },
+  '/k/': { isVoiced: false, vietnameseTip: 'Nâng cuống lưỡi chạm vòm mềm chặn hơi rồi bật dứt khoát tiếng "khạc" hơi nhẹ, cổ họng không rung (cat, like).' },
+  '/ɡ/': { isVoiced: true, vietnameseTip: 'Vị trí giống /k/ nhưng chặn hơi rồi bật ra kèm RUNG mạnh dây thanh quản (go, big).' },
+  '/f/': { isVoiced: false, vietnameseTip: 'Răng cửa trên chạm nhẹ môi dưới, đẩy luồng hơi xì qua kẽ răng, cổ họng không rung (coffee, laugh).' },
+  '/v/': { isVoiced: true, vietnameseTip: 'Răng cửa trên cắn môi dưới như /f/ nhưng phải RUNG mạnh cổ họng (voice, leave).' },
+  '/θ/': { isVoiced: false, vietnameseTip: 'Cực kỳ quan trọng: Thè đầu lưỡi ra giữa 2 hàm răng, thổi luồng hơi xì qua mặt lưỡi, không rung cổ (think, tooth). Tuyệt đối không đọc thành "th" hay "t".' },
+  '/ð/': { isVoiced: true, vietnameseTip: 'Đặt lưỡi giữa 2 răng giống /θ/ nhưng phải RUNG cổ họng (this, that, mother).' },
+  '/s/': { isVoiced: false, vietnameseTip: 'Khép 2 hàm răng gần nhau, đẩy luồng hơi xì rít mỏng qua kẽ răng (see, rice), cổ không rung.' },
+  '/z/': { isVoiced: true, vietnameseTip: 'Khép răng xì hơi giống /s/ nhưng phải RUNG mạnh thanh quản (zoo, easy, buzz).' },
+  '/ʃ/': { isVoiced: false, vietnameseTip: 'Âm "s nặng": Chu môi đưa về phía trước, thân lưỡi vồng cao xì hơi mạnh như đang ra hiệu "Suỵt!" (she, wash).' },
+  '/ʒ/': { isVoiced: true, vietnameseTip: 'Khẩu hình giống /ʃ/ nhưng rung mạnh cổ họng (vision, measure, pleasure).' },
+  '/h/': { isVoiced: false, vietnameseTip: 'Mở miệng tự nhiên, thở hắt một luồng hơi nhẹ từ cuống họng ra ngoài như tiếng thở dài (hat, home).' },
+  '/m/': { isVoiced: true, vietnameseTip: 'Ngậm khép 2 môi, rung thanh quản cho luồng hơi thoát ra qua đường mũi (man, time).' },
+  '/n/': { isVoiced: true, vietnameseTip: 'Đầu lưỡi dán chặt lên gờ nướu trên, hơi thoát qua mũi (no, sun).' },
+  '/ŋ/': { isVoiced: true, vietnameseTip: 'Cuống lưỡi nâng cao bịt kín vòm mềm, hơi rung thoát qua mũi (sing, long, ring).' },
+  '/l/': { isVoiced: true, vietnameseTip: 'Đầu lưỡi chạm nướu trên, luồng hơi thoát ra 2 bên mép lưỡi. Khi đứng cuối từ (Dark L: milk, feel) hãy giữ nguyên đầu lưỡi ở nướu.' },
+  '/r/': { isVoiced: true, vietnameseTip: 'Chu môi nhẹ, đầu lưỡi uốn cong về phía sau nhưng KHÔNG được chạm vào vòm miệng (red, run).' },
+  '/w/': { isVoiced: true, vietnameseTip: 'Chu môi tròn thật nhỏ đưa ra trước rồi mở bung mượt mà (we, water).' },
+  '/j/': { isVoiced: true, vietnameseTip: 'Nâng thân lưỡi sát vòm cứng, lướt nhanh tạo âm "d-i" mềm mại (yes, you, young).' }
+};
+
+export const ALL_44_IPA_PHONEMES: FullIpaSoundItem[] = RAW_44_IPA_PHONEMES.map((item) => {
+  const meta = PHONEME_PEDAGOGICAL_META[item.symbol];
+  return {
+    ...item,
+    isVoiced: meta?.isVoiced ?? true,
+    isLong: meta?.isLong,
+    vietnameseTip: meta?.vietnameseTip,
+  };
+});
+
+type TabFilter = 'all' | 'monophthong' | 'diphthong' | 'consonant_voiced' | 'consonant_voiceless';
+
 export function IpaFullChart() {
   const [selectedSymbol, setSelectedSymbol] = useState<string>('/iː/');
-  const [tabFilter, setTabFilter] = useState<'all' | 'monophthong' | 'diphthong' | 'consonant'>('all');
+  const [tabFilter, setTabFilter] = useState<TabFilter>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [showFloatingJump, setShowFloatingJump] = useState<boolean>(false);
+
+  const studioRef = useRef<HTMLDivElement>(null);
+  const activePillRef = useRef<HTMLButtonElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const filteredPhonemes = ALL_44_IPA_PHONEMES.filter((p) => {
-    const matchesTab = tabFilter === 'all' || p.category === tabFilter;
+    let matchesTab = true;
+    if (tabFilter === 'monophthong') matchesTab = p.category === 'monophthong';
+    else if (tabFilter === 'diphthong') matchesTab = p.category === 'diphthong';
+    else if (tabFilter === 'consonant_voiced') matchesTab = p.category === 'consonant' && p.isVoiced === true;
+    else if (tabFilter === 'consonant_voiceless') matchesTab = p.category === 'consonant' && p.isVoiced === false;
+
     const matchesSearch =
       !searchTerm ||
       p.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -695,149 +763,406 @@ export function IpaFullChart() {
   const selectedPhoneme =
     ALL_44_IPA_PHONEMES.find((p) => p.symbol === selectedSymbol) ?? ALL_44_IPA_PHONEMES[0];
 
+  const currentIdx = filteredPhonemes.findIndex((p) => p.symbol === selectedSymbol);
+
+  const handlePrev = () => {
+    if (filteredPhonemes.length === 0) return;
+    const nextIdx = currentIdx <= 0 ? filteredPhonemes.length - 1 : currentIdx - 1;
+    const item = filteredPhonemes[nextIdx];
+    if (item) {
+      setSelectedSymbol(item.symbol);
+    }
+  };
+
+  const handleNext = () => {
+    if (filteredPhonemes.length === 0) return;
+    const nextIdx = currentIdx >= filteredPhonemes.length - 1 ? 0 : currentIdx + 1;
+    const item = filteredPhonemes[nextIdx];
+    if (item) {
+      setSelectedSymbol(item.symbol);
+    }
+  };
+
+  const handleSelectPhoneme = (symbol: string, shouldScroll = false) => {
+    setSelectedSymbol(symbol);
+    if (shouldScroll && studioRef.current) {
+      studioRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const playQuickAudio = (word: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(word);
+      u.lang = 'en-US';
+      u.rate = 1;
+      window.speechSynthesis.speak(u);
+    }
+  };
+
+  // Keyboard navigation: ArrowLeft and ArrowRight to navigate sounds effortlessly
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        document.activeElement?.tagName === 'INPUT' ||
+        document.activeElement?.tagName === 'TEXTAREA'
+      ) {
+        return;
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handlePrev();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleNext();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIdx, filteredPhonemes]);
+
+  // Keep active pill scrolled into view horizontally
+  useEffect(() => {
+    if (activePillRef.current) {
+      activePillRef.current.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+    }
+  }, [selectedSymbol]);
+
+  // IntersectionObserver to show floating jump button when scrolled down past the studio
+  useEffect(() => {
+    const studioEl = studioRef.current;
+    if (!studioEl || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        setShowFloatingJump(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(studioEl);
+    return () => observer.disconnect();
+  }, []);
+
+  const getCardTheme = (p: FullIpaSoundItem, isSelected: boolean) => {
+    if (p.category === 'monophthong') {
+      if (p.isLong) {
+        return {
+          cardClass: isSelected
+            ? 'border-amber-500 bg-amber-50 shadow-md ring-2 ring-amber-400/50 -translate-y-0.5'
+            : 'border-amber-200/90 bg-amber-50/30 hover:border-amber-400 hover:bg-amber-50/60',
+          symbolClass: isSelected ? 'text-amber-800' : 'text-amber-950',
+          badgeText: '⏱️ Dài',
+          badgeClass: 'bg-amber-100 text-amber-800 border-amber-200',
+          pillBg: isSelected ? 'bg-amber-500 text-white' : 'bg-amber-50 text-amber-800 border-amber-200',
+        };
+      }
+      return {
+        cardClass: isSelected
+          ? 'border-sky-500 bg-sky-50 shadow-md ring-2 ring-sky-400/50 -translate-y-0.5'
+          : 'border-sky-200/90 bg-sky-50/30 hover:border-sky-400 hover:bg-sky-50/60',
+        symbolClass: isSelected ? 'text-sky-800' : 'text-sky-950',
+        badgeText: '⚡ Ngắn',
+        badgeClass: 'bg-sky-100 text-sky-800 border-sky-200',
+        pillBg: isSelected ? 'bg-sky-500 text-white' : 'bg-sky-50 text-sky-800 border-sky-200',
+      };
+    }
+    if (p.category === 'diphthong') {
+      return {
+        cardClass: isSelected
+          ? 'border-purple-500 bg-purple-50 shadow-md ring-2 ring-purple-400/50 -translate-y-0.5'
+          : 'border-purple-200/90 bg-purple-50/30 hover:border-purple-400 hover:bg-purple-50/60',
+        symbolClass: isSelected ? 'text-purple-800' : 'text-purple-950',
+        badgeText: '↷ Đôi',
+        badgeClass: 'bg-purple-100 text-purple-800 border-purple-200',
+        pillBg: isSelected ? 'bg-purple-600 text-white' : 'bg-purple-50 text-purple-800 border-purple-200',
+      };
+    }
+    if (p.isVoiced) {
+      return {
+        cardClass: isSelected
+          ? 'border-emerald-500 bg-emerald-50 shadow-md ring-2 ring-emerald-400/50 -translate-y-0.5'
+          : 'border-emerald-200/90 bg-emerald-50/30 hover:border-emerald-400 hover:bg-emerald-50/60',
+        symbolClass: isSelected ? 'text-emerald-800' : 'text-emerald-950',
+        badgeText: '⚡ Rung',
+        badgeClass: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+        pillBg: isSelected ? 'bg-emerald-600 text-white' : 'bg-emerald-50 text-emerald-800 border-emerald-200',
+      };
+    }
+    return {
+      cardClass: isSelected
+        ? 'border-rose-500 bg-rose-50 shadow-md ring-2 ring-rose-400/50 -translate-y-0.5'
+        : 'border-rose-200/90 bg-rose-50/30 hover:border-rose-400 hover:bg-rose-50/60',
+      symbolClass: isSelected ? 'text-rose-800' : 'text-rose-950',
+      badgeText: '💨 Hơi',
+      badgeClass: 'bg-rose-100 text-rose-800 border-rose-200',
+      pillBg: isSelected ? 'bg-rose-500 text-white' : 'bg-rose-50 text-rose-800 border-rose-200',
+    };
+  };
+
   return (
-    <div className="space-y-10">
-      {/* Detail 1-phoneme Viewport (Strict 1 phoneme/viewport invariant) */}
-      <section className="bg-slate-50/70 p-4 sm:p-6 rounded-3xl border border-indigo-100 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
-            <span className="text-xs font-extrabold uppercase tracking-wider text-indigo-700">
-              Chi tiết khẩu hình âm đang chọn
-            </span>
-          </div>
-          <span className="text-xs text-slate-500 font-medium">
-            1 Âm / 1 Màn hình hiển thị chuẩn xác
-          </span>
-        </div>
-
-        {selectedPhoneme && <IpaMouthStudio phonemes={[selectedPhoneme]} />}
-      </section>
-
-      {/* 44-Phoneme Chart Navigation Grid */}
-      <section className="card p-6 sm:p-8 bg-white rounded-3xl border border-[#e8e1ec] shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
-          <div>
-            <h2 className="text-2xl font-extrabold text-[#34303d] tracking-tight">
-              Bảng Tổng Hợp 44 Âm IPA Chuẩn Quốc Tế
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Nhấp vào bất kỳ âm nào để mở khẩu hình trực quan và nghe audio song tốc.
-            </p>
-          </div>
-
-          {/* Search box */}
-          <div className="relative min-w-[240px]">
-            <input
-              type="text"
-              placeholder="Tìm âm (/æ/, see, e...)"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-indigo-500 bg-slate-50"
-            />
-            {searchTerm && (
-              <button
-                onClick={() => setSearchTerm('')}
-                className="absolute right-2.5 top-2.5 text-xs text-slate-400 hover:text-slate-600"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Tab Filters */}
-        <div className="flex flex-wrap items-center gap-2 pt-6 pb-6">
-          <button
-            onClick={() => setTabFilter('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-              tabFilter === 'all'
-                ? 'bg-indigo-600 text-white shadow-md'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            Tất cả 44 âm ({ALL_44_IPA_PHONEMES.length})
-          </button>
-          <button
-            onClick={() => setTabFilter('monophthong')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-              tabFilter === 'monophthong'
-                ? 'bg-indigo-600 text-white shadow-md'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            Nguyên âm đơn (12)
-          </button>
-          <button
-            onClick={() => setTabFilter('diphthong')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-              tabFilter === 'diphthong'
-                ? 'bg-indigo-600 text-white shadow-md'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            Nguyên âm đôi (8)
-          </button>
-          <button
-            onClick={() => setTabFilter('consonant')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-              tabFilter === 'consonant'
-                ? 'bg-indigo-600 text-white shadow-md'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            Phụ âm (24)
-          </button>
-        </div>
-
-        {/* Phonemes Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-          {filteredPhonemes.map((p) => {
-            const isSelected = p.symbol === selectedSymbol;
-            return (
-              <div
-                key={p.symbol}
-                onClick={() => setSelectedSymbol(p.symbol)}
-                className={`cursor-pointer p-3 rounded-2xl border text-center transition-all flex flex-col justify-between items-center group ${
-                  isSelected
-                    ? 'border-indigo-600 bg-indigo-50/80 shadow-md ring-2 ring-indigo-500/30 -translate-y-0.5'
-                    : 'border-slate-200/80 bg-white hover:border-indigo-300 hover:bg-slate-50/80'
-                }`}
-              >
-                <span className="text-xs text-slate-400 font-mono tracking-tight self-end">
-                  {p.subCategory ? p.subCategory.split(' ')[1] ?? '' : ''}
+    <div className="space-y-6">
+      <div ref={studioRef} className="scroll-mt-4">
+        {/* Responsive Master-Detail Grid: Side-by-side on desktop, stacked on mobile */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* LEFT COLUMN: 44-Phoneme Navigator Panel (Desktop: lg:col-span-5) */}
+          <section className="order-2 lg:order-1 lg:col-span-5 bg-white rounded-3xl border border-slate-200/90 shadow-sm p-5 md:p-6 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:flex lg:flex-col">
+            {/* Panel Header */}
+            <div className="border-b border-slate-100 pb-4 mb-4">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <div>
+                  <h2 className="text-lg md:text-xl font-extrabold text-[#34303d] tracking-tight">
+                    Bảng 44 Âm IPA
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Màu sắc sư phạm trực quan phân nhóm âm vị
+                  </p>
+                </div>
+                <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+                  {filteredPhonemes.length} / 44 âm
                 </span>
+              </div>
 
-                <div className="my-1.5">
-                  <span
-                    className={`text-xl sm:text-2xl font-black font-mono block ${
-                      isSelected ? 'text-indigo-700' : 'text-slate-800 group-hover:text-indigo-600'
+              {/* Search Box */}
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Tìm âm (/æ/, see, cat...)"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full text-xs px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-indigo-500 bg-slate-50 transition-colors"
+                />
+                {searchTerm && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchTerm('')}
+                    className="absolute right-2.5 top-2 text-xs text-slate-400 hover:text-slate-600 font-bold"
+                    aria-label="Xóa tìm kiếm"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Category Filter Tabs */}
+              <div className="flex flex-wrap gap-1.5 pt-3">
+                {[
+                  { id: 'all', label: 'Tất cả (44)' },
+                  { id: 'monophthong', label: 'Nguyên âm đơn (12)' },
+                  { id: 'diphthong', label: 'Nguyên âm đôi (8)' },
+                  { id: 'consonant_voiced', label: 'Phụ âm rung (15)' },
+                  { id: 'consonant_voiceless', label: 'Phụ âm hơi (9)' },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setTabFilter(tab.id as TabFilter)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                      tabFilter === tab.id
+                        ? 'bg-indigo-600 text-white shadow-2xs'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
                   >
-                    {p.symbol}
-                  </span>
-                  <span className="text-[11px] font-semibold text-slate-500 block truncate max-w-[90px]">
-                    {p.sampleWord}
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Phonemes Grid (Scrollable in Desktop sticky container) */}
+            <div className="lg:overflow-y-auto lg:flex-1 pr-1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                {filteredPhonemes.map((p) => {
+                  const isSelected = p.symbol === selectedSymbol;
+                  const theme = getCardTheme(p, isSelected);
+
+                  return (
+                    <div
+                      key={p.symbol}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => handleSelectPhoneme(p.symbol, true)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleSelectPhoneme(p.symbol, true);
+                        }
+                      }}
+                      aria-label={`Âm ${p.symbol}, ví dụ ${p.sampleWord}`}
+                      className={`cursor-pointer p-3 rounded-2xl border text-center transition-all flex flex-col justify-between items-center group relative min-h-[96px] select-none ${theme.cardClass}`}
+                    >
+                      {/* Top Badges */}
+                      <div className="w-full flex items-center justify-between text-[10px] font-bold">
+                        <span className={`px-1.5 py-0.2 rounded-md border ${theme.badgeClass}`}>
+                          {theme.badgeText}
+                        </span>
+                        <span className="text-slate-400 font-mono text-[9px]">
+                          {p.subCategory ? p.subCategory.split(' ')[0] : ''}
+                        </span>
+                      </div>
+
+                      {/* Center Symbol & Word */}
+                      <div className="my-1">
+                        <span className={`text-xl sm:text-2xl font-black font-mono block ${theme.symbolClass}`}>
+                          {p.symbol}
+                        </span>
+                        <span className="text-xs font-bold text-slate-700 block truncate max-w-[95px] mt-0.5">
+                          {p.sampleWord}
+                        </span>
+                      </div>
+
+                      {/* Quick Listen Audio Button */}
+                      <div className="w-full flex items-center justify-between pt-1 border-t border-slate-200/50 text-[10px] text-slate-400">
+                        <span className="truncate">{p.sampleMeaning}</span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            playQuickAudio(p.sampleWord, e);
+                          }}
+                          title={`Nghe phát âm ${p.sampleWord}`}
+                          aria-label={`Nghe phát âm ${p.sampleWord}`}
+                          className="h-5 w-5 rounded-full hover:bg-white/80 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-colors"
+                        >
+                          🔊
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {filteredPhonemes.length === 0 && (
+                <div className="py-8 text-center text-slate-400 text-xs">
+                  Không tìm thấy âm vị nào phù hợp với từ khóa &quot;{searchTerm}&quot;.
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* RIGHT COLUMN: Active Mouth Studio & In-Studio Quick Bar (Desktop: lg:col-span-7) */}
+          <section className="order-1 lg:order-2 lg:col-span-7 space-y-4 lg:sticky lg:top-4">
+            
+            {/* Quick Nav Ribbon (Zero-scroll switcher right above studio) */}
+            <div className="bg-white rounded-2xl border border-indigo-100 shadow-sm p-3 md:p-4">
+              <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-100 mb-2.5">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-indigo-700">
+                    Chọn âm nhanh (Không cần cuộn trang)
                   </span>
                 </div>
-
-                <div
-                  onClick={(e) => e.stopPropagation()}
-                  className="mt-1 pt-1.5 border-t border-slate-100 w-full flex justify-center"
-                >
-                  <AudioButton text={p.sampleWord} className="scale-75 origin-center" />
+                
+                {/* Prev / Next Buttons */}
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    aria-label="Âm trước (Phím mũi tên trái)"
+                    title="Âm trước (Phím ←)"
+                    className="px-2.5 py-1 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg transition-colors flex items-center gap-1 min-h-[32px]"
+                  >
+                    ← Trước
+                  </button>
+                  <span className="text-[11px] font-mono font-bold text-slate-500 px-1">
+                    {currentIdx >= 0 ? currentIdx + 1 : 1}/{filteredPhonemes.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    aria-label="Âm tiếp theo (Phím mũi tên phải)"
+                    title="Âm tiếp theo (Phím →)"
+                    className="px-2.5 py-1 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors flex items-center gap-1 min-h-[32px]"
+                  >
+                    Tiếp →
+                  </button>
                 </div>
               </div>
-            );
-          })}
-        </div>
 
-        {filteredPhonemes.length === 0 && (
-          <div className="py-12 text-center text-slate-400 text-xs">
-            Không tìm thấy âm vị nào phù hợp với từ khóa "{searchTerm}".
-          </div>
-        )}
-      </section>
+              {/* Horizontal Quick Phonemes Strip */}
+              <div
+                ref={scrollContainerRef}
+                className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-1"
+                role="tablist"
+                aria-label="Thanh chọn âm nhanh"
+              >
+                {filteredPhonemes.map((p) => {
+                  const isSelected = p.symbol === selectedSymbol;
+                  const theme = getCardTheme(p, isSelected);
+
+                  return (
+                    <button
+                      key={p.symbol}
+                      ref={isSelected ? activePillRef : null}
+                      type="button"
+                      role="tab"
+                      aria-selected={isSelected}
+                      onClick={() => handleSelectPhoneme(p.symbol, false)}
+                      className={`flex-shrink-0 px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition-all flex items-center gap-1.5 min-h-[36px] ${
+                        isSelected
+                          ? `${theme.pillBg} shadow-sm ring-2 ring-indigo-400/50 scale-105`
+                          : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/80'
+                      }`}
+                    >
+                      <span>{p.symbol}</span>
+                      <span
+                        className={`text-[10px] font-sans opacity-80 ${
+                          isSelected ? 'text-white' : 'text-slate-400'
+                        }`}
+                      >
+                        {p.sampleWord}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Detailed 1-phoneme Mouth Studio */}
+            <div className="bg-slate-50/70 p-1 sm:p-2 rounded-3xl border border-indigo-100/70 shadow-sm">
+              {selectedPhoneme && (
+                <IpaMouthStudio
+                  phonemes={[selectedPhoneme]}
+                  activeSymbol={selectedPhoneme.symbol}
+                  hideTabs={true}
+                  headerExtra={
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-xl border border-indigo-100">
+                        {selectedPhoneme.subCategory ?? selectedPhoneme.label}
+                      </span>
+                    </div>
+                  }
+                />
+              )}
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      {/* FLOATING QUICK-RETURN PILL (Appears on mobile when scrolled down) */}
+      {showFloatingJump && (
+        <div className="fixed bottom-6 right-6 z-40 lg:hidden">
+          <button
+            type="button"
+            onClick={() => studioRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-full shadow-lg shadow-indigo-500/30 transition-all transform hover:scale-105"
+            aria-label="Cuộn lên xem khẩu hình âm đang chọn"
+          >
+            <span>🔬 Khẩu hình:</span>
+            <span className="font-mono bg-white/20 px-1.5 py-0.5 rounded">{selectedSymbol}</span>
+            <span>↑</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

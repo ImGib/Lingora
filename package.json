@@ -21,7 +21,13 @@
     "mcp:supabase": "node .agents/scripts/configure-supabase-mcp.mjs",
     "test:smoke": "node .agents/scripts/smoke-test.mjs",
     "test:ui-ux": "node .agents/scripts/ui-ux-test.mjs",
-    "test:all": "pnpm verify:fast && pnpm test:ui-ux"
+    "test:all": "pnpm verify:fast && pnpm test:ui-ux",
+    "scout": "node .agents/scripts/code-scout.mjs",
+    "scout:index": "node .agents/scripts/code-scout.mjs index",
+    "skill": "node .agents/scripts/skill-scout.mjs",
+    "know": "node .agents/scripts/skill-scout.mjs",
+    "web": "node .agents/scripts/web-scout.mjs",
+    "autogen": "node .agents/scripts/autogen-locator.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",

@@ -454,6 +454,16 @@ switch (action) {
       writeJson(POOL_PATH, pool);
     }
 
+    // Automatically regenerate codebase locator maps upon task completion
+    try {
+      spawnSync(process.execPath, [path.resolve(__dirname, 'autogen-locator.mjs')], {
+        stdio: 'inherit',
+        cwd: REPO_ROOT,
+      });
+    } catch (e) {
+      console.warn('⚠️ Autogen locator update warning:', e.message);
+    }
+
     console.log(JSON.stringify({ success: true, task_id: taskId, status: 'COMPLETED' }));
     break;
   }

@@ -2,7 +2,7 @@ import { chromium } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const BASE_URL = process.env.BASE_URL || 'https://lingora-web-psi.vercel.app';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const EVIDENCE_DIR = path.resolve('05-testing/evidence');
 const ARTIFACT_DIR = path.resolve('C:/Users/admin/.gemini/antigravity-cli/brain/7c845691-d1fd-407a-8bab-908e3ca1931a/evidence');
 
@@ -15,6 +15,7 @@ const TARGETS = [
   { name: '03-roadmap-desktop', path: '/roadmap', viewport: { width: 1440, height: 900 } },
   { name: '04-lab-ipa-desktop', path: '/lab/ipa', viewport: { width: 1440, height: 900 } },
   { name: '05-lab-grammar-desktop', path: '/lab/grammar', viewport: { width: 1440, height: 900 } },
+  { name: '05-lab-grammar-mobile', path: '/lab/grammar', viewport: { width: 390, height: 844 } },
   { name: '06-dashboard-desktop', path: '/dashboard', viewport: { width: 1440, height: 900 } },
 ];
 

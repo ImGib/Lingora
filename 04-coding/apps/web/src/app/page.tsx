@@ -153,7 +153,7 @@ export default function HomePage() {
                           <p className="text-xs font-bold text-slate-800 group-hover:text-indigo-600">
                             Masterclass Ngữ Pháp
                           </p>
-                          <p className="text-[11px] text-slate-500">Chuẩn 6 phần ForumFlash mổ xẻ câu</p>
+                          <p className="text-[11px] text-slate-500">Mổ xẻ bản chất và cấu trúc câu</p>
                         </div>
                       </div>
                       <span className="text-xs text-indigo-500 font-bold opacity-0 group-hover:opacity-100 transition-opacity">

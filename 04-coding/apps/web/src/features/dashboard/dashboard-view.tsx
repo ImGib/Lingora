@@ -1,6 +1,7 @@
 'use client';
 
 import { UserButton, useAuth } from '@clerk/nextjs';
+import { HeaderNav } from '@/components/common/header-nav';
 import Link from 'next/link';
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import type { DashboardDto, GoalInputDto } from '@lingora/contracts';
@@ -63,7 +64,9 @@ function friendlyDate(localDate: string | undefined): string {
 export function DashboardView() {
   const { getToken, isLoaded, isSignedIn } = useAuth();
   const [dashboard, setDashboard] = useState<DashboardDto | null>(null);
-  const [message, setMessage] = useState('Preparing your study day…');
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
   const [purpose, setPurpose] = useState<GoalInputDto['purpose']>('IELTS_ACADEMIC');
   const [targetBand, setTargetBand] = useState('');
@@ -71,15 +74,30 @@ export function DashboardView() {
   const [minutes, setMinutes] = useState(20);
 
   const refresh = useCallback(async () => {
-    const token = await getToken();
-    if (!token) throw new Error('Please sign in again.');
-    setDashboard(await getDashboard(token));
-    setMessage('');
+    setLoading(true);
+    setLoadError(null);
+    try {
+      const token = await getToken();
+      if (!token) throw new Error('Please sign in again.');
+      const data = await getDashboard(token);
+      setDashboard(data);
+      setMessage('');
+    } catch (error) {
+      const errMsg = error instanceof Error ? error.message : 'Unable to load your plan.';
+      setLoadError(errMsg);
+      setMessage(errMsg);
+    } finally {
+      setLoading(false);
+    }
   }, [getToken]);
 
   useEffect(() => {
-    if (!isLoaded || !isSignedIn) return;
-    void refresh().catch((error: unknown) => setMessage(error instanceof Error ? error.message : 'Unable to load your plan.'));
+    if (!isLoaded) return;
+    if (!isSignedIn) {
+      setLoading(false);
+      return;
+    }
+    void refresh();
   }, [isLoaded, isSignedIn, refresh]);
 
   async function saveGoal(event: FormEvent<HTMLFormElement>) {
@@ -136,21 +154,9 @@ export function DashboardView() {
 
   return (
     <div className="dashboard-page">
-      <nav className="dashboard-nav" aria-label="Main navigation">
-        <Link className="dashboard-brand" href="/" aria-label="Lingora home">
-          <span className="dashboard-brand-mark">L</span>
-          <span>Lingora<span className="brand-period">.</span></span>
-        </Link>
-        <div className="dashboard-nav-links">
-          <span className="dashboard-nav-current" aria-current="page">Today</span>
-          <Link href="/roadmap">Lộ trình 4 Mốc</Link>
-          <Link href="/lab/ipa">Lab 44 Âm IPA</Link>
-          <Link href="/lab/grammar">Masterclass Ngữ pháp</Link>
-          <Link href="/starting-point">Starting point</Link>
-          <Link href="/prototype">Prototype MVP</Link>
-        </div>
-        <div className="dashboard-nav-user"><UserButton /></div>
-      </nav>
+      <header className="px-6 py-4 max-w-7xl mx-auto w-full">
+        <HeaderNav />
+      </header>
 
       <div className="dashboard-content">
         <header className="dashboard-header">
@@ -167,8 +173,9 @@ export function DashboardView() {
 
         <p className="dashboard-live-status" role="status">{message}</p>
 
-        {!isLoaded ? (
-          <section className="dashboard-empty">
+        {!isLoaded || (isSignedIn && loading && !dashboard) ? (
+          <section className="dashboard-empty is-loading" aria-busy="true">
+            <div className="dashboard-spinner" aria-hidden="true" />
             <h2>Getting things ready…</h2>
             <p>Your study space is loading.</p>
           </section>
@@ -178,13 +185,19 @@ export function DashboardView() {
             <p>Sign in to see your saved plan.</p>
             <Link className="button primary" href="/sign-in">Sign in</Link>
           </section>
-        ) : !dashboard ? (
+        ) : loadError && !dashboard ? (
           <section className="dashboard-empty">
             <h2>We couldn’t load your plan.</h2>
-            <p>{message}</p>
-            <button className="button secondary" onClick={() => void refresh().catch((error: unknown) => setMessage(error instanceof Error ? error.message : 'Please try again.'))}>
+            <p>{loadError}</p>
+            <button className="button secondary" onClick={() => void refresh()}>
               Try again
             </button>
+          </section>
+        ) : !dashboard ? (
+          <section className="dashboard-empty is-loading" aria-busy="true">
+            <div className="dashboard-spinner" aria-hidden="true" />
+            <h2>Getting things ready…</h2>
+            <p>Your study space is loading.</p>
           </section>
         ) : !dashboard.goal ? (
           <div className="dashboard-onboarding">
@@ -389,17 +402,35 @@ export function DashboardView() {
                   </p>
                   <span className="evidence-caption">Progress through a plan and evidence of ability are different things.</span>
                 </section>
-                <section className="dashboard-check-card">
-                  <p className="dashboard-kicker">STARTING POINT</p>
-                  <h2>Explore your starting point.</h2>
-                  <p>Try a short, optional check to see what has already been demonstrated.</p>
-                  <Link href="/starting-point">Open the check <span aria-hidden="true">↗</span></Link>
-                </section>
-                <section className="dashboard-prototype-card" aria-labelledby="proto-preview-title">
-                  <p className="dashboard-kicker">WEEK 1 PREVIEW</p>
-                  <h2 id="proto-preview-title">Explore the 7-day flow.</h2>
-                  <p>Experience the complete Week 1 prototype: daily learning episodes, microphone audio recording, and spaced review simulation.</p>
-                  <Link href="/prototype">Launch prototype <span aria-hidden="true">↗</span></Link>
+
+                <section className="dashboard-quick-actions-card" aria-label="Tiện ích và khám phá nhanh">
+                  <div className="quick-actions-header">
+                    <p className="dashboard-kicker">TIỆN ÍCH &amp; KHÁM PHÁ</p>
+                    <span className="quick-actions-badge">2 lối tắt</span>
+                  </div>
+                  <div className="quick-actions-list">
+                    <Link href="/starting-point" className="quick-action-item">
+                      <div className="quick-action-icon bg-indigo-50 text-indigo-600" aria-hidden="true">🎯</div>
+                      <div className="quick-action-text">
+                        <div className="quick-action-title-row">
+                          <h4>Kiểm tra đầu vào</h4>
+                          <span className="quick-action-arrow" aria-hidden="true">↗</span>
+                        </div>
+                        <p>Bài kiểm tra ngắn gọn, tùy chọn để xác định xuất phát điểm.</p>
+                      </div>
+                    </Link>
+
+                    <Link href="/prototype" className="quick-action-item">
+                      <div className="quick-action-icon bg-emerald-50 text-emerald-600" aria-hidden="true">🚀</div>
+                      <div className="quick-action-text">
+                        <div className="quick-action-title-row">
+                          <h4>Trải nghiệm Tuần 1</h4>
+                          <span className="quick-action-arrow" aria-hidden="true">↗</span>
+                        </div>
+                        <p>Khám phá trọn vẹn luồng học 7 ngày, audio và ôn tập ngắt quãng.</p>
+                      </div>
+                    </Link>
+                  </div>
                 </section>
               </aside>
             </div>

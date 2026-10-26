@@ -2,6 +2,7 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { runAutogen } from './autogen-locator.mjs';
 
 const args = process.argv.slice(2);
 const targetArg = args.find((a) => a.startsWith('--target='))?.split('=')[1] || 'all';
@@ -142,6 +143,12 @@ async function verifyFast() {
     process.exit(1);
   } else {
     console.log(`\n🎉 Mechanical gates PASSED in ${totalSec}s! (0 token waste)`);
+    try {
+      await runAutogen(true);
+      console.log(`🧭 Codebase locator maps and component catalog synchronized.`);
+    } catch (e) {
+      console.warn(`⚠️ Autogen locator sync warning: ${e.message}`);
+    }
   }
 }
 
@@ -185,6 +192,12 @@ async function main() {
 
     const totalSec = ((performance.now() - overallStart) / 1000).toFixed(2);
     console.log(`\n✨ Build succeeded in ${totalSec}s (95% token savings)!`);
+    try {
+      await runAutogen(true);
+      console.log(`🧭 Codebase locator maps and component catalog synchronized.`);
+    } catch (e) {
+      console.warn(`⚠️ Autogen locator sync warning: ${e.message}`);
+    }
   } catch (err) {
     console.error(`\n❌ ${err.message}`);
     process.exit(1);

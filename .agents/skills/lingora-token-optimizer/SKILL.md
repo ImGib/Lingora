@@ -50,3 +50,11 @@ Khi vận hành tự động hóa 100% bằng AI trong Lingora, mọi Agent BẮ
   1. **Đúc kết thành Skill/Knowledge**: Bổ sung ngay vào file `SKILL.md` liên quan trong `.agents/skills/`.
   2. **Tự động hóa thành Reusable Script**: Viết script điều phối trong `.agents/scripts/` và thêm lệnh `pnpm <script>` vào `package.json`.
   3. **Tích hợp vào Cổng cơ học**: Biến thành test tự động trong `test:smoke`, `test:ui-ux` hoặc `verify:fast` để mọi Agent tương lai kiểm tra bằng máy trong vài giây, tiết kiệm 100% token chẩn đoán lặp lại.
+
+## 8. Hệ Thống Truy Xuất 3 Phân Tầng Siêu Tốc (3-Tier Zero-Token Retrieval)
+- **Cấm đọc toàn bộ file lớn:** Khi cần tìm hiểu nghiệp vụ, cấu trúc trang hay giao diện, tuyệt đối KHÔNG dùng `read_file` đọc cả file hàng trăm dòng JSX/CSS.
+- **Hệ thống 3 lớp tra cứu nhanh (< 50 tokens/lần):**
+  1. **Lớp 1 - Tri thức & Sư phạm (`pnpm know <từ_khóa>`):** Tra cứu công thức 12 thì, 44 âm IPA, tiêu chuẩn cổng 100% Mastery, mã màu tokens trong `.agents/knowledge/` mà không chạm vào mã code.
+  2. **Lớp 2 - Cấu trúc Web & Cây Component (`pnpm web <tên_trang | component>`):** Tra cứu cây component, luồng state, data fetching và các bất biến layout của từng trang (`/roadmap`, `/lab/ipa`, `/dashboard`...). Dùng `pnpm web tree` để xem toàn bộ sitemap.
+  3. **Lớp 3 - Định vị Mã nguồn (`pnpm scout <tên_symbol>`):** Lấy chính xác đường dẫn file và số dòng. Dùng `node .agents/scripts/code-scout.mjs show <tên>` để xem 20 dòng định nghĩa kiểu.
+- **Tự động làm mới chỉ mục:** Sau khi tạo mới file hoặc đổi export lớn, chạy `pnpm scout:index` để cập nhật `code-index.json` và `component-catalog.json`.

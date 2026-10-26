@@ -5,35 +5,43 @@ import { Footer } from '@/components/common/footer';
 import { GrammarCatalog } from '@/components/grammar/grammar-catalog';
 
 export const metadata: Metadata = {
-  title: 'Thư Viện Masterclass Ngữ Pháp ForumFlash | Lingora',
+  title: 'Thư Viện Masterclass Ngữ Pháp | Lingora',
   description:
-    'Làm chủ ngữ pháp tiếng Anh qua cấu trúc 6 phần ForumFlash: Bản chất cốt lõi, Chức năng, Chia ngôi, Cấu trúc 3 thể, Dấu hiệu nhận biết và Mổ xẻ câu thực chiến.',
+    'Làm chủ ngữ pháp tiếng Anh qua cấu trúc bài giảng 6 phần chuyên sâu: Bản chất cốt lõi, Chức năng, Chia ngôi, Cấu trúc 3 thể, Dấu hiệu nhận biết và Mổ xẻ câu thực chiến.',
 };
 
 export default function GrammarLabPage() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#fff9fb]">
+    <div className="relative min-h-screen flex flex-col">
       {/* Navigation Header */}
       <header className="px-6 py-4 max-w-7xl mx-auto w-full">
         <HeaderNav />
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-6xl mx-auto px-6 py-8 w-full space-y-8">
-        <header className="section-heading max-w-3xl pt-4 pb-2">
-          <span className="eyebrow text-indigo-600 font-bold tracking-wider text-xs uppercase block mb-1">
-            LINGORA GRAMMAR MASTERCLASS
-          </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#34303d] tracking-tight">
-            Thư Viện Masterclass Ngữ Pháp
-          </h1>
-          <p className="lede text-slate-600 text-sm sm:text-base mt-3 leading-relaxed">
-            Ngữ pháp không phải là những công thức khô khan cần học vẹt. Với phương pháp ForumFlash 6 phần,
-            bạn sẽ thấu hiểu bản chất tư duy ngôn ngữ đằng sau từng cấu trúc từ A1 đến IELTS 6.5+.
-          </p>
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 w-full space-y-4">
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-slate-200/60">
+          <div>
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
+                32 Chuyên Đề Chuẩn ForumFlash
+              </span>
+              <span className="hidden sm:inline text-slate-400 text-xs">•</span>
+              <span className="text-[11px] sm:text-xs font-semibold text-slate-500">
+                Trọn bộ 14 Thì &amp; Cấu trúc B1-B2
+              </span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Thư Viện Ngữ Pháp &amp; Phòng Luyện Đề
+            </h1>
+            <p className="text-slate-500 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
+              Thấu hiểu bản chất tư duy ngôn ngữ qua phương pháp mổ xẻ câu chuyên sâu và rèn luyện kỹ năng giải đề thực chiến không áp lực.
+            </p>
+          </div>
         </header>
 
-        {/* Catalog & Masterclass View */}
+        {/* Master-Detail Catalog & Reader */}
         <GrammarCatalog />
       </main>
 
