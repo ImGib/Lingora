@@ -37,7 +37,7 @@ export function generateDraftMigrationSql(manifest: LessonManifest): string {
     `INSERT INTO lessons (id, unit_id, code, title, summary, position, status) VALUES\n` +
     `  ('${lessonId}', '${unitId}', '${escapeSql(manifest.lessonCode)}', '${escapeSql(manifest.title)}',\n` +
     `   '${escapeSql(manifest.summary)}', ${manifest.position}, 'DRAFT')\n` +
-    `  ON CONFLICT (code) DO UPDATE SET title = EXCLUDED.title, summary = EXCLUDED.summary;`
+    `  ON CONFLICT (unit_id, code) DO UPDATE SET title = EXCLUDED.title, summary = EXCLUDED.summary;`
   );
 
   // 2. Competencies & Lesson Competencies
@@ -56,7 +56,7 @@ export function generateDraftMigrationSql(manifest: LessonManifest): string {
     lines.push(
       `INSERT INTO lesson_competencies (lesson_id, competency_id, role, target_modality) VALUES\n` +
       `  ('${lessonId}', '${compId}', '${comp.role}', '${comp.targetModality}')\n` +
-      `  ON CONFLICT (lesson_id, competency_id) DO UPDATE SET role = EXCLUDED.role;`
+      `  ON CONFLICT (lesson_id, competency_id, role) DO UPDATE SET target_modality = EXCLUDED.target_modality;`
     );
   }
 

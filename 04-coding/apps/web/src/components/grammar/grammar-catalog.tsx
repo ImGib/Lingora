@@ -5,6 +5,7 @@ import { GrammarMasterclass, type GrammarMasterclassProps } from './grammar-mast
 import { COMPREHENSIVE_PRACTICE_SETS, type ComprehensivePracticeSet } from './grammar-quiz-bank';
 import { GrammarPracticeCard } from './grammar-practice-card';
 import { Badge, Input } from '@/components/ui';
+import { getGrammarTopics } from '@/lib/api';
 
 export interface GrammarTopicItem {
   id: string;
@@ -3380,6 +3381,7 @@ export const GRAMMAR_TOPICS_CATALOG: GrammarTopicItem[] = [
 ];
 
 export function GrammarCatalog() {
+  const [topics, setTopics] = useState<GrammarTopicItem[]>(GRAMMAR_TOPICS_CATALOG);
   const [catalogViewMode, setCatalogViewMode] = useState<'masterclass' | 'comprehensive-tests'>('masterclass');
   const [activeTestSetId, setActiveTestSetId] = useState<string>('set-all-tenses-mastery');
   const [activeTopicId, setActiveTopicId] = useState<string>('to-be-foundation');
@@ -3389,11 +3391,23 @@ export function GrammarCatalog() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    getGrammarTopics()
+      .then((data) => {
+        if (data && data.length > 0) {
+          setTopics(data as unknown as GrammarTopicItem[]);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load dynamic grammar topics from DB, using cached catalog:', err);
+      });
+  }, []);
+
   const activeTopicItemRef = useRef<HTMLButtonElement | null>(null);
   const readingPaneRef = useRef<HTMLDivElement | null>(null);
 
   const filteredTopics = useMemo(() => {
-    return GRAMMAR_TOPICS_CATALOG.filter((t) => {
+    return topics.filter((t) => {
       // Filter milestone
       if (selectedMilestone !== 'all' && !t.milestone.includes(selectedMilestone)) {
         return false;
@@ -3412,13 +3426,13 @@ export function GrammarCatalog() {
       }
       return true;
     });
-  }, [selectedMilestone, selectedCategory, searchQuery]);
+  }, [topics, selectedMilestone, selectedCategory, searchQuery]);
 
   const activeTopic: GrammarTopicItem = useMemo(() => {
     const found = filteredTopics.find((t) => t.id === activeTopicId);
     if (found) return found;
-    return filteredTopics[0] ?? GRAMMAR_TOPICS_CATALOG[0]!;
-  }, [filteredTopics, activeTopicId]);
+    return filteredTopics[0] ?? topics[0]!;
+  }, [filteredTopics, activeTopicId, topics]);
 
   const currentIndex = useMemo(() => {
     return filteredTopics.findIndex((t) => t.id === activeTopic.id);
@@ -3490,7 +3504,7 @@ export function GrammarCatalog() {
     );
   }, [activeTestSetId]);
 
-  const tensesTotal = GRAMMAR_TOPICS_CATALOG.filter((t) => t.category === 'Các Thì').length;
+  const tensesTotal = topics.filter((t) => t.category === 'Các Thì').length;
   const hasPrevTopic = currentIndex > 0;
   const hasNextTopic = currentIndex < filteredTopics.length - 1;
   const prevTopicTitle = hasPrevTopic ? filteredTopics[currentIndex - 1]?.masterclass.title : undefined;

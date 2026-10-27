@@ -1,11 +1,34 @@
-import { lessonExposureSchema, lessonResponseSchema, meResponseSchema, type LessonDto, type LessonExposureDto, type MeResponseDto, type UpdateProfileDto } from '@lingora/contracts';
-import { attemptSchema, dashboardSchema, goalSchema, type AttemptDto, type DashboardDto, type GoalDto, type GoalInputDto } from '@lingora/contracts';
-import { placementSchema, type PlacementDto } from '@lingora/contracts';
 import {
+  lessonExposureSchema,
+  lessonResponseSchema,
+  meResponseSchema,
+  type LessonDto,
+  type LessonExposureDto,
+  type MeResponseDto,
+  type UpdateProfileDto,
+  attemptSchema,
+  dashboardSchema,
+  goalSchema,
+  type AttemptDto,
+  type DashboardDto,
+  type GoalDto,
+  type GoalInputDto,
+  placementSchema,
+  type PlacementDto,
   learnerArtifactSchema,
   type CreateArtifactDto,
   type LearnerArtifactDto,
   type LearnerContentReportDto,
+  roadmapWorldsListSchema,
+  type RoadmapWorldDto,
+  ipaPhonemesListSchema,
+  type IpaPhonemeDto,
+  grammarTopicsListSchema,
+  type GrammarTopicDto,
+  grammarQuizzesListSchema,
+  type GrammarQuizDto,
+  growthStagesListSchema,
+  type GrowthStageDto,
 } from '@lingora/contracts';
 
 function apiUrl(): string {
@@ -54,6 +77,18 @@ async function apiData(token: string, path: string, init?: RequestInit): Promise
   const response = await fetch(`${apiUrl()}${path}`, {
     ...init,
     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', ...init?.headers },
+  });
+  const payload: unknown = await response.json();
+  if (!response.ok) {
+    const error = payload as { error?: { message?: string } };
+    throw new Error(error.error?.message ?? 'Request failed. Please try again.');
+  }
+  return (payload as { data: unknown }).data;
+}
+
+async function publicApiData(path: string): Promise<unknown> {
+  const response = await fetch(`${apiUrl()}${path}`, {
+    headers: { 'Content-Type': 'application/json' },
   });
   const payload: unknown = await response.json();
   if (!response.ok) {
@@ -133,4 +168,31 @@ export async function deleteArtifact(token: string, artifactId: string): Promise
 
 export async function reportContentIssue(token: string, dto: LearnerContentReportDto): Promise<{ reported: boolean; id: string }> {
   return (await apiData(token, '/v1/curriculum/reports', { method: 'POST', body: JSON.stringify(dto) })) as { reported: boolean; id: string };
+}
+
+// Public Curriculum & Reference Data Endpoints
+export async function getRoadmap(): Promise<RoadmapWorldDto[]> {
+  const data = await publicApiData('/v1/roadmap');
+  return roadmapWorldsListSchema.parse(data);
+}
+
+export async function getIpaPhonemes(): Promise<IpaPhonemeDto[]> {
+  const data = await publicApiData('/v1/ipa/phonemes');
+  return ipaPhonemesListSchema.parse(data);
+}
+
+export async function getGrammarTopics(): Promise<GrammarTopicDto[]> {
+  const data = await publicApiData('/v1/grammar/topics');
+  return grammarTopicsListSchema.parse(data);
+}
+
+export async function getGrammarQuizzes(topicId?: string): Promise<GrammarQuizDto[]> {
+  const path = topicId ? `/v1/grammar/quizzes?topicId=${encodeURIComponent(topicId)}` : '/v1/grammar/quizzes';
+  const data = await publicApiData(path);
+  return grammarQuizzesListSchema.parse(data);
+}
+
+export async function getGrowthStages(): Promise<GrowthStageDto[]> {
+  const data = await publicApiData('/v1/growth-stages');
+  return growthStagesListSchema.parse(data);
 }

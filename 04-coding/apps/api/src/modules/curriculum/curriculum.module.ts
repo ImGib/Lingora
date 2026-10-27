@@ -6,13 +6,13 @@ import { PostgresCurriculumRepository } from '../../infrastructure/database/post
 import { IdentityModule } from '../identity/identity.module.js';
 import { LessonsController } from './lessons.controller.js';
 import { LessonExposureService } from './lesson-exposure.service.js';
-
+import { ContentCatalogController } from './content-catalog.controller.js';
 import { QuarantineController } from './quarantine.controller.js';
 import { QuarantineService } from './quarantine.service.js';
 
 @Module({
   imports: [IdentityModule],
-  controllers: [LessonsController, QuarantineController],
+  controllers: [LessonsController, QuarantineController, ContentCatalogController],
   providers: [
     GetPublishedLesson,
     LessonExposureService,

@@ -22,6 +22,7 @@
     "test:smoke": "node .agents/scripts/smoke-test.mjs",
     "test:ui-ux": "node .agents/scripts/ui-ux-test.mjs",
     "test:all": "pnpm verify:fast && pnpm test:ui-ux",
+    "db:seed": "node 04-coding/apps/api/scripts/seed-database.mjs",
     "scout": "node .agents/scripts/code-scout.mjs",
     "scout:index": "node .agents/scripts/code-scout.mjs index",
     "skill": "node .agents/scripts/skill-scout.mjs",

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getGrowthStages } from '@/lib/api';
 
 export interface GrowthStage {
   id: number;
@@ -381,12 +382,25 @@ export function GrowthTreeIllustration({ stage }: { stage: number }) {
 }
 
 export function GrowthTreeCard({ completedCount = 0, totalCount = 7 }: GrowthTreeCardProps) {
+  const [stages, setStages] = useState<GrowthStage[]>(GROWTH_STAGES);
+
+  useEffect(() => {
+    getGrowthStages()
+      .then((data) => {
+        if (data && data.length > 0) {
+          setStages(data as unknown as GrowthStage[]);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load dynamic growth stages from DB, using fallback:', err);
+      });
+  }, []);
   // Current natural stage derived from completed items (1 to 6)
   const naturalStage = Math.min(6, Math.max(1, Math.floor((completedCount / Math.max(totalCount, 1)) * 5) + 1));
   const [inspectedStage, setInspectedStage] = useState<number | null>(null);
 
   const activeStageId = inspectedStage ?? naturalStage;
-  const currentStage: GrowthStage = GROWTH_STAGES.find((s) => s.id === activeStageId) ?? GROWTH_STAGES[0]!;
+  const currentStage: GrowthStage = stages.find((s) => s.id === activeStageId) ?? stages[0]!;
   const isPreviewing = inspectedStage !== null && inspectedStage !== naturalStage;
 
   return (
@@ -466,7 +480,7 @@ export function GrowthTreeCard({ completedCount = 0, totalCount = 7 }: GrowthTre
         </div>
 
         <ol className="growth-tree-step-pills" role="list">
-          {GROWTH_STAGES.map((st) => {
+          {stages.map((st) => {
             const isDone = st.id < naturalStage;
             const isCurrent = st.id === naturalStage;
             const isSelected = st.id === activeStageId;

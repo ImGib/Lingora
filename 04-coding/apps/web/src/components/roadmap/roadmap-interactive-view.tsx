@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getRoadmap } from '@/lib/api';
 
 export interface RoadLesson {
   id: string;
@@ -430,7 +431,20 @@ export const WORLDS_DATA: WorldSpec[] = [
 ];
 
 export function RoadmapInteractiveView() {
+  const [worlds, setWorlds] = useState<WorldSpec[]>(WORLDS_DATA);
   const [activeWorldId, setActiveWorldId] = useState<number>(1);
+  
+  useEffect(() => {
+    getRoadmap()
+      .then((data) => {
+        if (data && data.length > 0) {
+          setWorlds(data as unknown as WorldSpec[]);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load dynamic roadmap from DB, falling back to cached baseline:', err);
+      });
+  }, []);
   
   // Track passed gates per world.
   // In World 1: Gate 1 is passed by default, Gate 2 is in-progress, Gate 3-4 are locked.
@@ -454,7 +468,7 @@ export function RoadmapInteractiveView() {
     setTimeout(() => setToastMessage(null), 4000);
   };
 
-  const activeWorld = WORLDS_DATA.find((w) => w.worldId === activeWorldId) ?? WORLDS_DATA[0]!;
+  const activeWorld = worlds.find((w) => w.worldId === activeWorldId) ?? worlds[0]!;
 
   // Strict Sequential Gate Logic: Gate N is unlocked ONLY IF Gate N-1 is passed!
   const isGatePassed = (worldId: number, gateNum: number) => {
@@ -529,7 +543,7 @@ export function RoadmapInteractiveView() {
           </div>
 
           <div className="world-list" role="tablist">
-            {WORLDS_DATA.map((w) => {
+            {worlds.map((w) => {
               const isActive = w.worldId === activeWorldId;
               const passedCount = w.gates.filter((g) => isGatePassed(w.worldId, g.gateNumber)).length;
               const progressPct = Math.round((passedCount / w.gates.length) * 100);

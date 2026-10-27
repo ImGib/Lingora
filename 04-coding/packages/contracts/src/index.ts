@@ -194,3 +194,108 @@ export const learnerContentReportSchema = z.object({
 
 export type QuarantineCommandDto = z.infer<typeof quarantineCommandSchema>;
 export type LearnerContentReportDto = z.infer<typeof learnerContentReportSchema>;
+
+// Roadmap Contracts
+export const roadmapLessonSchema = z.object({
+  id: z.string(),
+  order: z.number(),
+  title: z.string(),
+  focus: z.string(),
+  duration: z.string(),
+  skill: z.string(),
+  icon: z.string(),
+  summary: z.string(),
+});
+
+export const roadmapGateSchema = z.object({
+  gateNumber: z.number(),
+  id: z.string(),
+  title: z.string(),
+  subtitle: z.string(),
+  criterion: z.string(),
+  targetScore: z.string(),
+  duration: z.string(),
+  testName: z.string(),
+  lessons: z.array(roadmapLessonSchema),
+});
+
+export const roadmapWorldSchema = z.object({
+  worldId: z.number(),
+  level: z.string(),
+  title: z.string(),
+  band: z.string(),
+  badge: z.string(),
+  duration: z.string(),
+  themeColor: z.string(),
+  summary: z.string(),
+  outcome: z.string(),
+  gates: z.array(roadmapGateSchema),
+});
+
+export type RoadmapWorldDto = z.infer<typeof roadmapWorldSchema>;
+
+// IPA Phoneme Contracts
+export const ipaPhonemeSchema = z.object({
+  symbol: z.string(),
+  label: z.string(),
+  category: z.enum(['monophthong', 'diphthong', 'consonant']),
+  subCategory: z.string().nullable().optional(),
+  tag: z.string(),
+  mouthDesc: z.string(),
+  tongueDesc: z.string(),
+  voiceDesc: z.string(),
+  frontCaption: z.string(),
+  sideCaption: z.string(),
+  sampleWord: z.string(),
+  sampleIpa: z.string(),
+  sampleMeaning: z.string(),
+  vietnameseTip: z.string().nullable().optional(),
+  isVoiced: z.boolean().optional(),
+  isLong: z.boolean().optional(),
+});
+
+export type IpaPhonemeDto = z.infer<typeof ipaPhonemeSchema>;
+
+// Grammar Topic & Masterclass Contracts
+export const grammarTopicSchema = z.object({
+  id: z.string(),
+  milestone: z.string(),
+  category: z.string(),
+  bandTarget: z.string(),
+  shortDesc: z.string(),
+  masterclass: z.record(z.string(), z.unknown()),
+});
+
+export type GrammarTopicDto = z.infer<typeof grammarTopicSchema>;
+
+// Grammar Quiz Contracts
+export const grammarQuizSchema = z.object({
+  id: z.string(),
+  topicId: z.string(),
+  title: z.string(),
+  milestone: z.string(),
+  mcItems: z.array(z.record(z.string(), z.unknown())),
+  fillBlankItems: z.array(z.record(z.string(), z.unknown())),
+});
+
+export type GrammarQuizDto = z.infer<typeof grammarQuizSchema>;
+
+// Growth Stages Contracts
+export const growthStageSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  dayTag: z.string(),
+  icon: z.string(),
+  kicker: z.string(),
+  focus: z.string(),
+  desc: z.string(),
+});
+
+export type GrowthStageDto = z.infer<typeof growthStageSchema>;
+
+export const roadmapWorldsListSchema = z.array(roadmapWorldSchema);
+export const ipaPhonemesListSchema = z.array(ipaPhonemeSchema);
+export const grammarTopicsListSchema = z.array(grammarTopicSchema);
+export const grammarQuizzesListSchema = z.array(grammarQuizSchema);
+export const growthStagesListSchema = z.array(growthStageSchema);
+export { z };

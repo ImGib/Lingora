@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:predeploy": "pnpm test && node scripts/check-dashboard.mjs",
     "check:database": "node scripts/check-database.mjs",
+    "db:seed": "node scripts/seed-database.mjs",
     "verify:slice01": "pnpm build && node scripts/verify-slice-01.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

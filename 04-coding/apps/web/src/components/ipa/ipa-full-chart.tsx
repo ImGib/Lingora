@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { getIpaPhonemes } from '@/lib/api';
 import { IpaMouthStudio, type PhonemeSpec } from './ipa-mouth-studio';
 
 export interface FullIpaSoundItem extends PhonemeSpec {
@@ -736,16 +737,29 @@ export const ALL_44_IPA_PHONEMES: FullIpaSoundItem[] = RAW_44_IPA_PHONEMES.map((
 type TabFilter = 'all' | 'monophthong' | 'diphthong' | 'consonant_voiced' | 'consonant_voiceless';
 
 export function IpaFullChart() {
+  const [phonemes, setPhonemes] = useState<FullIpaSoundItem[]>(ALL_44_IPA_PHONEMES);
   const [selectedSymbol, setSelectedSymbol] = useState<string>('/iː/');
   const [tabFilter, setTabFilter] = useState<TabFilter>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showFloatingJump, setShowFloatingJump] = useState<boolean>(false);
 
+  useEffect(() => {
+    getIpaPhonemes()
+      .then((data) => {
+        if (data && data.length > 0) {
+          setPhonemes(data as unknown as FullIpaSoundItem[]);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load dynamic phonemes from DB, using cached chart:', err);
+      });
+  }, []);
+
   const studioRef = useRef<HTMLDivElement>(null);
   const activePillRef = useRef<HTMLButtonElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const filteredPhonemes = ALL_44_IPA_PHONEMES.filter((p) => {
+  const filteredPhonemes = phonemes.filter((p) => {
     let matchesTab = true;
     if (tabFilter === 'monophthong') matchesTab = p.category === 'monophthong';
     else if (tabFilter === 'diphthong') matchesTab = p.category === 'diphthong';
@@ -761,7 +775,7 @@ export function IpaFullChart() {
   });
 
   const selectedPhoneme =
-    ALL_44_IPA_PHONEMES.find((p) => p.symbol === selectedSymbol) ?? ALL_44_IPA_PHONEMES[0];
+    phonemes.find((p) => p.symbol === selectedSymbol) ?? phonemes[0];
 
   const currentIdx = filteredPhonemes.findIndex((p) => p.symbol === selectedSymbol);
 
